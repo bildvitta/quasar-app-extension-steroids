@@ -1,32 +1,19 @@
-Quasar App Extension Title <- change name
-===
+# Steroids
 
-_Be sure to change this readme as appropriate for your app extension._
+Este repositório contém métodos, componentes e estilos que auxiliarão na construção de uma aplicação C.R.U.D. utilizando **Vue** e **Quasar**. Foi inicialmente projetada para ser utilizada em conformidade com os padrões do [Django REST framework](https://www.django-rest-framework.org/), mas pode ser adaptada em qualquer _back-end_ desde que mantenha os padrões de origem e retorno.
 
-_Think about the organization of this file and how the information will be beneficial to the user._
+## Instalação
 
-> Add a short description of your App Extension. What does it do? How is it beneficial? Why would someone want to use it?
+Para instalar esta extensão do Quasar, basta utilizar a linha de comando.
 
-# Install
-```bash
-quasar ext add my-ext <- change name
 ```
-Quasar CLI will retrieve it from NPM and install the extension.
-
-## Prompts
-
-> If your app extension uses prompts, explain them here, otherwise remove this section.
-
-# Uninstall
-```bash
-quasar ext remove my-ext <- change name
+$ quasar ext add @/steroids
 ```
 
-# Info
-> Add longer information here that will help the user of your app extension.
+## Desinstalação
 
-# Other Info
-> Add other information that's not as important to know
+Remover a extensão é tão simples quando instalar, porém é **preciso ter cuidado**, pois isso poderá fazer com que a sua aplicação deixe de funcionar.
 
-# Donate
-If you appreciate the work that went into this App Extension, please consider [donating to Quasar](https://donate.quasar.dev).
+```
+$ quasar ext remove @/steroids
+```

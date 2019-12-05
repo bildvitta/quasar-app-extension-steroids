@@ -1,11 +1,18 @@
-/**
- * Quasar App Extension index/runner script
- * (runs on each dev/build)
- *
- * Docs: https://quasar.dev/app-extensions/development-guide/index-api
- * API: https://github.com/quasarframework/quasar/blob/master/app/lib/app-extension/IndexAPI.js
- */
+const extendQuasar = quasar => {
+  // Boot
+  quasar.boot.push('~quasar-app-extension-steroids/src/boot/register-components.js')
+
+  // Transpile
+  quasar.build.transpileDependencies.push(/quasar-app-extension-steroids[\\/]src/)
+
+  // Styles
+  quasar.css.push('~quasar-app-extension-steroids/src/css/line-height.scss')
+  quasar.css.push('~quasar-app-extension-steroids/src/css/truncate.scss')
+}
 
 module.exports = function (api) {
-  //
+  api.compatibleWith('quasar', '^1.0.0')
+  api.compatibleWith('@quasar/app', '^1.0.0')
+
+  api.extendQuasarConf(extendQuasar)
 }
