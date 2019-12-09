@@ -1,3 +1,7 @@
+# Boot
+
+`$brandColor` >> `$brandColors`
+
 # Components
 
 # Styles

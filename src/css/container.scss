@@ -1,4 +1,4 @@
-.container
+.container,
 .container-xs,
 .container-sm,
 .container-md,
@@ -8,6 +8,11 @@
   margin-right: auto;
   max-width: 1280px;
   width: calc(100% - 80px);
+
+  &.spaced {
+    padding-bottom: 20px;
+    padding-top: 20px;
+  }
 
   @media (max-width: $breakpoint-xs) {
     width: calc(100% - 20px);

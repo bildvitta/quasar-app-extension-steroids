@@ -17,3 +17,12 @@ Remover a extensão é tão simples quando instalar, porém é **preciso ter cui
 ```
 $ quasar ext remove @/steroids
 ```
+
+## To Do
+
+- [ ] Axios.
+- [ ] Rotas.
+- [ ] Autenticação.
+- [ ] Componentes "Views".
+- [ ] Documentação.
+- [ ] Publicar pacote.

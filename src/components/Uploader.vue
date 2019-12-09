@@ -132,7 +132,7 @@ export default {
       this.isRequesting = true
 
       try {
-        const { data } = await api.post('/upload-credentials', {
+        const { data } = await api.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })
