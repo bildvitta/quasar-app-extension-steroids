@@ -1,11 +1,13 @@
+const sourcePath = '~@bildvitta/quasar-app-extension-steroids/src/'
+
 const extendQuasar = quasar => {
   // Boot
   quasar.boot.push(
-    '~quasar-app-extension-steroids/src/boot/brand-colors.js',
-    '~quasar-app-extension-steroids/src/boot/register-filters.js',
-    '~quasar-app-extension-steroids/src/boot/force-https.js',
-    '~quasar-app-extension-steroids/src/boot/register-directives.js',
-    '~quasar-app-extension-steroids/src/boot/register-components.js'
+    sourcePath + 'boot/brand-colors.js',
+    sourcePath + 'boot/register-filters.js',
+    sourcePath + 'boot/force-https.js',
+    sourcePath + 'boot/register-directives.js',
+    sourcePath + 'boot/register-components.js'
   )
 
   // Transpile
@@ -13,20 +15,23 @@ const extendQuasar = quasar => {
 
   // Styles
   quasar.css.push(
-    '~quasar-app-extension-steroids/src/css/colors.scss',
-    '~quasar-app-extension-steroids/src/css/container.scss',
-    '~quasar-app-extension-steroids/src/css/line-height.scss',
-    '~quasar-app-extension-steroids/src/css/opacity.scss',
-    '~quasar-app-extension-steroids/src/css/steroids.scss',
-    '~quasar-app-extension-steroids/src/css/text.scss'
+    sourcePath + 'css/colors.scss',
+    sourcePath + 'css/container.scss',
+    sourcePath + 'css/line-height.scss',
+    sourcePath + 'css/opacity.scss',
+    sourcePath + 'css/steroids.scss',
+    sourcePath + 'css/text.scss'
   )
 
   // Extras
-  quasar.extras.push('material-icons-outlined')
-  quasar.extras.push('roboto-font')
-}
+  quasar.extras.push(
+    'material-icons-outlined'
+  )
 
-const path = require('path')
+  // Framework
+  quasar.framework.iconSet = 'material-icons-outlined'
+  quasar.framework.lang = 'pt-br'
+}
 
 module.exports = function (api) {
   api.compatibleWith('quasar', '^1.0.0')
@@ -38,6 +43,7 @@ module.exports = function (api) {
   api.extendQuasarConf(extendQuasar)
 
   api.extendWebpack(webpack => {
-    webpack.resolve.alias.steroids = api.resolve.app('node_modules/quasar-app-extension-steroids/src/helpers/index.js')
+    const helpers = 'node_modules/@bildvitta/quasar-app-extension-steroids/src/helpers/index.js'
+    webpack.resolve.alias.steroids = api.resolve.app(helpers)
   })
 }
