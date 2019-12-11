@@ -4,6 +4,9 @@
   "description": "A Quasar App Extension",
   "author": "",
   "main": "src/index.js",
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
   "private": true,
   "scripts": {
     "test": "echo \"No test specified\" && exit 0"
