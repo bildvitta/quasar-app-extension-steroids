@@ -7,15 +7,23 @@ Este repositório contém métodos, componentes e estilos que auxiliarão na con
 Para instalar esta extensão do Quasar, basta utilizar a linha de comando.
 
 ```
-$ quasar ext add @/steroids
+$ quasar ext add @bildvitta/steroids --scope=@github
 ```
+
+**Atenção:** certifique-se de ter se conectado no escopo `@github` no NPM com sua [chave privada](https://help.github.com/pt/github/managing-packages-with-github-packages/configuring-npm-for-use-with-github-packages) no lugar da senha.
+
+```
+$ npm login --scope=@github --registry=https://npm.pkg.github.com/
+```
+
+Lembre de sempre armazenar sua chave privada em local seguro.
 
 ## Desinstalação
 
 Remover a extensão é tão simples quando instalar, porém é **preciso ter cuidado**, pois isso poderá fazer com que a sua aplicação deixe de funcionar.
 
 ```
-$ quasar ext remove @/steroids
+$ quasar ext remove @bildvitta/steroids --scope=@github
 ```
 
 ## To Do
@@ -25,4 +33,4 @@ $ quasar ext remove @/steroids
 - [ ] Autenticação.
 - [ ] Componentes "Views".
 - [ ] Documentação.
-- [ ] Publicar pacote.
+- [x] Publicar pacote.
