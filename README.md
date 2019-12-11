@@ -18,6 +18,12 @@ $ npm login --scope=@github --registry=https://npm.pkg.github.com/
 
 Lembre de sempre armazenar sua chave privada em local seguro.
 
+Também é necessário criar um arquivo na raiz da sua aplicação com o nome `.npmrc` e o conteúdo:
+
+```
+@bildvitta:registry=https://npm.pkg.github.com/
+```
+
 ## Desinstalação
 
 Remover a extensão é tão simples quando instalar, porém é **preciso ter cuidado**, pois isso poderá fazer com que a sua aplicação deixe de funcionar.
