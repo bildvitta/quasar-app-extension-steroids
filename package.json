@@ -1,5 +1,5 @@
 {
-  "name": "quasar-app-extension-steroids",
+  "name": "@bildvitta/quasar-app-extension-steroids",
   "version": "0.0.4",
   "description": "A Quasar App Extension",
   "author": "",
@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "humps": "^2.0.1",
     "lodash": "^4.17.15"
   }
 }

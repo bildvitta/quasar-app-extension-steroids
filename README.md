@@ -2,6 +2,41 @@
 
 Este repositório contém métodos, componentes e estilos que auxiliarão na construção de uma aplicação C.R.U.D. utilizando **Vue** e **Quasar**. Foi inicialmente projetada para ser utilizada em conformidade com os padrões do [Django REST framework](https://www.django-rest-framework.org/), mas pode ser adaptada em qualquer _back-end_ desde que mantenha os padrões de origem e retorno.
 
+## Conteúdo
+
+- **Boot:**
+  - Authentication
+  - Axios defaults
+  - Axios request/response transformers
+  - Brand colors
+  - Error pages
+  - Force HTTPS
+  - Router history
+- **Components:**
+  - AppBar
+  - Avatar
+  - BreakLine
+  - DatetimeInput
+  - DecimalInput
+  - Field
+  - PageHeader
+  - Profile
+  - Resizer
+  - Uploader
+- **Directives:**
+  - v-test
+- **Filters:**
+  - asset
+  - date
+  - dateTime
+  - humanDate
+  - money
+  - percent
+- **Library:**
+  - company
+  - greatestCommonDivisor
+  - storeModule
+
 ## Instalação
 
 Para instalar esta extensão do Quasar, basta utilizar a linha de comando.
@@ -34,9 +69,9 @@ $ quasar ext remove @bildvitta/steroids --scope=@github
 
 ## To Do
 
-- [ ] Axios.
-- [ ] Rotas.
-- [ ] Autenticação.
+- [x] Axios.
+- [x] Rotas.
+- [x] Autenticação.
 - [ ] Componentes "Views".
 - [ ] Documentação.
 - [x] Publicar pacote.

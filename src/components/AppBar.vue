@@ -106,7 +106,7 @@ export default {
     },
 
     toggleMenuDrawer () {
-      this.$emit('toggleMenu')
+      this.$emit('toggle-menu')
     },
 
     signOut () {

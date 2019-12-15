@@ -1,27 +1,31 @@
 const sourcePath = '~@bildvitta/quasar-app-extension-steroids/src/'
+const resolve = (...paths) => paths.map(path => sourcePath + path)
 
 const extendQuasar = quasar => {
   // Boot
-  quasar.boot.push(
-    sourcePath + 'boot/brand-colors.js',
-    sourcePath + 'boot/register-filters.js',
-    sourcePath + 'boot/force-https.js',
-    sourcePath + 'boot/register-directives.js',
-    sourcePath + 'boot/register-components.js'
-  )
+  quasar.boot.push(...resolve(
+    'boot/axios.js',
+    'boot/brand-colors.js',
+    'boot/force-https.js',
+    'boot/register-auth.js',
+    'boot/register-components.js',
+    'boot/register-directives.js',
+    'boot/register-error-pages.js',
+    'boot/register-filters.js'
+  ))
 
   // Transpile
   quasar.build.transpileDependencies.push(/quasar-app-extension-steroids[\\/]src/)
 
   // Styles
-  quasar.css.push(
-    sourcePath + 'css/colors.scss',
-    sourcePath + 'css/container.scss',
-    sourcePath + 'css/line-height.scss',
-    sourcePath + 'css/opacity.scss',
-    sourcePath + 'css/steroids.scss',
-    sourcePath + 'css/text.scss'
-  )
+  quasar.css.push(...resolve(
+    'css/colors.scss',
+    'css/container.scss',
+    'css/line-height.scss',
+    'css/opacity.scss',
+    'css/steroids.scss',
+    'css/text.scss'
+  ))
 
   // Extras
   quasar.extras.push(
@@ -39,6 +43,7 @@ module.exports = function (api) {
 
   api.compatibleWith('axios', '^0.18.0')
   api.compatibleWith('lodash', '^4.17.15')
+  api.compatibleWith('humps', '^2.0.0')
 
   api.extendQuasarConf(extendQuasar)
 

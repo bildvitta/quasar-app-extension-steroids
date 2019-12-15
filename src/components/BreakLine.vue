@@ -1,30 +1,37 @@
 <template>
-  <div>
-    <component :is="tag" v-for="(paragraph, index) in paragraphs" :key="index" :class="paragraphClass" :style="paragraphStyle">{{ paragraph }}</component>
-  </div>
+  <component :is="is">
+    <component :is="tag" v-for="(item, index) in items" :key="index" :class="tagClass" :style="tagStyle">
+      {{ item }}
+    </component>
+  </component>
 </template>
 
 <script>
 export default {
   props: {
+    is: {
+      default: 'div',
+      type: String
+    },
+
     tag: {
       default: 'div',
       type: String
     },
 
+    tagClass: {
+      default: null,
+      type: [Array, Object, String]
+    },
+
+    tagStyle: {
+      default: null,
+      type: [Array, Object, String]
+    },
+
     text: {
       default: '',
       type: String
-    },
-
-    paragraphClass: {
-      default: null,
-      type: [Array, Object, String]
-    },
-
-    paragraphStyle: {
-      default: null,
-      type: [Array, Object, String]
     },
 
     split: {
@@ -34,7 +41,7 @@ export default {
   },
 
   computed: {
-    paragraphs () {
+    items () {
       const slot = this.$slots.default[0]
       const text = this.text || (slot ? slot.text : '')
 
