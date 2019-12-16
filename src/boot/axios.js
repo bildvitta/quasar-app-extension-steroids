@@ -1,9 +1,11 @@
 import axios from 'axios'
 import humps from 'humps'
 
-export default async ({ Vue, store }) => {
+export default async ({ Vue }) => {
+  const environment = Vue.prototype.$environment
+
   // URL
-  axios.defaults.baseURL = process.env.APIHOST || 'http://localhost:8000/'
+  axios.defaults.baseURL = process.env.SERVER_BASE_URL || (environment ? environment.serverBaseURL : '')
   axios.defaults.withCredentials = true
 
   // Transformers

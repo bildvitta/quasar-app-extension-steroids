@@ -6,6 +6,7 @@ const extendQuasar = quasar => {
   quasar.boot.push(...resolve(
     'boot/axios.js',
     'boot/brand-colors.js',
+    'boot/environment.js',
     'boot/force-https.js',
     'boot/register-auth.js',
     'boot/register-components.js',
@@ -49,6 +50,12 @@ module.exports = function (api) {
 
   api.extendWebpack(webpack => {
     const helpers = 'node_modules/@bildvitta/quasar-app-extension-steroids/src/helpers/index.js'
-    webpack.resolve.alias.steroids = api.resolve.app(helpers)
+
+    webpack.resolve.alias = {
+      ...webpack.resolve.alias,
+
+      extensions: api.resolve.app('quasar.extensions.json'),
+      steroids: api.resolve.app(helpers)
+    }
   })
 }

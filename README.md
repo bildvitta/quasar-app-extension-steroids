@@ -36,6 +36,19 @@ Este repositório contém métodos, componentes e estilos que auxiliarão na con
   - company
   - greatestCommonDivisor
   - storeModule
+- **Styles**
+  - Colors
+  - Container
+  - Line height
+  - Opacity
+  - Text
+
+## Variáveis de ambiente
+
+| Variável | Descrição |
+|:-|:-|
+| `BUCKET_URL` | Endereço de hospedagem dos _assets_. |
+| `SERVER_BASE_URL` | Endereço base de acesso ao servidor. |
 
 ## Instalação
 
