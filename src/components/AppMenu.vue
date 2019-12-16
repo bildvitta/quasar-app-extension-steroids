@@ -10,7 +10,7 @@
             <q-item-section avatar>
               <q-icon :name="item.icon" />
             </q-item-section>
-            <q-item-section avatar>
+            <q-item-section>
               <q-item-label caption>{{ item.label }}</q-item-label>
             </q-item-section>
           </q-item>

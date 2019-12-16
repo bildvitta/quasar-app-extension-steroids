@@ -1,4 +1,4 @@
-![Quasar Steroids](docs/steroids.png)
+![Quasar Steroids](https://github.com/bildvitta/quasar-app-extension-steroids/raw/master/docs/steroids.png)
 
 Este repositório contém métodos, componentes e estilos que auxiliarão na construção de uma aplicação C.R.U.D. utilizando **Vue** e **Quasar**. Foi inicialmente projetada para ser utilizada em conformidade com os padrões do [Django REST framework](https://www.django-rest-framework.org/), mas pode ser adaptada em qualquer _back-end_ desde que mantenha os padrões de origem e retorno.
 
