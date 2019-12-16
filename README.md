@@ -88,3 +88,5 @@ $ quasar ext remove @bildvitta/steroids --scope=@github
 - [ ] Componentes "Views".
 - [ ] Documentação.
 - [x] Publicar pacote.
+
+Para a versão 2.0.0, a ideia é desmembrar a extensão em duas ou três, permitindo que o "steroids" seja utilizado em qualquer projeto (isto é, isolando configurações de cores/marca e autenticação via ActiveDirectory).

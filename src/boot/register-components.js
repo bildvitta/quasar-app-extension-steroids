@@ -1,5 +1,6 @@
 import Avatar from '../components/Avatar.vue'
 import AppBar from '../components/AppBar.vue'
+import AppMenu from '../components/AppMenu.vue'
 import BreakLine from '../components/BreakLine.vue'
 import DatetimeInput from '../components/DatetimeInput.vue'
 import DecimalInput from '../components/DecimalInput.vue'
@@ -12,6 +13,7 @@ import Uploader from '../components/Uploader.vue'
 export default async ({ Vue }) => {
   Vue.component('qs-avatar', Avatar)
   Vue.component('qs-app-bar', AppBar)
+  Vue.component('qs-app-menu', AppMenu)
   Vue.component('qs-break-line', BreakLine)
   Vue.component('qs-datetime-input', DatetimeInput)
   Vue.component('qs-decimal-input', DecimalInput)
