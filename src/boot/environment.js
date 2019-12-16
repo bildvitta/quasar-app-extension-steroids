@@ -1,5 +1,4 @@
+import Vue from 'vue'
 import environment from 'extensions'
 
-export default async ({ Vue }) => {
-  Vue.prototype.$environment = {}
-}
+Vue.prototype.$environment = environment['@bildvitta/steroids'] || {}
