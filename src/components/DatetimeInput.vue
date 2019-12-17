@@ -2,15 +2,15 @@
   <div>
     <q-input ref="input" v-bind="attributes" v-on="events">
       <template v-slot:append>
-        <q-icon v-if="!timeOnly" name="o_event" class="cursor-pointer">
+        <q-icon v-if="!timeOnly" class="cursor-pointer" name="o_event">
           <q-popup-proxy ref="dateProxy" transition-show="scale" transition-hide="scale">
             <q-date v-model="currentValue" :mask="maskDate" @input="input" />
           </q-popup-proxy>
         </q-icon>
 
-        <q-icon v-if="!dateOnly" ref="timeProxy" name="o_access_time" class="cursor-pointer q-ml-md">
+        <q-icon v-if="!dateOnly" ref="timeProxy" class="cursor-pointer q-ml-md" name="o_access_time">
           <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-time v-model="currentValue" :mask="maskDate" format24h @input="input" />
+            <q-time v-model="currentValue" format24h :mask="maskDate" @input="input" />
           </q-popup-proxy>
         </q-icon>
       </template>
@@ -148,8 +148,8 @@ export default {
         return ''
       }
 
-      value = new Date(value).toISOString().slice(0, 23)
-      return date.formatDate(value, this.maskDate)
+      const newDate = new Date(value).toISOString()
+      return date.formatDate(this.dateOnly ? newDate.slice(0, 23) : newDate, this.maskDate)
     }
   }
 }

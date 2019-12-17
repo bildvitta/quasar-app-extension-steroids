@@ -351,11 +351,11 @@ export default function (resource, options = {}) {
   }
 
   if (hasFetchFields) {
-    actions.fetchFields = ({ commit }, { id, params, url } = {}) => {
+    actions.fetchFields = ({ commit }, { params, url } = {}) => {
       commit('fetchFieldsStart')
-      url = url || options.fetchFieldsURL || `/${resource}/${id}/`
+      url = url || options.fetchFieldsURL || `/${resource}/fields/`
 
-      return api.get(`${url}/fields/`, { params }).then(response => {
+      return api.get(url, { params }).then(response => {
         commit('fetchFieldsSuccess', response)
         return response
       }).catch(error => {

@@ -56,7 +56,8 @@ module.exports = function (api) {
       ...webpack.resolve.alias,
 
       extensions: api.resolve.app('quasar.extensions.json'),
-      steroids: api.resolve.app(helpers)
+      steroids: api.resolve.app(helpers),
+      store: api.resolve.src('store')
     }
   })
 }

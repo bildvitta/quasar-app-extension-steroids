@@ -45,10 +45,8 @@ export default {
   },
 
   watch: {
-    value (current, original) {
-      if (original === 0 || (current !== void (0) && current !== this.inputedValue && current !== original)) {
-        this.inputValue = this.toMask(current)
-      }
+    value (current) {
+      this.inputValue = this.toMask(current)
     }
   },
 
