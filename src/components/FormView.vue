@@ -1,17 +1,15 @@
 <template>
   <component :is="componentTag">
-    <div v-if="hasHeaderSlot">
-      <slot name="header" :values="values" />
-    </div>
+    <header v-if="hasHeaderSlot">
+      <slot name="header" :fields="fields" />
+    </header>
 
     <q-form @submit="submit">
-      <div v-if="!isEmpty(values)">
-        <slot :errors="errors" :values="values" />
-      </div>
+      <slot :errors="errors" :fields="fields" :metadata="metadata" />
 
-      <slot v-if="!readOnly" name="actions" :values="values">
+      <slot v-if="!readOnly" name="actions" :fields="fields">
         <div class="q-my-lg text-right">
-          <q-btn color="primary" :disable="disableSubmit" :label="buttonLabel" :loading="isSubmiting" type="submit" unelevated />
+          <q-btn color="primary" :disable="disable" :label="submitButton" :loading="isSubmiting" type="submit" unelevated />
         </div>
       </slot>
     </q-form>
@@ -24,37 +22,22 @@
 
 <script>
 import store from 'store'
-
-import humps from 'humps'
-import { cloneDeep, isEmpty, isNull, merge, omitBy } from 'lodash'
+import { get } from 'lodash'
 
 export default {
   props: {
     customId: {
-      type: String,
-      default: ''
+      default: '',
+      type: String
+    },
+
+    disable: {
+      type: Boolean
     },
 
     entity: {
-      type: String,
-      required: true
-    },
-
-    disableSubmit: {
-      type: Boolean
-    },
-
-    fields: {
-      type: Object,
-      default: () => ({})
-    },
-
-    omitFields: {
-      type: Boolean
-    },
-
-    loadData: {
-      type: Boolean
+      required: true,
+      type: String
     },
 
     modal: {
@@ -62,33 +45,36 @@ export default {
     },
 
     mode: {
-      type: String,
-      required: true
+      default: 'create',
+      type: String
     },
 
     readOnly: {
       type: Boolean
     },
 
-    submiting: {
-      type: Boolean
+    submitButton: {
+      default: 'Salvar',
+      type: String
     },
 
     url: {
-      type: String,
-      default: ''
+      default: '',
+      type: String
     },
 
-    buttonLabel: {
-      type: String,
-      default: 'Salvar'
+    value: {
+      default: () => ({}),
+      type: Object
     }
   },
 
   data () {
     return {
       errors: {},
-      values: {},
+      fields: {},
+      metadata: {},
+
       isFetching: false,
       isSubmiting: false
     }
@@ -103,104 +89,115 @@ export default {
       return !!(this.$slots.header || this.$scopedSlots.header)
     },
 
-    fieldsData () {
-      return store.getters[`${humps.camelize(this.entity)}/byId`](this.id)
-    },
-
     id () {
       return this.$route.params.id || this.customId
-    },
+    }
+  },
 
-    defaultMessage () {
-      return {
-        fetchError: 'Erro ao obter item.',
-        submitError: 'Erro ao salvar item.',
-        submitSuccess: 'Item salvo com sucesso.'
-      }
+  watch: {
+    fields (fields) {
+      const models = this.getModelsByFields(fields)
+      this.$emit('input', { ...models, ...this.value })
     }
   },
 
   created () {
-    this.values = this.fields
-
-    if (this.loadData || this.mode !== 'create') {
-      this.fetch()
-    }
+    this.fetch()
   },
 
   methods: {
-    isEmpty,
-
-    fetchSingle () {
-      return store.dispatch(`${humps.camelize(this.entity)}/fetchSingle`, { id: this.id })
-    },
-
-    handleErrors (apiErrors, path) {
-      if (apiErrors) {
-        if (Array.isArray(apiErrors)) {
-          return apiErrors.join('\n')
-        }
-
-        return apiErrors
-      }
-
-      return this.defaultMessage[path] ? this.defaultMessage[path] : ''
-    },
-
     async fetch () {
       this.isFetching = true
 
       try {
-        const response = await this.fetchSingle()
+        console.log(store)
+        const response = await store.dispatch(`${this.entity}/fetchSingle`, { form: true, id: this.id })
+        const { errors, fields, metadata, result } = response.data
 
-        const fields = omitBy(response.data, isNull)
-        this.values = cloneDeep(this.omitFields ? merge(this.values, fields) : response.data)
+        this.setErrors(errors)
+        this.setFields(fields)
+        this.setMetadata(metadata)
 
-        this.$emit('fetchSuccess', response, this.values)
-      } catch (errors) {
-        const { data: error, status } = errors.response
-
-        if (status === 404) {
-          return this.$router.replace({ name: 'NotFound' })
+        if (result) {
+          this.$emit('input', { ...this.value, ...result })
         }
 
-        if (status === 403) {
-          return this.$router.replace({ name: 'Forbidden' })
-        }
+        this.$emit('fetch', response, this.value)
+      } catch (error) {
+        const { response } = error
+        const exception = get(response, 'data.exception') || error.message
 
-        this.$q.notify(this.handleErrors(error.detail, 'fetchError'))
-        this.$emit('fetchError', errors)
+        this.$qs.error('Ops! Erro ao obter os dados.', exception)
+        this.$emit('fetch', error)
+
+        const status = get(response, 'status')
+        const redirect = ({ 403: 'Forbidden', 404: 'NotFound' })[status]
+
+        if (redirect) {
+          this.$router.replace({ name: redirect })
+        }
       } finally {
         this.isFetching = false
       }
     },
 
-    async submit () {
-      if (this.disableSubmit || this.readyOnly) {
+    getModelsByFields (fields) {
+      const models = {}
+
+      for (const field in fields) {
+        models[field] = fields[field].default
+      }
+
+      return models
+    },
+
+    setErrors (errors) {
+      this.errors = errors || {}
+    },
+
+    setFields (fields) {
+      this.fields = fields || {}
+    },
+
+    setMetadata (metadata) {
+      this.metadata = metadata || {}
+    },
+
+    async submit (event) {
+      if (event) {
+        event.preventDefault()
+      }
+
+      if (this.disable || this.readyOnly) {
         return null
       }
 
       this.isSubmiting = true
-      this.$emit('update:submiting', this.isSubmiting)
 
       try {
-        const response = await this.submitAction({ id: this.id, payload: this.values, url: this.url })
-        const genericMessage = 'Item salvo com sucesso.'
-        this.errors = {}
-        this.$q.notify(genericMessage)
-        this.$emit('submitSuccess', response)
-      } catch (errors) {
-        this.errors = errors.response.data
-        this.$q.notify(this.handleErrors(this.errors.detail, 'submitError'))
-        this.$emit('submitError', errors)
+        const response = await store.dispatch(
+          `${this.entity}/${this.mode}`,
+          { id: this.id, payload: this.value, url: this.url }
+        )
+
+        this.setErrors()
+        this.$qs.success(response.data.status.text || 'Item salvo com sucesso!')
+        this.$emit('submit', response, this.value)
+      } catch (error) {
+        const errors = get(error, 'response.data.errors')
+        const message = get(error, 'response.data.status.text')
+
+        const exception = errors
+          ? 'Existem erros de validação no formulário.'
+          : get(error, 'response.data.exception') || error.message
+
+        this.setErrors(errors)
+        this.$qs.error(message || 'Ops! Erro ao salvar item.', exception)
+
+        this.$emit('submit', error)
       } finally {
         this.isSubmiting = false
-        this.$emit('update:submiting', this.isSubmiting)
       }
-    },
-
-    submitAction (context) {
-      return store.dispatch(`${humps.camelize(this.entity)}/${this.mode}`, context)
     }
   }
 }

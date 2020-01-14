@@ -203,9 +203,9 @@ export default {
   },
 
   created () {
-    if (!this.$can('read', this.entity)) {
-      return this.$router.replace({ name: 'Forbidden' })
-    }
+    // if (!this.$can('read', this.entity)) {
+    //   return this.$router.replace({ name: 'Forbidden' })
+    // }
 
     if (this.filters) {
       this.fetchFields()

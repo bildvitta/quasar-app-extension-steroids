@@ -80,12 +80,26 @@ Remover a extensão é tão simples quando instalar, porém é **preciso ter cui
 $ quasar ext remove @bildvitta/steroids --scope=@github
 ```
 
+## Desenvolvendo
+
+Clone este repositório, abra-o no terminal e digite:
+
+```
+$ npm link
+```
+
+Após isto, abra no terminal o projeto que deseja utilizar para teste dos recursos e digite:
+
+```
+$ npm link @bildvitta/quasar-app-extension-steroids
+```
+
 ## To Do
 
 - [x] Axios.
 - [x] Rotas.
 - [x] Autenticação.
-- [ ] Componentes "Views".
+- [x] Componentes "Views".
 - [ ] Documentação.
 - [x] Publicar pacote.
 

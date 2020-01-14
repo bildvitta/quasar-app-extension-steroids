@@ -13,7 +13,8 @@ const extendQuasar = quasar => {
     'boot/register-directives.js',
     'boot/register-error-pages.js',
     'boot/register-filters.js',
-    'boot/register-permissions.js'
+    'boot/register-permissions.js',
+    'boot/register-plugins.js'
   ))
 
   // Transpile
