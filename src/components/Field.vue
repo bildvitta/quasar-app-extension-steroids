@@ -27,7 +27,10 @@ export default {
       const { entity, extensions, label, multiple, name, options, type } = this.field
 
       // Default error attributes for Quasar.
-      const error = { error: this.hasError, errorMessage: this.errorMessage }
+      const error = {
+        error: this.hasError || undefined,
+        errorMessage: this.errorMessage || undefined
+      }
 
       // Compact default fields attributes.
       const input = { label, outlined: true, ...error }

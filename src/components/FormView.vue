@@ -110,7 +110,6 @@ export default {
       this.isFetching = true
 
       try {
-        console.log(store)
         const response = await store.dispatch(`${this.entity}/fetchSingle`, { form: true, id: this.id })
         const { errors, fields, metadata, result } = response.data
 
