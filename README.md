@@ -94,6 +94,14 @@ Após isto, abra no terminal o projeto que deseja utilizar para teste dos recurs
 $ npm link @bildvitta/quasar-app-extension-steroids
 ```
 
+## Publicando uma nova versão
+
+Primeiro, altere a versão no arquivo `package.json` e depois execute:
+
+```
+$ npm publish
+```
+
 ## To Do
 
 - [x] Axios.

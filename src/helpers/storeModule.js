@@ -426,7 +426,7 @@ export default function (resource, options = {}) {
       commit('fetchSingleStart')
 
       url = url || (form
-        ? `/${resource}/${id ? `edit/${id}` : 'new'}/`
+        ? `/${resource}/${id ? `${id}/edit` : 'new'}/`
         : options.fetchSingleURL || `/${resource}/${id}/`)
 
       return api.get(url, { params }).then(response => {

@@ -121,13 +121,13 @@ export default {
           this.$emit('input', { ...this.value, ...result })
         }
 
-        this.$emit('fetch', response, this.value)
+        this.$emit('fetch-success', response, this.value)
       } catch (error) {
         const { response } = error
         const exception = get(response, 'data.exception') || error.message
 
         this.$qs.error('Ops! Erro ao obter os dados.', exception)
-        this.$emit('fetch', error)
+        this.$emit('fetch-error', error)
 
         const status = get(response, 'status')
         const redirect = ({ 403: 'Forbidden', 404: 'NotFound' })[status]
@@ -181,7 +181,7 @@ export default {
 
         this.setErrors()
         this.$qs.success(response.data.status.text || 'Item salvo com sucesso!')
-        this.$emit('submit', response, this.value)
+        this.$emit('submit-success', response, this.value)
       } catch (error) {
         const errors = get(error, 'response.data.errors')
         const message = get(error, 'response.data.status.text')
@@ -193,7 +193,7 @@ export default {
         this.setErrors(errors)
         this.$qs.error(message || 'Ops! Erro ao salvar item.', exception)
 
-        this.$emit('submit', error)
+        this.$emit('submit-error', error)
       } finally {
         this.isSubmiting = false
       }
