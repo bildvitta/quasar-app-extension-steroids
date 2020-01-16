@@ -333,6 +333,8 @@ export default function (resource, options = {}) {
     }
   }
 
+  Object.assign(mutations, options.mutations || {})
+
   // Actions
   const actions = {}
 
