@@ -14,11 +14,11 @@ export default async ({ Vue }) => {
   })
 
   Vue.filter('dateTime', value => {
-    return value ? date.formatDate(value, 'DD/MM/YYYY [-] HH:mm[h]') : ''
+    return value ? date.formatDate(value, 'DD/MM/YYYY HH:mm:ss') : ''
   })
 
   Vue.filter('humanDate', value => {
-    return value ? date.formatDate(value, 'DD [de] MMMM [de] YYYY [as] HH:mm') : ''
+    return value ? date.formatDate(value, 'DD [de] MMMM [de] YYYY [as] HH:mm:ss') : ''
   })
 
   Vue.filter('money', (value = 0) => {

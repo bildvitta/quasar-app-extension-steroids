@@ -1,7 +1,7 @@
 <template>
   <component :is="componentTag">
     <header v-if="hasHeaderSlot">
-      <slot name="header" :fields="fields" />
+      <slot name="header" :fields="fields" :metadata="metadata" />
     </header>
 
     <q-form @submit="submit">
