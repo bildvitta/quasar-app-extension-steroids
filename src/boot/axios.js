@@ -5,7 +5,6 @@ export default async ({ Vue }) => {
   const environment = Vue.prototype.$environment
 
   // URL
-  console.log(environment)
   axios.defaults.baseURL = process.env.SERVER_BASE_URL || (environment ? environment.serverBaseURL : '')
 
   // Transformers

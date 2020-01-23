@@ -44,9 +44,10 @@ module.exports = function (api) {
   api.compatibleWith('quasar', '^1.0.0')
   api.compatibleWith('@quasar/app', '^1.0.0')
 
-  api.compatibleWith('axios', '^0.18.0')
+  api.compatibleWith('axios', '^0.19.2')
+  api.compatibleWith('date-fns', '^2.9.0')
   api.compatibleWith('lodash', '^4.17.15')
-  api.compatibleWith('humps', '^2.0.0')
+  api.compatibleWith('humps', '^2.0.1')
 
   api.extendQuasarConf(extendQuasar)
 

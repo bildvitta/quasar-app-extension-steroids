@@ -1,3 +1,4 @@
+import { camelize }  from 'humps'
 import { get } from 'lodash'
 
 export default {
@@ -48,17 +49,20 @@ export default {
       }
     },
 
-    setErrors (errors) {
-      this.errors = errors || {}
+    setErrors (errors = {}) {
+      this.errors = errors
     },
 
-    setFields (fields) {
-      console.log(123, fields)
-      this.fields = fields || {}
+    setFields (fields = {}) {
+      for (const field in fields) {
+        fields[field].name = camelize(fields[field].name)
+      }
+
+      this.fields = fields
     },
 
-    setMetadata (metadata) {
-      this.metadata = metadata || {}
+    setMetadata (metadata = {}) {
+      this.metadata = metadata
     }
   }
 }

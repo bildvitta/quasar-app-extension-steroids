@@ -1,5 +1,5 @@
 import api from 'axios'
-import { getCompany } from '../helpers'
+import { getCompany } from 'steroids'
 
 // Get user data from localStorage (cache).
 const rawUser = localStorage.getItem('user')

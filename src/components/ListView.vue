@@ -6,7 +6,7 @@
       </header>
 
       <slot name="filter" :errors="errors" :fields="fields" :metadata="metadata" :results="results">
-        <qs-filters />
+        <qs-filters :entity="entity" />
       </slot>
 
       <main class="relative-position">
@@ -99,7 +99,6 @@ export default {
       try {
         const response = await store.dispatch(`${this.entity}/fetchList`, { ...this.context, url: this.url })
         const { errors, fields, metadata, results } = response.data
-        console.log(response)
 
         this.setErrors(errors)
         this.setFields(fields)

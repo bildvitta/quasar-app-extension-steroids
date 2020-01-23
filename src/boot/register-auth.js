@@ -2,6 +2,10 @@ import axios from 'axios'
 import authModule from '../store/auth.js'
 
 export default async ({ router, store }) => {
+  // Store
+  store.registerModule('auth', authModule)
+
+  // Token
   const token = store.getters['auth/token']
 
   // Headers
@@ -51,7 +55,4 @@ export default async ({ router, store }) => {
       ]
     }
   ])
-
-  // Store
-  store.registerModule('auth', authModule)
 }
