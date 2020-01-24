@@ -37,7 +37,7 @@ export default function (resource, options = {}) {
 
   // States
   const stateData = {
-    filters: [],
+    filters: {},
     list: [],
     totalPages: 0
   }
@@ -178,11 +178,8 @@ export default function (resource, options = {}) {
     }
 
     mutations.fetchFiltersSuccess = (state, response) => {
-      const results = response.data.actions.pOST
-
-      for (const key in results) {
-        state.filters.push(results[key])
-      }
+      const { fields } = response.data
+      state.filters = fields
 
       state.fetchFiltersError = null
       state.isFetchingFilters = false

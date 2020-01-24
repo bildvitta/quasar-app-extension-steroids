@@ -1,5 +1,5 @@
 <template>
-  <component :is="component.is" v-bind="component" :value="value" @input="emitValue" />
+  <component :is="component.is" v-bind="component" :value="$attrs.value" @input="emitValue" />
 </template>
 
 <script>
@@ -14,11 +14,6 @@ export default {
       default: () => ({}),
       type: Object,
       required: true
-    },
-
-    value: {
-      default: '',
-      type: [Array, String]
     }
   },
 
@@ -73,7 +68,7 @@ export default {
         editor: { is: 'q-editor', toolbar, ...error }
       }
 
-      return profiles[type] || profiles.default
+      return { ...(profiles[type] || profiles.default), ...this.$attrs }
     },
 
     errorMessage () {
