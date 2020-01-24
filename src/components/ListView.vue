@@ -5,7 +5,7 @@
         <slot name="header" :fields="fields" :metadata="metadata" :results="results" />
       </header>
 
-      <slot name="filter" :errors="errors" :fields="fields" :metadata="metadata" :results="results">
+      <slot name="filter" :entity="entity" :errors="errors" :fields="fields" :metadata="metadata" :results="results">
         <qs-filters :entity="entity" />
       </slot>
 
