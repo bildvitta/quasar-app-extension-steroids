@@ -2,7 +2,7 @@
   <section class="q-mb-lg">
     <div class="row q-gutter-x-md">
       <div class="col">
-        <q-form @submit.prevent="filter">
+        <q-form @submit.prevent="filter()">
           <q-input v-model="search" dense :placeholder="searchPlaceholder" type="search">
             <template v-slot:append>
               <q-btn v-if="hasSearch" icon="o_clear" unelevated @click="clearSearch" />
@@ -40,7 +40,8 @@
       <q-chip v-for="(filter, key) in activeFilters" :key="key" color="grey-4" dense removable size="md" text-color="grey-8" @remove="removeFilter(filter)">{{ filter.label }} = "{{ filter.value }}"</q-chip>
     </div>
 
-    <slot :context="context" :filter="filter" :filters="activeFilters" :removeFilter="removeFilter" />
+    <slot :context="context" :filter="filter" :filters="filters" :removeFilter="removeFilter" />
+    <qs-debugger :inspect="[fields, filters]" />
   </section>
 </template>
 
@@ -89,18 +90,21 @@ export default {
         return {}
       }
 
-      console.log('=========')
-
       const activeFilters = {}
+
+      const fields = Object.keys(this.fields)
       const filters = camelizeKeys(this.context.filters)
 
       for (const key in filters) {
-        const value = filters[key]
-        const { label, name } = this.fields[key]
+        const hasField = fields.includes(key)
 
-        activeFilters[key] = { label, name, value }
+        if (hasField) {
+          const value = filters[key]
+          const { label, name } = this.fields[key]
+
+          activeFilters[key] = { label, name, value }
+        }
       }
-
 
       return activeFilters
     },
@@ -118,8 +122,7 @@ export default {
     },
 
     hasActiveFilters () {
-      const { filters } = this.context
-      return !!Object.keys(filters).length
+      return !!Object.keys(this.activeFilters).length
     },
 
     hasFields () {
