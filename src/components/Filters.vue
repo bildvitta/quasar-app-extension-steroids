@@ -45,7 +45,7 @@
 </template>
 
 <script>
-import { camelizeKeys } from 'humps'
+import { camelize, camelizeKeys } from 'humps'
 import store from 'store'
 
 import contextMixin from '../mixins/context'
@@ -150,6 +150,23 @@ export default {
   methods: {
     clearFilters () {
       const { filters, ...query } = this.context
+
+      if (this.hasFields) {
+        const fields = Object.keys(this.fields)
+
+        for (const key in filters) {
+          const camelizedKey = camelize(key)
+          const hasField = fields.includes(camelizedKey)
+
+          if (hasField) {
+            delete query[key]
+            delete this.filters[key]
+          }
+        }
+      } else {
+        this.filters = {}
+      }
+
       this.$router.push({ query })
     },
 
@@ -178,7 +195,7 @@ export default {
     },
 
     filter (external) {
-      const { filters, ...context } = this.context
+      const { filters, page, ...context } = this.context
 
       const query = {
         ...filters, ...this.filters, ...external, ...context,
@@ -190,7 +207,9 @@ export default {
 
     removeFilter ({ name }) {
       const query = { ...this.$route.query }
+
       delete query[name]
+      delete this.filters[name]
 
       this.$router.push({ query })
     },

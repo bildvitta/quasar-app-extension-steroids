@@ -78,13 +78,13 @@ export default {
   watch: {
     $route () {
       this.fetchList()
-      this.getCurrentPage()
+      this.setCurrentPage()
     }
   },
 
   created () {
     this.fetchList()
-    this.getCurrentPage()
+    this.setCurrentPage()
   },
 
   mixins: [contextMixin, viewMixin],
@@ -115,13 +115,13 @@ export default {
       }
     },
 
-    getCurrentPage () {
-      this.currentPage = parseInt(this.$route.query.page || 1)
-    },
-
     async refresh (done) {
       await this.fetchList()
       done()
+    },
+
+    setCurrentPage () {
+      this.page = parseInt(this.$route.query.page || 1)
     }
   }
 }
