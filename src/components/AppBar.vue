@@ -11,12 +11,12 @@
       <slot name="tools" />
 
       <q-btn v-if="isAuth" class="row" :title="user.givenName" flat round>
-        <qs-avatar color="white" :image="user.photo | asset" size="36px" :title="user.name || user.givenName" />
+        <qs-avatar color="white" :image="asset(user.photo)" size="36px" :title="user.name || user.givenName" />
 
         <q-menu>
           <div style="min-width: 150px;">
             <div class="q-pa-md text-center">
-              <qs-avatar color="white" :image="user.photo | asset" size="75px" :title="user.name || user.givenName" />
+              <qs-avatar color="white" :image="asset(user.photo)" size="75px" :title="user.name || user.givenName" />
               <div class="q-mt-md qs-lh-sm text-subtitle1">{{ user.name || user.givenName }}</div>
               <div class="text-caption text-grey-6 ellipsis">{{ user.email }}</div>
 
@@ -53,6 +53,7 @@
 
 <script>
 import { colors } from 'quasar'
+import { asset } from 'steroids'
 import { mapActions, mapGetters } from 'vuex'
 
 export default {
@@ -94,6 +95,8 @@ export default {
     ...mapActions('auth', {
       getUser: 'getUser'
     }),
+
+    asset,
 
     fullscreen () {
       this.$q.fullscreen.toggle()

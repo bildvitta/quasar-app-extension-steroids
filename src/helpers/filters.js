@@ -1,4 +1,12 @@
+import Vue from 'vue'
 import { format } from 'date-fns'
+
+function asset (value) {
+  const environment = Vue.prototype.$environment
+  const bucketURL = process.env.BUCKET_URL || (environment ? environment.bucketURL : location.origin)
+
+  return value ? `${bucketURL}/${value}` : ''
+}
 
 function date (value) {
   return value ? format(new Date(value), 'dd/MM/yyyy') : ''
@@ -28,6 +36,7 @@ function percent (value = 0, places = 2) {
 }
 
 export {
+  asset,
   date,
   dateTime,
   humanDate,

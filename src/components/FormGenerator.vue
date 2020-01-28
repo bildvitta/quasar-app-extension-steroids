@@ -96,17 +96,19 @@ export default {
         return irregularClasses.includes(this.columns) ? this.columns : `col-${this.columns}`
       }
 
+      const fields = this.groupedFields.visible
+
+      if (!Array.isArray(fields)) {
+        index = Object.keys(fields).findIndex(field => field === index)
+      }
+
       const length = this.columns.length
 
-      if (!length || length < index) {
+      if (!length) {
         return 'col-6'
       }
 
-      const breakpoint = this.columns[index]
-
-      return irregularClasses.includes(breakpoint)
-        ? breakpoint
-        : (typeof breakpoint === 'string' ? this.breakpoint(breakpoint) : `col-${breakpoint}`)
+      return this.breakpoint(this.columns[index])
     }
   }
 }
