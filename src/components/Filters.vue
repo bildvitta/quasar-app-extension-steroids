@@ -1,39 +1,43 @@
 <template>
   <section class="q-mb-lg">
-    <div class="row q-gutter-x-md">
-      <div class="col">
-        <q-form @submit.prevent="filter()">
-          <q-input v-model="search" dense :placeholder="searchPlaceholder" type="search">
-            <template v-slot:append>
-              <q-btn v-if="hasSearch" icon="o_clear" unelevated @click="clearSearch" />
-              <q-btn icon="o_search" type="submit" unelevated @click="filter()" />
-            </template>
-          </q-input>
-        </q-form>
+    <div v-if="showFilters" class="row q-gutter-x-md">
+      <div v-if="showSearch" class="col">
+        <slot name="search" :filter="filter">
+          <q-form v-if="!noSearch" @submit.prevent="filter()">
+            <q-input v-model="search" dense :placeholder="searchPlaceholder" type="search">
+              <template v-slot:append>
+                <q-btn v-if="hasSearch" icon="o_clear" unelevated @click="clearSearch" />
+                <q-btn icon="o_search" type="submit" unelevated @click="filter()" />
+              </template>
+            </q-input>
+          </q-form>
+        </slot>
       </div>
 
-      <q-btn :color="filterButtonColor" flat icon="o_filter_list" :label="filterButtonLabel">
-        <q-menu stretch @before-show="fetchFilters">
-          <div v-if="isFetching" class="q-pa-xl text-center">
-            <q-spinner color="grey" size="2em" />
-          </div>
-
-          <div v-else-if="hasFetchError" class="q-pa-xl text-center">
-            <q-icon color="negative" name="o_warning" size="2em" />
-          </div>
-
-          <q-form v-else class="q-pa-md q-gutter-y-md" @submit.prevent="filter()">
-            <div v-for="(field, index) in fields" :key="index">
-              <qs-field v-model="filters[field.name]" dense :field="field" />
+      <slot v-if="showFilterButton" name="filter-button" :filter="filter">
+        <q-btn v-if="!noFilterButton" :color="filterButtonColor" flat icon="o_filter_list" :label="filterButtonLabel">
+          <q-menu stretch @before-show="fetchFilters">
+            <div v-if="isFetching" class="q-pa-xl text-center">
+              <q-spinner color="grey" size="2em" />
             </div>
 
-            <div class="text-right">
-              <q-btn label="Limpar filtros" size="12px" unelevated @click="clearFilters" />
-              <q-btn color="primary" label="Filtrar" size="12px" unelevated type="submit" />
+            <div v-else-if="hasFetchError" class="q-pa-xl text-center">
+              <q-icon color="negative" name="o_warning" size="2em" />
             </div>
-          </q-form>
-        </q-menu>
-      </q-btn>
+
+            <q-form v-else class="q-pa-md q-gutter-y-md" @submit.prevent="filter()">
+              <div v-for="(field, index) in fields" :key="index">
+                <qs-field v-model="filters[field.name]" dense :field="field" />
+              </div>
+
+              <div class="text-right">
+                <q-btn label="Limpar filtros" size="12px" unelevated @click="clearFilters" />
+                <q-btn color="primary" label="Filtrar" size="12px" unelevated type="submit" />
+              </div>
+            </q-form>
+          </q-menu>
+        </q-btn>
+      </slot>
     </div>
 
     <div v-if="badges && hasActiveFilters" class="q-mt-md">
@@ -60,6 +64,16 @@ export default {
     entity: {
       required: true,
       type: String
+    },
+
+    noFilterButton: {
+      default: false,
+      type: Boolean
+    },
+
+    noSearch: {
+      default: false,
+      type: Boolean
     },
 
     searchPlaceholder: {
@@ -130,6 +144,18 @@ export default {
 
     hasSearch () {
       return this.search.length
+    },
+
+    showFilterButton () {
+      return !!this.$scopedSlots.filterButton || !this.noFilterButton
+    },
+
+    showFilters () {
+      return this.showFilterButton || this.showSearch
+    },
+
+    showSearch () {
+      return !!this.$scopedSlots.search || !this.noSearch
     }
   },
 
