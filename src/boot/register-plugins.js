@@ -1,13 +1,15 @@
-import { Notify } from 'quasar'
+const imports = [
+  'error',
+  'success'
+]
 
-export default async ({ Vue }) => {
-  Vue.prototype.$qs = {
-    error (message, caption) {
-      Notify.create({ caption, color: 'negative', message })
-    },
+export default async (context) => {
+  const { Vue } = context
+  Vue.prototype.$qs = {}
 
-    success (message, caption) {
-      Notify.create({ caption, message })
-    }
-  }
+  imports.forEach(name => {
+    import(`../plugins/${name}.js`).then(plugin => {
+      Vue.prototype.$qs[name] = plugin.default(context)
+    })
+  })
 }

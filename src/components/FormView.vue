@@ -31,6 +31,10 @@ export default {
       type: String
     },
 
+    dialog: {
+      type: Boolean
+    },
+
     disable: {
       type: Boolean
     },
@@ -38,10 +42,6 @@ export default {
     entity: {
       required: true,
       type: String
-    },
-
-    modal: {
-      type: Boolean
     },
 
     mode: {
@@ -82,7 +82,7 @@ export default {
 
   computed: {
     componentTag () {
-      return this.modal ? 'div' : 'q-page'
+      return this.dialog ? 'div' : 'q-page'
     },
 
     hasHeaderSlot () {
@@ -90,7 +90,7 @@ export default {
     },
 
     id () {
-      return this.$route.params.id || this.customId
+      return this.customId || this.$route.params.id
     }
   },
 

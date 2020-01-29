@@ -32,6 +32,8 @@
         </q-inner-loading>
       </main>
     </q-pull-to-refresh>
+
+    <slot name="footer" />
   </component>
 </template>
 

@@ -3,13 +3,13 @@ import { get } from 'lodash'
 
 export default {
   props: {
+    dialog: {
+      type: Boolean
+    },
+
     entity: {
       required: true,
       type: String
-    },
-
-    modal: {
-      type: Boolean
     },
 
     url: {
@@ -30,7 +30,7 @@ export default {
 
   computed: {
     componentTag () {
-      return this.modal ? 'div' : 'q-page'
+      return this.dialog ? 'div' : 'q-page'
     }
   },
 

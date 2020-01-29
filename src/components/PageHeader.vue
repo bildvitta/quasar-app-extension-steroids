@@ -6,7 +6,7 @@
         {{ title }}
       </q-toolbar-title>
 
-      <q-breadcrumbs class="text-caption text-grey-6">
+      <q-breadcrumbs v-if="!noBreadcrumbs" class="text-caption text-grey-6">
         <q-breadcrumbs-el v-for="item in transformedBreadcrumbs" :key="item.label" :label="item.label" :to="item.route" />
       </q-breadcrumbs>
     </div>
@@ -22,7 +22,12 @@ export default {
   props: {
     breadcrumbs: {
       default: '',
-      type: [Array, String]
+      type: [Array, Boolean, String]
+    },
+
+    noBreadcrumbs: {
+      default: false,
+      type: Boolean
     },
 
     root: {

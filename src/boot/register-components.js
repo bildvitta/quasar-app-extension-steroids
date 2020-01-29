@@ -7,6 +7,8 @@ import Copy from '../components/Copy.vue'
 import DatetimeInput from '../components/DatetimeInput.vue'
 import Debugger from '../components/Debugger.vue'
 import DecimalInput from '../components/DecimalInput.vue'
+import Delete from '../components/Delete.vue'
+import DialogRouter from '../components/DialogRouter.vue'
 import Field from '../components/Field.vue'
 import Filters from '../components/Filters.vue'
 import FormGenerator from '../components/FormGenerator.vue'
@@ -29,6 +31,8 @@ export default async ({ Vue }) => {
   Vue.component('qs-copy', Copy)
   Vue.component('qs-datetime-input', DatetimeInput)
   Vue.component('qs-decimal-input', DecimalInput)
+  Vue.component('qs-delete', Delete)
+  Vue.component('qs-dialog-router', DialogRouter)
   Vue.component('qs-field', Field)
   Vue.component('qs-filters', Filters)
   Vue.component('qs-form-generator', FormGenerator)
