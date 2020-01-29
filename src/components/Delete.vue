@@ -42,9 +42,19 @@ export default {
   },
 
   methods: {
-    destroy () {
+    async destroy () {
+      this.$q.loading.show()
 
-      store.dispatch(`${this.entity}/destroy`, { id: this.id })
+      try {
+        await store.dispatch(`${this.entity}/destroy`, { id: this.id })
+        this.$qs.success('Item deletado com sucesso!')
+        this.$emit('success')
+      } catch (error) {
+        this.$qs.error('Ops! Não foi possível deletar o item.')
+        this.$emit('error', error)
+      } finally {
+        this.$q.loading.hide()
+      }
     },
 
     confirm () {

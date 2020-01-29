@@ -85,12 +85,20 @@ export default {
       return this.dialog ? 'div' : 'q-page'
     },
 
+    fetchURL () {
+      return this.url ? (`${this.url}/${this.isCreateMode ? 'new' : 'edit'}`) : ''
+    },
+
     hasHeaderSlot () {
       return !!(this.$slots.header || this.$scopedSlots.header)
     },
 
     id () {
       return this.customId || this.$route.params.id
+    },
+
+    isCreateMode () {
+      return this.mode === 'create'
     }
   },
 
@@ -110,7 +118,10 @@ export default {
       this.isFetching = true
 
       try {
-        const response = await store.dispatch(`${this.entity}/fetchSingle`, { form: true, id: this.id })
+        const response = await store.dispatch(
+          `${this.entity}/fetchSingle`, { form: true, id: this.id, url: this.fetchURL }
+        )
+
         const { errors, fields, metadata, result } = response.data
 
         this.setErrors(errors)
