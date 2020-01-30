@@ -5,7 +5,7 @@
         <slot name="header" :fields="fields" :metadata="metadata" :results="results" />
       </header>
 
-      <slot name="filter" :entity="entity" :errors="errors" :fields="fields" :metadata="metadata" :results="results">
+      <slot v-if="!noFilter" name="filter" :entity="entity" :errors="errors" :fields="fields" :metadata="metadata" :results="results">
         <qs-filters :entity="entity" />
       </slot>
 
@@ -44,6 +44,13 @@ import contextMixin from '../mixins/context'
 import viewMixin from '../mixins/view'
 
 export default {
+  props: {
+    noFilter: {
+      default: false,
+      type: Boolean
+    }
+  },
+
   data () {
     return {
       page: 1
@@ -102,7 +109,7 @@ export default {
 
       try {
         const response = await store.dispatch(`${this.entity}/fetchList`, { ...this.context, url: this.url })
-        const { errors, fields, metadata, results } = response.data
+        const { errors, fields, metadata } = response.data
 
         this.setErrors(errors)
         this.setFields(fields)

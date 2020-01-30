@@ -1,17 +1,19 @@
 <template>
   <component :is="componentTag">
-    <slot name="header" />
+    <header v-if="hasHeaderSlot">
+      <slot name="header" :errors="errors" :fields="fields" :metadata="metadata" :result="result" />
+    </header>
 
-    <div v-if="hasItem">
-      <slot :item="item" />
-    </div>
+    <template v-if="hasResult">
+      <slot :errors="errors" :fields="fields" :metadata="metadata" :result="result" />
+    </template>
 
     <div v-else class="q-my-xl text-center">
       <q-icon class="text-center q-mb-sm" color="grey-6" name="o_search" size="38px" />
       <div class="text-grey-6">Nenhum item encontrado.</div>
     </div>
 
-    <q-inner-loading :showing="hasItem && isFetching">
+    <q-inner-loading :showing="hasResult && isFetching">
       <q-spinner color="grey" size="3em" />
     </q-inner-loading>
   </component>
@@ -19,88 +21,58 @@
 
 <script>
 import store from 'store'
-
-import { isEmpty } from 'lodash'
+import viewMixin from '../mixins/view'
 
 export default {
   props: {
-    entity: {
-      type: String,
-      required: true
-    },
-
-    modal: {
-      type: Boolean
-    }
-  },
-
-  data () {
-    return {
-      isFetching: false
+    customId: {
+      default: '',
+      type: String
     }
   },
 
   computed: {
-    componentTag () {
-      return this.modal ? 'div' : 'q-page'
-    },
-
     id () {
-      return this.$route.params.id
+      return this.customId || this.$route.params.id
     },
 
-    hasItem () {
-      return !isEmpty(this.item)
+    hasResult () {
+      return !!(this.result || []).length
     },
 
-    item () {
+    result () {
       return store.getters[`${this.entity}/byId`](this.id) || {}
     }
   },
 
-  created () {
-    if (!this.$can('read', this.entity)) {
-      return this.$router.replace({ name: 'Forbidden' })
+  watch: {
+    $route () {
+      this.fetchSingle()
     }
+  },
 
+  created () {
     this.fetchSingle()
   },
 
+  mixins: [viewMixin],
+
   methods: {
-    isEmpty,
-
-    handleErrors (error) {
-      if (error) {
-        if (Array.isArray(error)) {
-          return error.join('\n')
-        }
-
-        return error
-      }
-
-      return 'Erro ao obter item.'
-    },
-
     async fetchSingle () {
       this.isFetching = true
 
       try {
-        const response = await store.dispatch(`${this.entity}/fetchSingle`, { id: this.id })
-        this.$emit('fetchSuccess', response)
-      } catch (errors) {
-        const { data: error, status } = errors.response
+        const response = await store.dispatch(`${this.entity}/fetchSingle`, { id: this.id, url: this.url })
+        const { errors, fields, metadata } = response.data
 
-        if (status === 403) {
-          return this.$router.replace({ name: 'Forbidden' })
-        }
+        this.setErrors(errors)
+        this.setFields(fields)
+        this.setMetadata(metadata)
 
-        if (status === 404) {
-          this.$router.replace({ name: 'NotFound' })
-        }
-
-        this.$q.notify(this.handleErrors(error.detail))
-
-        this.$emit('fetchError', errors)
+        this.$emit('fetch-success', response)
+      } catch (error) {
+        this.fetchError(error)
+        this.$emit('fetch-error', error)
       } finally {
         this.isFetching = false
       }

@@ -31,6 +31,10 @@ export default {
   computed: {
     componentTag () {
       return this.dialog ? 'div' : 'q-page'
+    },
+
+    hasHeaderSlot () {
+      return !!(this.$slots.header || this.$scopedSlots.header)
     }
   },
 
