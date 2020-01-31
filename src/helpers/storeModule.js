@@ -12,7 +12,7 @@ export default function (resource, options = {}) {
     }
   }
 
-  const idAttribute = options.idAttribute || 'uuid'
+  const idAttribute = options.idAttribute || 'id'
   const perPage = options.perPage || 12
 
   const methods = options.methods || [
@@ -249,15 +249,15 @@ export default function (resource, options = {}) {
     }
 
     mutations.fetchSingleSuccess = (state, response) => {
-      const { data } = response
+      const { result } = response.data
 
       const index = state.list.findIndex(
-        item => item[idAttribute] === data[idAttribute]
+        item => item[idAttribute] === result[idAttribute]
       )
 
       ~index
-        ? Vue.set(state.list, index, data)
-        : state.list.push(data)
+        ? Vue.set(state.list, index, result)
+        : state.list.push(result)
 
       state.fetchSingleError = null
       state.isFetchingSingle = false

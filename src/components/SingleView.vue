@@ -4,26 +4,30 @@
       <slot name="header" :errors="errors" :fields="fields" :metadata="metadata" :result="result" />
     </header>
 
+    <qs-debugger :inspect="[result]" />
+
     <template v-if="hasResult">
       <slot :errors="errors" :fields="fields" :metadata="metadata" :result="result" />
     </template>
 
-    <div v-else class="q-my-xl text-center">
+    <div v-else-if="!isFetching" class="q-my-xl text-center">
       <q-icon class="text-center q-mb-sm" color="grey-6" name="o_search" size="38px" />
       <div class="text-grey-6">Nenhum item encontrado.</div>
     </div>
 
-    <q-inner-loading :showing="hasResult && isFetching">
+    <q-inner-loading :showing="isFetching">
       <q-spinner color="grey" size="3em" />
     </q-inner-loading>
   </component>
 </template>
 
 <script>
-import store from 'store'
 import viewMixin from '../mixins/view'
+import store from 'store'
 
 export default {
+  mixins: [viewMixin],
+
   props: {
     customId: {
       default: '',
@@ -54,8 +58,6 @@ export default {
   created () {
     this.fetchSingle()
   },
-
-  mixins: [viewMixin],
 
   methods: {
     async fetchSingle () {

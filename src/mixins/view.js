@@ -1,4 +1,4 @@
-import { camelize }  from 'humps'
+import { camelize } from 'humps'
 import { get } from 'lodash'
 
 export default {

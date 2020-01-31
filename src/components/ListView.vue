@@ -44,6 +44,8 @@ import contextMixin from '../mixins/context'
 import viewMixin from '../mixins/view'
 
 export default {
+  mixins: [contextMixin, viewMixin],
+
   props: {
     noFilter: {
       default: false,
@@ -95,8 +97,6 @@ export default {
     this.fetchList()
     this.setCurrentPage()
   },
-
-  mixins: [contextMixin, viewMixin],
 
   methods: {
     changePage () {
