@@ -1,5 +1,5 @@
 <template>
-  <component :is="is">
+  <component :is="parentTag">
     <component :is="tag" v-for="(item, index) in items" :key="index" :class="tagClass" :style="tagStyle">
       {{ item }}
     </component>
@@ -9,7 +9,7 @@
 <script>
 export default {
   props: {
-    is: {
+    parentTag: {
       default: 'div',
       type: String
     },
@@ -42,8 +42,8 @@ export default {
 
   computed: {
     items () {
-      const slot = this.$slots.default[0]
-      const text = this.text || (slot ? slot.text : '')
+      const slot = this.$slots.default
+      const text = this.text || (slot ? slot[0].text : '')
 
       return text.split(this.split)
     }

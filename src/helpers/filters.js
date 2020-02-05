@@ -8,21 +8,21 @@ function asset (value) {
   return value ? `${bucketURL}/${value}` : ''
 }
 
-function date (value) {
-  return value ? format(new Date(value), 'dd/MM/yyyy') : ''
+function date (value, token = 'dd/MM/yyyy') {
+  return value ? format(new Date(value), token) : ''
 }
 
-function dateTime (value) {
-  return value ? format(new Date(value), 'dd/MM/yyyy HH:mm:ss') : ''
+function dateTime (value, token = 'dd/MM/yyyy HH:mm:ss') {
+  return value ? format(new Date(value), token) : ''
 }
 
 function humanDate (value) {
   return value ? format(new Date(value), "dd 'de' MMMM 'de' yyyy 'as' HH:mm:ss") : ''
 }
 
-function money (value = 0) {
+function money (value = 0, options = { style: 'currency', currency: 'BRL' }) {
   value = Number(value)
-  return isNaN(value) ? '' : value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })
+  return isNaN(value) ? '' : value.toLocaleString('pt-BR', options)
 }
 
 function optionLabel (options, value) {

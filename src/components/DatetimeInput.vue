@@ -4,13 +4,13 @@
       <template v-slot:append>
         <q-icon v-if="!timeOnly" class="cursor-pointer" name="o_event">
           <q-popup-proxy ref="dateProxy" transition-show="scale" transition-hide="scale">
-            <q-date v-model="currentValue" :mask="maskDate" @input="input" />
+            <q-date v-model="currentValue" v-bind="dateOptions" :mask="maskDate" @input="input" />
           </q-popup-proxy>
         </q-icon>
 
-        <q-icon v-if="!dateOnly" ref="timeProxy" class="cursor-pointer q-ml-md" name="o_access_time">
-          <q-popup-proxy transition-show="scale" transition-hide="scale">
-            <q-time v-model="currentValue" format24h :mask="maskDate" @input="input" />
+        <q-icon v-if="!dateOnly" class="cursor-pointer q-ml-md" name="o_access_time">
+          <q-popup-proxy ref="timeProxy" transition-show="scale" transition-hide="scale">
+            <q-time v-model="currentValue" v-bind="timeOptions" format24h :mask="maskDate" @input="input" />
           </q-popup-proxy>
         </q-icon>
       </template>
@@ -32,6 +32,11 @@ export default {
       type: Boolean
     },
 
+    dateOptions: {
+      default: () => ({}),
+      type: Object
+    },
+
     timeMask: {
       default: 'HH:mm:ss',
       type: String
@@ -39,6 +44,11 @@ export default {
 
     timeOnly: {
       type: Boolean
+    },
+
+    timeOptions: {
+      default: () => ({}),
+      type: Object
     },
 
     value: {

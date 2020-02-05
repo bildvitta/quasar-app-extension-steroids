@@ -41,6 +41,11 @@ export default {
       type: [String, Boolean]
     },
 
+    order: {
+      default: () => [],
+      type: Array
+    },
+
     value: {
       default: () => ({}),
       type: Object,
@@ -66,6 +71,18 @@ export default {
         const field = this.fields[key]
         fields[field.type === 'hidden' ? 'hidden' : 'visible'][key] = field
       }
+
+      if (this.order.length) {
+        const visible = {}
+
+        for (const item of this.order) {
+          if (fields.visible[item]) { visible[item] = fields.visible[item] }
+        }
+
+        fields.visible = visible
+      }
+
+      console.log(fields.visible)
 
       return fields
     }

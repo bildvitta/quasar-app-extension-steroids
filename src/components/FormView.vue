@@ -24,24 +24,19 @@
 import store from 'store'
 import { get } from 'lodash'
 
+import viewMixin from '../mixins/view'
+
 export default {
+  mixins: [viewMixin],
+
   props: {
     customId: {
       default: '',
       type: String
     },
 
-    dialog: {
-      type: Boolean
-    },
-
     disable: {
       type: Boolean
-    },
-
-    entity: {
-      required: true,
-      type: String
     },
 
     mode: {
@@ -58,11 +53,6 @@ export default {
       type: String
     },
 
-    url: {
-      default: '',
-      type: String
-    },
-
     value: {
       default: () => ({}),
       type: Object
@@ -71,26 +61,13 @@ export default {
 
   data () {
     return {
-      errors: {},
-      fields: {},
-      metadata: {},
-
-      isFetching: false,
       isSubmiting: false
     }
   },
 
   computed: {
-    componentTag () {
-      return this.dialog ? 'div' : 'q-page'
-    },
-
     fetchURL () {
       return this.url ? (`${this.url}/${this.isCreateMode ? 'new' : 'edit'}`) : ''
-    },
-
-    hasHeaderSlot () {
-      return !!(this.$slots.header || this.$scopedSlots.header)
     },
 
     id () {
@@ -134,18 +111,8 @@ export default {
 
         this.$emit('fetch-success', response, this.value)
       } catch (error) {
-        const { response } = error
-        const exception = get(response, 'data.exception') || error.message
-
-        this.$qs.error('Ops! Erro ao obter os dados.', exception)
+        this.fetchError(error)
         this.$emit('fetch-error', error)
-
-        const status = get(response, 'status')
-        const redirect = ({ 403: 'Forbidden', 404: 'NotFound' })[status]
-
-        if (redirect) {
-          this.$router.replace({ name: redirect })
-        }
       } finally {
         this.isFetching = false
       }
@@ -159,18 +126,6 @@ export default {
       }
 
       return models
-    },
-
-    setErrors (errors) {
-      this.errors = errors || {}
-    },
-
-    setFields (fields) {
-      this.fields = fields || {}
-    },
-
-    setMetadata (metadata) {
-      this.metadata = metadata || {}
     },
 
     async submit (event) {
