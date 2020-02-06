@@ -251,13 +251,13 @@ export default function (resource, options = {}) {
     mutations.fetchSingleSuccess = (state, response) => {
       const { result } = response.data
 
-      const index = state.list.findIndex(
-        item => item[idAttribute] === result[idAttribute]
-      )
+      if (result) {
+        const index = state.list.findIndex(
+          item => item[idAttribute] === result[idAttribute]
+        )
 
-      ~index
-        ? Vue.set(state.list, index, result)
-        : state.list.push(result)
+        ~index ? Vue.set(state.list, index, result) : state.list.push(result)
+      }
 
       state.fetchSingleError = null
       state.isFetchingSingle = false

@@ -4,8 +4,6 @@
       <slot name="header" :errors="errors" :fields="fields" :metadata="metadata" :result="result" />
     </header>
 
-    <qs-debugger :inspect="[result]" />
-
     <template v-if="hasResult">
       <slot :errors="errors" :fields="fields" :metadata="metadata" :result="result" />
     </template>
@@ -41,7 +39,8 @@ export default {
     },
 
     hasResult () {
-      return !!(this.result || []).length
+      return !!this.result
+      return true
     },
 
     result () {

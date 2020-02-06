@@ -82,8 +82,6 @@ export default {
         fields.visible = visible
       }
 
-      console.log(fields.visible)
-
       return fields
     }
   },
