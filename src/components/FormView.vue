@@ -91,12 +91,12 @@ export default {
   },
 
   methods: {
-    async fetch () {
+    async fetch (params) {
       this.isFetching = true
 
       try {
         const response = await store.dispatch(
-          `${this.entity}/fetchSingle`, { form: true, id: this.id, url: this.fetchURL }
+          `${this.entity}/fetchSingle`, { form: true, id: this.id, params, url: this.fetchURL }
         )
 
         const { errors, fields, metadata, result } = response.data

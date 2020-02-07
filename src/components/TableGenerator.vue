@@ -83,8 +83,8 @@ export default {
       const columns = []
 
       function columnByField (field) {
-        const { label, name } = field
-        columns.push({ align: 'left', field: name, label, name })
+        const { align, label, name } = field
+        columns.push({ align: align || 'left', field: name, label, name })
       }
 
       // Automatic columns.
