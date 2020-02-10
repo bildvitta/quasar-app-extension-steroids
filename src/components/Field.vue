@@ -28,7 +28,8 @@ export default {
       }
 
       // Compact default fields attributes.
-      const input = { label, outlined: true, ...error }
+      const input = { label, outlined: true, type, ...error }
+      console.log(input)
 
       const datetimeInput = { is: 'qs-datetime-input', ...input }
       const decimalInput = { is: 'qs-decimal-input', comma: true, fillMask: '0', reverseFillMask: true, ...input }

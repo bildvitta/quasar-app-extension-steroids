@@ -1,5 +1,9 @@
 import Vue from 'vue'
+
 import { format } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
+
+window.__localeId__ = 'ptBR'
 
 function asset (value) {
   const environment = Vue.prototype.$environment
