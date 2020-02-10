@@ -159,8 +159,11 @@ export default {
       }
 
       const newDate = new Date(value).toISOString()
-      // TODO: ARRUMAR GAMBS DO SLICE
-      return date.formatDate(this.dateOnly ? newDate.slice(0, 23) : newDate, this.maskDate)
+
+      return date.formatDate(
+        this.dateOnly ? newDate.slice(0, 23) : newDate,
+        this.maskDate
+      )
     }
   }
 }

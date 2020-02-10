@@ -28,8 +28,7 @@ export default {
       }
 
       // Compact default fields attributes.
-      const input = { label, outlined: true, type, ...error }
-      console.log(input)
+      const input = { label, outlined: true, ...error }
 
       const datetimeInput = { is: 'qs-datetime-input', ...input }
       const decimalInput = { is: 'qs-decimal-input', comma: true, fillMask: '0', reverseFillMask: true, ...input }
@@ -50,6 +49,7 @@ export default {
       // Profiles
       const profiles = {
         default: { is: 'q-input', ...input },
+        textarea: { is: 'q-input', type, ...input },
         hidden: { is: 'input', name, type },
 
         decimal: { ...decimalInput },

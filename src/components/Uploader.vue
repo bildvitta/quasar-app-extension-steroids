@@ -1,5 +1,5 @@
 <template>
-  <q-uploader v-bind="$attrs" bordered :factory="factory" flat method="PUT" :readonly="readOnly" v-on="$listeners" @removed="removed" @uploaded="uploaded">
+  <q-uploader v-bind="$attrs" bordered class="fit" :factory="factory" flat method="PUT" :readonly="readOnly" v-on="$listeners" @removed="removed" @uploaded="uploaded">
     <template v-slot:header="scope">
       <div class="flex flex-center no-wrap q-gutter-xs q-pa-sm">
         <q-spinner v-if="scope.isUploading" size="24px" />

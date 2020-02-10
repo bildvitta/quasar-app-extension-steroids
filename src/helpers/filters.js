@@ -12,7 +12,7 @@ function asset (value) {
   return value ? `${bucketURL}/${value}` : ''
 }
 
-function date (value, token = 'dd/MM/yyyy') {
+function date (value, token = 'dd/MM/YYYY') {
   return value ? format(new Date(value), token) : ''
 }
 
