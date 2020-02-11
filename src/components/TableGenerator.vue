@@ -10,7 +10,7 @@
 
 <script>
 import { extend } from 'quasar'
-import { dateTime, optionLabel } from 'steroids'
+import { humanize } from '../helpers/filters'
 
 export default {
   props: {
@@ -60,15 +60,7 @@ export default {
 
       return results.map(result => {
         for (const key in result) {
-          const field = this.fields[key]
-
-          if (field && field.type === 'datetime') {
-            result[key] = dateTime(result[key])
-          }
-
-          if (field && field.type === 'select') {
-            result[key] = optionLabel(field.options, result[key])
-          }
+          result[key] = humanize(this.fields[key], result[key])
         }
 
         return result

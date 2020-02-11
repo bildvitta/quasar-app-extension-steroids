@@ -8,7 +8,7 @@ function __format (value, token, options = {}) {
   return value ? format(new Date(value), token, { locale: ptBR, ...options }) : ''
 }
 
-// Public
+// Asset
 function asset (value) {
   const environment = Vue.prototype.$environment
   const bucketURL = process.env.BUCKET_URL || (environment ? environment.bucketURL : location.origin)
@@ -16,7 +16,8 @@ function asset (value) {
   return value ? `${bucketURL}/${value}` : ''
 }
 
-function date (value, token = 'dd/MM/YYYY', options) {
+// Date
+function date (value, token = 'dd/MM/yyyy', options) {
   return __format(value, token, options)
 }
 
@@ -28,19 +29,30 @@ function humanDate (value, token = "dd 'de' MMMM 'de' yyyy 'as' HH:mm:ss", optio
   return __format(value, token, options)
 }
 
+// Number
 function money (value = 0, options = { style: 'currency', currency: 'BRL' }) {
   value = Number(value)
   return isNaN(value) ? '' : value.toLocaleString('pt-BR', options)
 }
 
-function optionLabel (options, value) {
-  const option = options.find(option => option.value === value) || {}
-  return option.label || ''
-}
-
 function percent (value = 0, places = 2) {
   value = Number(value)
   return value ? (value / 100).toLocaleString('pt-BR', { style: 'percent', minimumFractionDigits: places }) : ''
+}
+
+// Labels
+function humanize (field = {}, value) {
+  switch (field.type) {
+    case 'select': return optionLabel(field.options, value)
+    case 'date': return date(value)
+    case 'datetime': return dateTime(value)
+    default: return value
+  }
+}
+
+function optionLabel (options, value) {
+  const option = options.find(option => option.value === value) || {}
+  return option.label || ''
 }
 
 export {
@@ -49,6 +61,7 @@ export {
   dateTime,
   humanDate,
   money,
-  optionLabel,
-  percent
+  percent,
+  humanize,
+  optionLabel
 }

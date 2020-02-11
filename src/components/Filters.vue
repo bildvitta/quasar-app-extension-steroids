@@ -31,7 +31,7 @@
               </div>
 
               <div class="text-right">
-                <q-btn label="Limpar filtros" size="12px" unelevated @click="clearFilters" />
+                <q-btn class="q-mr-sm" label="Limpar filtros" size="12px" unelevated @click="clearFilters" />
                 <q-btn color="primary" label="Filtrar" size="12px" unelevated type="submit" />
               </div>
             </q-form>
@@ -50,6 +50,7 @@
 
 <script>
 import { camelize, camelizeKeys } from 'humps'
+import { humanize } from '../helpers/filters'
 import store from 'store'
 
 import contextMixin from '../mixins/context'
@@ -112,7 +113,7 @@ export default {
         const hasField = fields.includes(key)
 
         if (hasField) {
-          const value = filters[key]
+          const value = humanize(this.fields[key], filters[key])
           const { label, name } = this.fields[key]
 
           activeFilters[key] = { label, name, value }
@@ -245,7 +246,7 @@ export default {
       this.search = search || ''
 
       for (const key in filters) {
-        this.$set(this.filters, key, filters[key] || {})
+        this.$set(this.filters, key, filters[key] || '')
       }
     }
   }
