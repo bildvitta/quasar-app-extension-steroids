@@ -3,8 +3,12 @@ import Vue from 'vue'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 
-window.__localeId__ = 'ptBR'
+// Private
+function __format (value, token, options = {}) {
+  return value ? format(new Date(value), token, { locale: ptBR, ...options }) : ''
+}
 
+// Public
 function asset (value) {
   const environment = Vue.prototype.$environment
   const bucketURL = process.env.BUCKET_URL || (environment ? environment.bucketURL : location.origin)
@@ -12,16 +16,16 @@ function asset (value) {
   return value ? `${bucketURL}/${value}` : ''
 }
 
-function date (value, token = 'dd/MM/YYYY') {
-  return value ? format(new Date(value), token) : ''
+function date (value, token = 'dd/MM/YYYY', options) {
+  return __format(value, token, options)
 }
 
-function dateTime (value, token = 'dd/MM/yyyy HH:mm:ss') {
-  return value ? format(new Date(value), token) : ''
+function dateTime (value, token = 'dd/MM/yyyy HH:mm:ss', options) {
+  return __format(value, token, options)
 }
 
-function humanDate (value) {
-  return value ? format(new Date(value), "dd 'de' MMMM 'de' yyyy 'as' HH:mm:ss") : ''
+function humanDate (value, token = "dd 'de' MMMM 'de' yyyy 'as' HH:mm:ss", options) {
+  return __format(value, token, options)
 }
 
 function money (value = 0, options = { style: 'currency', currency: 'BRL' }) {
