@@ -62,12 +62,12 @@ function booleanLabel (value) {
 
 export {
   asset,
+  booleanLabel,
   date,
   dateTime,
   humanDate,
-  money,
-  percent,
   humanize,
+  money,
   optionLabel,
-  booleanLabel
+  percent
 }

@@ -52,19 +52,31 @@ export default {
       return this.field.type === 'boolean'
     },
 
-    // this computed to change the key name when the backend sends different key from props
-    fromTo () {
-      const formatedField = {}
+    // this computed will change the key name when the server sends different key
+    formatedField () {
+      const field = {}
 
       for (const key in this.field) {
-        formatedField[attributesProfile[key] || key] = this.field[key]
+        field[attributesProfile[key] || key] = this.field[key]
       }
 
-      return formatedField
+      return field
     },
 
     component () {
-      const { entity, extensions, label, multiple, name, options, type, readonly, filled = readonly, maxlength, minlength } = this.fromTo
+      const {
+        entity,
+        extensions,
+        label,
+        maxlength,
+        minlength,
+        multiple,
+        name,
+        options,
+        readonly,
+        filled = readonly,
+        type
+        } = this.formatedField
 
       // Default error attributes for Quasar.
       const error = {
