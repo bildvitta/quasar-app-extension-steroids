@@ -1,8 +1,14 @@
 <template>
-  <component :is="component.is" v-bind="component" :value="$attrs.value" @input="emitValue" />
+  <component :is="component.is" v-bind="component" :value="formattedValue" @input="emitValue" />
 </template>
 
 <script>
+const attributesProfile = {
+  maxLength: 'maxlength',
+  minLength: 'minlength',
+  readOnly: 'readonly'
+}
+
 export default {
   props: {
     error: {
@@ -18,8 +24,59 @@ export default {
   },
 
   computed: {
+    formattedValue () {
+      const { value } = this.$attrs
+
+      if (!this.isBoolean) {
+        return value
+      }
+
+      if (this.isEmptyValue) {
+        return !!value
+      }
+
+      return JSON.parse(value)
+    },
+
+    isEmptyValue () {
+      const { value } = this.$attrs
+
+      if (!this.isBoolean) {
+        return false
+      }
+
+      return !this.value && (value === undefined || typeof value === 'string')
+    },
+
+    isBoolean () {
+      return this.field.type === 'boolean'
+    },
+
+    // this computed will change the key name when the server sends different key
+    formatedField () {
+      const field = {}
+
+      for (const key in this.field) {
+        field[attributesProfile[key] || key] = this.field[key]
+      }
+
+      return field
+    },
+
     component () {
-      const { entity, extensions, label, multiple, name, options, type } = this.field
+      const {
+        entity,
+        extensions,
+        label,
+        maxlength,
+        minlength,
+        multiple,
+        name,
+        options,
+        readonly,
+        filled = readonly,
+        type
+        } = this.formatedField
 
       // Default error attributes for Quasar.
       const error = {
@@ -28,7 +85,7 @@ export default {
       }
 
       // Compact default fields attributes.
-      const input = { label, outlined: true, ...error }
+      const input = { label, outlined: true, ...error, readonly, filled, maxlength, minlength }
 
       const datetimeInput = { is: 'qs-datetime-input', ...input }
       const decimalInput = { is: 'qs-decimal-input', comma: true, fillMask: '0', reverseFillMask: true, ...input }

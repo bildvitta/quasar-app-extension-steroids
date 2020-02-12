@@ -43,6 +43,7 @@ function percent (value = 0, places = 2) {
 // Labels
 function humanize (field = {}, value) {
   switch (field.type) {
+    case 'boolean': return booleanLabel(value)
     case 'select': return optionLabel(field.options, value)
     case 'date': return date(value)
     case 'datetime': return dateTime(value)
@@ -55,13 +56,18 @@ function optionLabel (options, value) {
   return option.label || ''
 }
 
+function booleanLabel (value) {
+  return value ? 'sim' : 'não'
+}
+
 export {
   asset,
+  booleanLabel,
   date,
   dateTime,
   humanDate,
-  money,
-  percent,
   humanize,
-  optionLabel
+  money,
+  optionLabel,
+  percent
 }
