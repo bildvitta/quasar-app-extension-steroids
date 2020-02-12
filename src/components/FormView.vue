@@ -9,7 +9,7 @@
 
       <slot v-if="!readOnly" name="actions" :fields="fields">
         <div class="q-my-lg text-right">
-          <q-btn class="q-mr-md" color="grey-8" :disable="disable || isSubmiting" :label="cancelButton" outline type="button" @click="cancel" />
+          <q-btn v-close-popup="dialog" class="q-mr-md" color="grey-8" :disable="disable || isSubmiting" :label="cancelButton" outline type="button" @click="cancel" />
           <q-btn color="primary" :disable="disable" :label="submitButton" :loading="isSubmiting" type="submit" unelevated />
         </div>
       </slot>
@@ -98,7 +98,9 @@ export default {
 
   methods: {
     cancel () {
-      history.back()
+      if (!this.dialog) {
+        history.back()
+      }
     },
 
     async fetch (params) {
