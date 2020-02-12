@@ -1,9 +1,13 @@
 <template>
-  <component :is="component.is" v-bind="component" :value="$attrs.value" @input="emitValue" />
+  <component :is="component.is" v-bind="component" :value="formattedValue" @input="emitValue" />
 </template>
 
 <script>
-import { set } from 'lodash'
+const attributesProfile = {
+  maxLength: 'maxlength',
+  minLength: 'minlength',
+  readOnly: 'readonly'
+}
 
 export default {
   props: {
@@ -19,27 +23,48 @@ export default {
     }
   },
 
-  data () {
-    return {
-      toFrom: {
-        readOnly: 'readonly'
-      }
-    }
-  },
-
   computed: {
+    formattedValue () {
+      const { value } = this.$attrs
+
+      if (!this.isBoolean) {
+        return value
+      }
+
+      if (this.isEmptyValue) {
+        return !!value
+      }
+
+      return JSON.parse(value)
+    },
+
+    isEmptyValue () {
+      const { value } = this.$attrs
+
+      if (!this.isBoolean) {
+        return false
+      }
+
+      return !this.value && (value === undefined || typeof value === 'string')
+    },
+
+    isBoolean () {
+      return this.field.type === 'boolean'
+    },
+
+    // this computed to change the key name when the backend sends different key from props
     fromTo () {
       const formatedField = {}
 
       for (const key in this.field) {
-        set(formatedField, this.toFrom[key] || key, this.field[key])
+        formatedField[attributesProfile[key] || key] = this.field[key]
       }
 
       return formatedField
     },
 
     component () {
-      const { entity, extensions, label, multiple, name, options, type, readonly, filled = readonly } = this.fromTo
+      const { entity, extensions, label, multiple, name, options, type, readonly, filled = readonly, maxlength, minlength } = this.fromTo
 
       // Default error attributes for Quasar.
       const error = {
@@ -48,7 +73,7 @@ export default {
       }
 
       // Compact default fields attributes.
-      const input = { label, outlined: true, ...error, readonly, filled }
+      const input = { label, outlined: true, ...error, readonly, filled, maxlength, minlength }
 
       const datetimeInput = { is: 'qs-datetime-input', ...input }
       const decimalInput = { is: 'qs-decimal-input', comma: true, fillMask: '0', reverseFillMask: true, ...input }
