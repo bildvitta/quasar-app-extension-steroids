@@ -16,11 +16,12 @@ export default {
       default: () => ({}),
       type: Object,
       required: true
-    },
+    }
+  },
 
-    toFrom: {
-      type: Object,
-      default: {
+  data () {
+    return {
+      toFrom: {
         readOnly: 'readonly'
       }
     }
@@ -31,11 +32,7 @@ export default {
       const formatedField = {}
 
       for (const key in this.field) {
-        if (Object.keys(this.toFrom).includes(key)) {
-          set(formatedField, this.toFrom[key], this.field[key])
-        } else {
-          set(formatedField, key, this.field[key])
-        }
+        set(formatedField, this.toFrom[key] || key, this.field[key])
       }
 
       return formatedField
