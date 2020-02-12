@@ -50,6 +50,13 @@ export default {
       default: () => ({}),
       type: Object,
       required: true
+    },
+
+    toFrom: {
+      type: Object,
+      default: {
+        readOnly: 'readonly'
+      }
     }
   },
 

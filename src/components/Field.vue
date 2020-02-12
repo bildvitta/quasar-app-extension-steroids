@@ -3,6 +3,8 @@
 </template>
 
 <script>
+import { set } from 'lodash'
+
 export default {
   props: {
     error: {
@@ -14,12 +16,33 @@ export default {
       default: () => ({}),
       type: Object,
       required: true
+    },
+
+    toFrom: {
+      type: Object,
+      default: {
+        readOnly: 'readonly'
+      }
     }
   },
 
   computed: {
+    fromTo () {
+      const formatedField = {}
+
+      for (const key in this.field) {
+        if (Object.keys(this.toFrom).includes(key)) {
+          set(formatedField, this.toFrom[key], this.field[key])
+        } else {
+          set(formatedField, key, this.field[key])
+        }
+      }
+
+      return formatedField
+    },
+
     component () {
-      const { entity, extensions, label, multiple, name, options, type } = this.field
+      const { entity, extensions, label, multiple, name, options, type, readonly, filled = readonly } = this.fromTo
 
       // Default error attributes for Quasar.
       const error = {
@@ -28,7 +51,7 @@ export default {
       }
 
       // Compact default fields attributes.
-      const input = { label, outlined: true, ...error }
+      const input = { label, outlined: true, ...error, readonly, filled }
 
       const datetimeInput = { is: 'qs-datetime-input', ...input }
       const decimalInput = { is: 'qs-decimal-input', comma: true, fillMask: '0', reverseFillMask: true, ...input }
