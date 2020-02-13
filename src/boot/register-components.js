@@ -20,6 +20,7 @@ import Resizer from '../components/Resizer.vue'
 import SingleView from '../components/SingleView.vue'
 import TableGenerator from '../components/TableGenerator.vue'
 import Uploader from '../components/Uploader.vue'
+import Sortable from '../components/Sortable.vue'
 
 export default async ({ Vue }) => {
   Vue.component('qs-avatar', Avatar)
@@ -44,4 +45,5 @@ export default async ({ Vue }) => {
   Vue.component('qs-single-view', SingleView)
   Vue.component('qs-table-generator', TableGenerator)
   Vue.component('qs-uploader', Uploader)
+  Vue.component('qs-sortable', Sortable)
 }
