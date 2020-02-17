@@ -1,88 +1,115 @@
-  <template>
-    <component :is="componenTag" ref="items" v-bind="$attrs" v-on="$listeners">
-      <slot />
-    </component>
-  </template>
+<template>
+  <component :is="componenTag" ref="items" v-bind="$attrs" v-on="$listeners">
+    <slot />
+  </component>
+</template>
 
 <script>
-  import Sortable from 'sortablejs'
-  import store from 'store'
+import Sortable from 'sortablejs'
+import store from 'store'
 
-  export default {
-    props: {
-      value: {
-        type: Array,
-        default: () => []
-      },
+let sortable = null
 
-      componenTag: {
-        type: String,
-        default: 'div'
-      },
+export default {
+  props: {
+    value: {
+      type: Array,
+      default: () => []
+    },
 
-      entity: {
-        type: String,
-        required: true
-      },
+    componenTag: {
+      type: String,
+      default: 'div'
+    },
 
-      url: {
-        type: String,
-        default: ''
-      },
+    entity: {
+      type: String,
+      required: false
+    },
 
-      options: {
-        type: Object,
-        default: () => { animation: 300 }
+    submiting: {
+      type: Boolean
+    },
+
+    url: {
+      type: String,
+      default: ''
+    },
+
+    options: {
+      type: Object,
+      default: () => ({ animation: 500 })
+    }
+  },
+
+  data () {
+    return {
+      formattedValue: null,
+      isSubmiting: false
+    }
+  },
+
+  watch: {
+    isSubmiting (value) {
+      this.$emit('update:submiting', this.isSubmiting)
+    }
+  },
+
+  created () {
+    this.formattedValue = this.value
+  },
+
+  mounted () {
+    sortable = new Sortable(this.$refs.items, {
+      ...this.options,
+
+      onStar: event => this.$emit('on-start', event),
+
+      onEnd: event => this.$emit('on-end', event),
+
+      onUpdate: event => {
+        this.updateOrder(event)
+        this.$emit('on-update', event)
       }
+    })
+  },
+
+  computed: {
+    identifiers () {
+      return this.formattedValue.map(({ id }) => id) || []
+    }
+  },
+
+  methods: {
+    updateOrder ({ oldIndex, newIndex }) {
+      const deleted = this.formattedValue.splice(oldIndex, 1)
+      this.formattedValue.splice(newIndex, 0, deleted[0])
+
+      this.$emit('input', this.formattedValue)
+
+      this.replace()
     },
 
-    data () {
-      return {
-        formatedValue: null,
-        ids: null
-      }
-    },
+    async replace () {
+      this.isSubmiting = true
 
-    created () {
-      this.formatedValue = this.value
-      this.ids = this.formatedValue.map(item => item.path)
+      try {
+        const response = await store.dispatch(`${this.entity}/replace`, {
+          payload: { order: this.identifiers },
+          url: this.url
+        })
 
-      this.$emit('input', this.ids)
-    },
-
-    mounted () {
-      new Sortable(this.$refs.items, {
-        ...this.options,
-
-        onStar: event => this.$emit('on-start', event),
-
-        onEnd: event => this.$emit('on-end', event),
-
-        onUpdate: event => {
-          this.changeOrder(event)
-          this.$emit('on-update', event)
-        }
-      })
-    },
-
-    methods: {
-      async changeOrder ({ oldIndex, newIndex }) {
-        const deleted = this.ids.splice(oldIndex, 1)
-        this.ids.splice(newIndex, 0, deleted[0])
-
-        this.$emit('input', this.ids)
-
-        try {
-          const response = await store.dispatch(`${this.entity}/replace`, {
-            payload: this.ids,
-            url: this.url
-          })
-
-          this.$emit('success', this.response)
-        } catch (errors) {
-          this.$emit('error', errors)
-        }
+        this.$emit('success', this.response)
+      } catch (errors) {
+        this.$emit('error', errors)
+      } finally {
+        this.isSubmiting = false
       }
     }
+  },
+
+  destroyed () {
+    sortable.destroy()
   }
+}
 </script>
