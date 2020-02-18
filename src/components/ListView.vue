@@ -126,7 +126,10 @@ export default {
 
     async refresh (done) {
       await this.fetchList()
-      done()
+
+      if (typeof done === 'function') {
+        done()
+      }
     },
 
     setCurrentPage () {
