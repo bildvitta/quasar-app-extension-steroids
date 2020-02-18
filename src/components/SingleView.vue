@@ -29,7 +29,7 @@ export default {
   props: {
     customId: {
       default: '',
-      type: String
+      type: [Number, String]
     }
   },
 

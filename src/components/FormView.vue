@@ -38,7 +38,7 @@ export default {
 
     customId: {
       default: '',
-      type: String
+      type: [Number, String]
     },
 
     disable: {
