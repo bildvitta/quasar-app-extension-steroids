@@ -1,10 +1,11 @@
 <template>
   <component :is="componenTag" ref="items" v-bind="$attrs" v-on="$listeners">
-    <slot />
+    <slot :formattedValue="formattedValue" :errors="errors"/>
   </component>
 </template>
 
 <script>
+import { cloneDeep } from 'lodash'
 import Sortable from 'sortablejs'
 import store from 'store'
 
@@ -12,7 +13,7 @@ let sortable = null
 
 export default {
   props: {
-    value: {
+    results: {
       type: Array,
       default: () => []
     },
@@ -52,24 +53,25 @@ export default {
   watch: {
     isSubmiting (value) {
       this.$emit('update:submiting', this.isSubmiting)
+    },
+
+    results (value) {
+      this.formattedValue = cloneDeep(value)
+      sortable.sort(sortable.toArray())
     }
   },
 
   created () {
-    this.formattedValue = this.value
+    this.formattedValue = cloneDeep(this.results)
   },
 
   mounted () {
     sortable = new Sortable(this.$refs.items, {
       ...this.options,
 
-      onStar: event => this.$emit('on-start', event),
-
-      onEnd: event => this.$emit('on-end', event),
-
       onUpdate: event => {
         this.updateOrder(event)
-        this.$emit('on-update', event)
+        this.$emit('sort', event)
       }
     })
   },
@@ -85,8 +87,6 @@ export default {
       const deleted = this.formattedValue.splice(oldIndex, 1)
       this.formattedValue.splice(newIndex, 0, deleted[0])
 
-      this.$emit('input', this.formattedValue)
-
       this.replace()
     },
 
@@ -96,7 +96,7 @@ export default {
       try {
         const response = await store.dispatch(`${this.entity}/replace`, {
           payload: { order: this.identifiers },
-          url: this.url
+          url: this.url || `${this.entity}/sort`
         })
 
         this.$emit('success', this.response)
