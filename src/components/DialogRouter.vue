@@ -2,7 +2,7 @@
   <q-dialog persistent ref="dialog" @hide="onDialogHide">
     <q-card class="full-width" style="max-width: 80vw;">
       <q-card-section>
-        <component v-if="component" :is="component" dialog @hide="hide" />
+        <component v-if="component" :is="component" dialog :route="route" @hide="hide" />
       </q-card-section>
     </q-card>
   </q-dialog>
