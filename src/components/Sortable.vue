@@ -46,7 +46,8 @@ export default {
   data () {
     return {
       formattedValue: null,
-      isSubmiting: false
+      isSubmiting: false,
+      errors: null
     }
   },
 
@@ -101,6 +102,7 @@ export default {
 
         this.$emit('success', this.response)
       } catch (errors) {
+        this.errors = errors.response.data
         this.$emit('error', errors)
       } finally {
         this.isSubmiting = false
