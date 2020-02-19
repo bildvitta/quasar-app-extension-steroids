@@ -70,7 +70,7 @@ function formatValue (value) {
 
   console.log(value && isNumber(numberValue), '>>> passou')
 
-  return value && isNumber(numberValue) && !isNaN(numberValue) ? numberValue : value
+  return value && isNumber(numberValue) ? numberValue : value
 }
 
 function isBooleanValue (value) {
@@ -78,7 +78,7 @@ function isBooleanValue (value) {
 }
 
 function isBoolean (value) {
-  return typeof value === 'boolean'
+  return typeof value === 'boolean' && !isNaN(numberValue)
 }
 
 function isNumber (value) {
@@ -86,7 +86,6 @@ function isNumber (value) {
 }
 
 function booleanLabel (value) {
-  console.log(value)
   return value ? 'sim' : 'não'
 }
 
