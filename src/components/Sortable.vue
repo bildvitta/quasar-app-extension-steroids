@@ -1,6 +1,6 @@
 <template>
-  <component :is="componenTag" ref="items" v-bind="$attrs" v-on="$listeners">
-    <slot :formattedValue="formattedValue" :errors="errors"/>
+  <component :is="tag" ref="items" v-bind="$attrs" v-on="$listeners">
+    <slot :sorted="sorted" :errors="errors"/>
   </component>
 </template>
 
@@ -18,7 +18,7 @@ export default {
       default: () => []
     },
 
-    componenTag: {
+    tag: {
       type: String,
       default: 'div'
     },
@@ -45,7 +45,7 @@ export default {
 
   data () {
     return {
-      formattedValue: null,
+      sorted: null,
       isSubmiting: false,
       errors: null
     }
@@ -57,13 +57,15 @@ export default {
     },
 
     results (value) {
-      this.formattedValue = cloneDeep(value)
+      // this.sorted = cloneDeep(value)
+      this.updateValue(value)
       sortable.sort(sortable.toArray())
     }
   },
 
   created () {
-    this.formattedValue = cloneDeep(this.results)
+    // this.sorted = cloneDeep(this.results)
+    this.updateValue()
   },
 
   mounted () {
@@ -79,16 +81,20 @@ export default {
 
   computed: {
     identifiers () {
-      return this.formattedValue.map(({ id }) => id) || []
+      return this.sorted.map(({ id }) => id)
     }
   },
 
   methods: {
     updateOrder ({ oldIndex, newIndex }) {
-      const deleted = this.formattedValue.splice(oldIndex, 1)
-      this.formattedValue.splice(newIndex, 0, deleted[0])
+      const deleted = this.sorted.splice(oldIndex, 1)
+      this.sorted.splice(newIndex, 0, deleted[0])
 
       this.replace()
+    },
+
+    updateValue (value) {
+      this.sorted = cloneDeep(value || this.results)
     },
 
     async replace () {
