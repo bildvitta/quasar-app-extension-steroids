@@ -57,30 +57,28 @@ function humanize (field = {}, value) {
 }
 
 function optionLabel (options, value) {
-  const option = options.find(option => option.value === formatValue(value)) || {}
+  const option = options.find(option => option.value === convertValue(value)) || {}
   return option.label || ''
 }
 
-function formatValue (value) {
-  const numberValue = Number(value)
+function convertValue (value) {
+  if (typeof value === 'string' && !value) {
+    return ''
+  }
 
-  if (isBooleanValue(value) || isBoolean(value)) {
+  if (isBoolean(value)) {
     return JSON.parse(value)
   }
 
-  return value && isNumber(numberValue) ? numberValue : value
-}
-
-function isBooleanValue (value) {
-  return ['true', 'false'].includes(value)
+  return isNumber(value) ? Number(value) : value
 }
 
 function isBoolean (value) {
-  return typeof value === 'boolean'
+  return typeof value === 'boolean' || ['true', 'false'].includes(value)
 }
 
 function isNumber (value) {
-  return typeof value === 'number' && !isNaN(value)
+  return !isNaN(parseFloat(value)) && isFinite(value)
 }
 
 function booleanLabel (value) {
@@ -89,6 +87,7 @@ function booleanLabel (value) {
 
 export {
   asset,
+  isBoolean,
   booleanLabel,
   date,
   dateTime,
@@ -97,5 +96,5 @@ export {
   money,
   optionLabel,
   percent,
-  formatValue
+  convertValue
 }
