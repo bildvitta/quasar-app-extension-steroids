@@ -50,7 +50,7 @@
 
 <script>
 import { camelize, camelizeKeys } from 'humps'
-import { humanize, convertValue, isBoolean } from '../helpers/filters'
+import { humanize, convertValue } from '../helpers/filters'
 import store from 'store'
 
 import contextMixin from '../mixins/context'
@@ -246,7 +246,7 @@ export default {
       this.search = search || ''
 
       for (const key in filters) {
-        this.$set(this.filters, key, isBoolean(filters[key]) ? JSON.parse(filters[key]) : filters[key])
+        this.$set(this.filters, key, convertValue(filters[key]))
       }
     }
   }
