@@ -114,7 +114,6 @@ export default {
 
         if (hasField) {
           const value = humanize(this.fields[key], filters[key])
-          // const value = JSON.parse(filters[key])
           const { label, name } = this.fields[key]
 
           activeFilters[key] = { label, name, value }
@@ -245,16 +244,10 @@ export default {
     updateValues () {
       const { filters, search } = this.context
       this.search = search || ''
-      const avaliable = this.$route.query
-      // console.log(filters, '<< update')
-
 
       for (const key in filters) {
-        // this.$set(this.filters, key, filters[key] || '')
-        // console.log(key, formatValue(filters[key]), '<< upd')
-        this.$set(this.filters, key, filters[key])
+        this.$set(this.filters, key, formatValue(filters[key]))
       }
-      // console.log(this.filters, '<< avaliable')
     }
   }
 }

@@ -36,7 +36,6 @@ export default {
       }
 
       return JSON.parse(value)
-      // return value
     },
 
     isEmptyValue () {
@@ -53,7 +52,7 @@ export default {
       return this.field.type === 'boolean'
     },
 
-    // this computed will change the key name when the server sends different key
+    // This computed will change the key name when the server sends different key.
     formatedField () {
       const field = {}
 

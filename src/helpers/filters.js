@@ -25,6 +25,10 @@ function dateTime (value, token = 'dd/MM/yyyy HH:mm:ss', options) {
   return __format(value, token, options)
 }
 
+function time (value, token = 'HH:mm', options) {
+  return __format(value, token, options)
+}
+
 function humanDate (value, token = "dd 'de' MMMM 'de' yyyy 'as' HH:mm:ss", options) {
   return __format(value, token, options)
 }
@@ -47,16 +51,12 @@ function humanize (field = {}, value) {
     case 'select': return optionLabel(field.options, value)
     case 'date': return date(value)
     case 'datetime': return dateTime(value)
+    case 'time': return time(value)
     default: return value
   }
 }
 
 function optionLabel (options, value) {
-  // const option = options.find(option => {
-  //   option.value === parseFloat(value) || value
-  //   // console.log(option.value, parseFloat(value), '<<')
-  // }) || {}
-
   const option = options.find(option => option.value === formatValue(value)) || {}
   return option.label || ''
 }
@@ -68,8 +68,6 @@ function formatValue (value) {
     return JSON.parse(value)
   }
 
-  console.log(value && isNumber(numberValue), '>>> passou')
-
   return value && isNumber(numberValue) ? numberValue : value
 }
 
@@ -78,15 +76,15 @@ function isBooleanValue (value) {
 }
 
 function isBoolean (value) {
-  return typeof value === 'boolean' && !isNaN(numberValue)
+  return typeof value === 'boolean'
 }
 
 function isNumber (value) {
-  return typeof value === 'number'
+  return typeof value === 'number' && !isNaN(value)
 }
 
 function booleanLabel (value) {
-  return value ? 'sim' : 'não'
+  return JSON.parse(value) ? 'sim' : 'não'
 }
 
 export {
