@@ -116,7 +116,7 @@ export default {
     }
   },
 
-  destroyed () {
+  beforeDestroy () {
     sortable.destroy()
   }
 }
