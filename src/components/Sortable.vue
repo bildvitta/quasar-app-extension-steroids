@@ -99,7 +99,7 @@ export default {
           url: this.url || `${this.entity}/sort`
         })
 
-        this.$emit('success', this.response)
+        this.$emit('success', response)
       } catch (error) {
         this.handleError(error)
       } finally {
