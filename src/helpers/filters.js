@@ -1,11 +1,11 @@
 import Vue from 'vue'
 
-import { format } from 'date-fns'
+import { format, parseISO } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
 
 // Private
 function __format (value, token, options = {}) {
-  return value ? format(new Date(value), token, { locale: ptBR, ...options }) : ''
+  return value ? format(parseISO(value), token, { locale: ptBR, ...options }) : ''
 }
 
 // Asset
