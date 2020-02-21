@@ -1,6 +1,7 @@
 <template>
   <component :is="tag" ref="items" v-bind="$attrs" v-on="$listeners">
     <slot :sorted="sorted" />
+
     <q-inner-loading :showing="isSubmiting">
       <q-spinner color="grey" size="3em" />
     </q-inner-loading>
