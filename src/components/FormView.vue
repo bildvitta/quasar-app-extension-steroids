@@ -54,6 +54,11 @@ export default {
       type: Boolean
     },
 
+    route: {
+      default: () => ({}),
+      type: Object
+    },
+
     submitButton: {
       default: 'Salvar',
       type: String
@@ -77,11 +82,19 @@ export default {
     },
 
     id () {
-      return this.customId || this.$route.params.id
+      return this.customId || this.resolvedRoute.params.id
     },
 
     isCreateMode () {
       return this.mode === 'create'
+    },
+
+    resolvedRoute () {
+      if (this.route && Object.keys(this.route).length) {
+        return this.route
+      }
+
+      return this.$route
     }
   },
 
