@@ -46,8 +46,7 @@ export default {
   data () {
     return {
       sorted: null,
-      isSubmiting: false,
-      isMoving: false
+      isSubmiting: false
     }
   },
 
