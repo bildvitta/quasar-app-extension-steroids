@@ -25,6 +25,10 @@ function dateTime (value, token = 'dd/MM/yyyy HH:mm:ss', options) {
   return __format(value, token, options)
 }
 
+function time (value, token = 'HH:mm', options) {
+  return __format(value, token, options)
+}
+
 function humanDate (value, token = "dd 'de' MMMM 'de' yyyy 'as' HH:mm:ss", options) {
   return __format(value, token, options)
 }
@@ -47,17 +51,22 @@ function humanize (field = {}, value) {
     case 'select': return optionLabel(field.options, value)
     case 'date': return date(value)
     case 'datetime': return dateTime(value)
+    case 'time': return time(value)
     default: return value
   }
 }
 
 function optionLabel (options, value) {
-  const option = options.find(option => option.value === value) || {}
+  const option = options.find(option => String(option.value) === String(value)) || {}
   return option.label || ''
 }
 
+function parseValue (value) {
+  try { return JSON.parse(value) } catch { return value }
+}
+
 function booleanLabel (value) {
-  return value ? 'sim' : 'não'
+  return JSON.parse(value) ? 'sim' : 'não'
 }
 
 export {
@@ -69,5 +78,6 @@ export {
   humanize,
   money,
   optionLabel,
+  parseValue,
   percent
 }
