@@ -1,11 +1,14 @@
 <template>
   <component :is="tag" ref="items" v-bind="$attrs" v-on="$listeners">
-    <slot :sorted="sorted" :errors="errors"/>
+    <slot :sorted="sorted" />
+    <q-inner-loading :showing="isSubmiting">
+      <q-spinner color="grey" size="3em" />
+    </q-inner-loading>
   </component>
 </template>
 
 <script>
-import { cloneDeep } from 'lodash'
+import { cloneDeep, get } from 'lodash'
 import Sortable from 'sortablejs'
 import store from 'store'
 
@@ -28,10 +31,6 @@ export default {
       required: false
     },
 
-    submiting: {
-      type: Boolean
-    },
-
     url: {
       type: String,
       default: ''
@@ -47,24 +46,18 @@ export default {
     return {
       sorted: null,
       isSubmiting: false,
-      errors: null
+      isMoving: false
     }
   },
 
   watch: {
-    isSubmiting (value) {
-      this.$emit('update:submiting', this.isSubmiting)
-    },
-
     results (value) {
-      // this.sorted = cloneDeep(value)
       this.updateValue(value)
       sortable.sort(sortable.toArray())
     }
   },
 
   created () {
-    // this.sorted = cloneDeep(this.results)
     this.updateValue()
   },
 
@@ -107,12 +100,18 @@ export default {
         })
 
         this.$emit('success', this.response)
-      } catch (errors) {
-        this.errors = errors.response.data
-        this.$emit('error', errors)
+      } catch (error) {
+        this.handleError(error)
       } finally {
         this.isSubmiting = false
       }
+    },
+
+    handleError (error) {
+      const { response } = error
+      const exception = get(response, 'data.exception') || error.message
+
+      this.$qs.error('Ops! Erro ao ordernar itens.', exception)
     }
   },
 

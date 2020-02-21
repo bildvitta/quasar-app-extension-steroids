@@ -1,6 +1,6 @@
 <template>
   <component :is="componentTag">
-    <q-pull-to-refresh @refresh="refresh">
+    <q-pull-to-refresh @refresh="refresh" :disable="disableRefresh">
       <header v-if="hasHeaderSlot">
         <slot name="header" :fields="fields" :metadata="metadata" :results="results" />
       </header>
@@ -49,6 +49,10 @@ export default {
   props: {
     noFilter: {
       default: false,
+      type: Boolean
+    },
+
+    disableRefresh: {
       type: Boolean
     }
   },
