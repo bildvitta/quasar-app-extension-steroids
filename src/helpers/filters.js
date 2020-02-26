@@ -5,7 +5,13 @@ import { ptBR } from 'date-fns/locale'
 
 // Private
 function __format (value, token, options = {}) {
-  return value ? format(parseISO(value), token, { locale: ptBR, ...options }) : ''
+  if (!value) {
+    return ''
+  }
+
+  value = value instanceof Date ? value : parseISO(value)
+
+  return format(value, token, { locale: ptBR, ...options })
 }
 
 // Asset
