@@ -48,7 +48,7 @@ function percent (value = 0, places = 2) {
 function humanize (field = {}, value) {
   switch (field.type) {
     case 'boolean': return booleanLabel(value)
-    case 'select': return optionLabel(field.options, value)
+    case 'select': return selectLabel(field.options, value, field.multiple)
     case 'date': return date(value)
     case 'datetime': return dateTime(value)
     case 'time': return time(value)
@@ -56,9 +56,24 @@ function humanize (field = {}, value) {
   }
 }
 
+function selectLabel (options, value, multiple) {
+  if (multiple) {
+    return multipleOptionsLabel(options, value)
+  }
+
+  return optionLabel(options, value)
+}
+
+function multipleOptionsLabel (options, value) {
+  const multiple = []
+
+  value.forEach(itemValue => multiple.push(optionLabel(options, itemValue)))
+
+  return multiple.join('\n')
+}
+
 function optionLabel (options, value) {
-  const option = options.find(option => String(option.value) === String(value)) || {}
-  return option.label || ''
+  return options.find(option => String(option.value) === String(value)).label || ''
 }
 
 function parseValue (value) {
