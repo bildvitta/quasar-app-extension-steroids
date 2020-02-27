@@ -50,10 +50,6 @@ export default {
       return store.getters[`${this.entity}/byId`](this.id) || {}
     },
 
-    hasHeaderSlot () {
-      return !!(this.$slots.header || this.$scopedSlots.header)
-    },
-
     hasFooterSlot () {
       return !!(this.$slots.footer || this.$scopedSlots.footer)
     },
