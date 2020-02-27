@@ -12,6 +12,10 @@
       <q-icon class="text-center q-mb-sm" color="grey-6" name="o_search" size="38px" />
       <div class="text-grey-6">Nenhum item encontrado.</div>
     </div>
+    
+    <footer v-if="hasFooterSlot">
+      <slot name="footer" />
+    </footer>
 
     <q-inner-loading :showing="isFetching">
       <q-spinner color="grey" size="3em" />
@@ -40,12 +44,19 @@ export default {
 
     hasResult () {
       return !!this.result
-      return true
     },
 
     result () {
       return store.getters[`${this.entity}/byId`](this.id) || {}
-    }
+    },
+
+    hasHeaderSlot () {
+      return !!(this.$slots.header || this.$scopedSlots.header)
+    },
+
+    hasFooterSlot () {
+      return !!(this.$slots.footer || this.$scopedSlots.footer)
+    },
   },
 
   watch: {
