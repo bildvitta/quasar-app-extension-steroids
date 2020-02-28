@@ -48,11 +48,7 @@ export default {
 
     result () {
       return store.getters[`${this.entity}/byId`](this.id) || {}
-    },
-
-    hasFooterSlot () {
-      return !!(this.$slots.footer || this.$scopedSlots.footer)
-    },
+    }
   },
 
   watch: {

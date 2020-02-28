@@ -57,23 +57,17 @@ function humanize (field = {}, value) {
 }
 
 function selectLabel (options, value, multiple) {
-  if (multiple) {
-    return multipleOptionsLabel(options, value)
-  }
-
-  return optionLabel(options, value)
+  return multiple ? multipleOptionsLabel(options, value) : optionLabel(options, value)
 }
 
 function multipleOptionsLabel (options, value) {
-  const multiple = []
-
-  value.forEach(itemValue => multiple.push(optionLabel(options, itemValue)))
-
-  return multiple.join('\n')
+  return value.map(itemValue => optionLabel(options, itemValue)).join('\n')
 }
 
 function optionLabel (options, value) {
-  return options.find(option => String(option.value) === String(value)).label || ''
+  const { label } = options.find(option => String(option.value) === String(value)) || {}
+
+  return label || ''
 }
 
 function parseValue (value) {
