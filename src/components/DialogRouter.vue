@@ -9,18 +9,15 @@
 </template>
 
 <script>
+import { Loading } from 'quasar'
+
 export default {
   data () {
     return {
       component: null,
       parentRoute: '',
-      route: null,
-      isLoading: false
+      route: null
     }
-  },
-
-  created () {
-    console.log(history)
   },
 
   methods: {
@@ -41,7 +38,6 @@ export default {
     },
 
     resolveRoute (path) {
-      // console.log(this.$router.resolve(path).route, '<<<<')
       return this.$router.resolve(path).route
     },
 
@@ -50,35 +46,28 @@ export default {
       this.route = this.resolveRoute(route)
 
       if (history) {
-        console.log(window.history, this.route.fullPath)
-        // console.log(history, this.route.fullPath)
-        // history.replaceState(null, null, this.route.fullPath)
-        history.replaceState({}, null, this.route.fullPath)
-        // this.$router.replace({ path: this.route.fullPath})
+        history.replaceState(null, null, this.route.fullPath)
       }
 
-      // console.log(history)
+      try {
+        this.$q.loading.show()
+        const component = [...this.route.matched].pop().components.default
 
-      this.component = [...this.route.matched].pop().components.default
-      this.$q.loading.show()
-      if (this.component) {
-        this.$refs.dialog.show()
-      } else {
+        if (typeof component !== 'function') {
+          this.component = component
+          this.$refs.dialog.show()
+        } else {
+          const componentFn = await component()
+
+          this.component = componentFn.default
+          this.$refs.dialog.show()
         }
-      this.$q.loading.hide()
-
-      // console.log(([...this.route.matched].pop().components.default)())
-      // try {
-      //   // await ([...this.route.matched].pop().components.default)() || []
-      //   this.component = [...this.route.matched].pop().components.default
-      //   console.log(this.route.matched)
-      //   this.$refs.dialog.show()
-      //   this.$q.loading.hide()
-      // } catch (error) {
-      //   console.log(error, 'error')
-      // } finally {
-      //   this.isLoading = false
-      // }
+      } catch (error) {
+        this.$qs.error('Ops! Erro ao carregar item.')
+        this.emit('error', error)
+      } finally {
+        this.$q.loading.hide()
+      }
     }
   }
 }
