@@ -9,8 +9,6 @@
 </template>
 
 <script>
-import { Loading } from 'quasar'
-
 export default {
   data () {
     return {
