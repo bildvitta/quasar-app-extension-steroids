@@ -17,7 +17,7 @@
 </template>
 
 <script>
-const irregularClasses = ['fit']
+const irregularClasses = ['fit', 'col']
 
 export default {
   props: {
