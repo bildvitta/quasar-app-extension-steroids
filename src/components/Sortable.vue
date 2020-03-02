@@ -95,10 +95,7 @@ export default {
         return null
       }
 
-      this.$q.loading.show({
-        color: 'grey',
-        size: '3em'
-      })
+      this.$q.loading.show({ color: 'grey', size: '3em' })
 
       try {
         const response = await store.dispatch(`${this.entity}/replace`, {
