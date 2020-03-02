@@ -52,6 +52,10 @@ export default {
       return this.field.type === 'boolean'
     },
 
+    numberType () {
+      return this.formatedField.type === 'number' ? this.formatedField.type : undefined
+    },
+
     // This computed will change the key name when the server sends different key.
     formatedField () {
       const field = {}
@@ -75,6 +79,8 @@ export default {
         options,
         readonly,
         filled = readonly,
+        suffix,
+        prefix,
         type
         } = this.formatedField
 
@@ -85,7 +91,18 @@ export default {
       }
 
       // Compact default fields attributes.
-      const input = { label, outlined: true, ...error, readonly, filled, maxlength, minlength }
+      const input = {
+        label,
+        outlined: true,
+        ...error,
+        readonly,
+        filled,
+        maxlength,
+        minlength,
+        suffix,
+        prefix,
+        type: this.numberType
+      }
 
       const datetimeInput = { is: 'qs-datetime-input', ...input }
       const decimalInput = { is: 'qs-decimal-input', comma: true, fillMask: '0', reverseFillMask: true, ...input }
