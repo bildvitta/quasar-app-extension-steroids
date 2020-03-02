@@ -48,16 +48,17 @@ export default {
       }
 
       try {
-        this.$q.loading.show()
+        this.$q.loading.show({ color: 'grey', size: '3em' })
+
         const component = [...this.route.matched].pop().components.default
 
         if (typeof component !== 'function') {
           this.component = component
           this.$refs.dialog.show()
         } else {
-          const componentFn = await component()
+          const componentFn = (await component()).default
 
-          this.component = componentFn.default
+          this.component = componentFn
           this.$refs.dialog.show()
         }
       } catch (error) {

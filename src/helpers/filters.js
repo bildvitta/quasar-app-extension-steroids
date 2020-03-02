@@ -65,9 +65,7 @@ function multipleOptionsLabel (options, value) {
 }
 
 function optionLabel (options, value) {
-  const { label } = options.find(option => String(option.value) === String(value)) || {}
-
-  return label || ''
+  return (options.find(option => String(option.value) === String(value)) || {}).label || ''
 }
 
 function parseValue (value) {
