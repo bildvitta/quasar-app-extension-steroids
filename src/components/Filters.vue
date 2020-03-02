@@ -63,7 +63,7 @@ export default {
     },
 
     entity: {
-      required: true,
+      required: true, 
       type: String
     },
 
@@ -203,7 +203,7 @@ export default {
     },
 
     async fetchFilters () {
-      if (this.hasFields) {
+      if (this.hasFields || this.noFilterButton) {
         return null
       }
 
