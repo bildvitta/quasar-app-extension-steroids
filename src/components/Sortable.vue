@@ -75,8 +75,10 @@ export default {
   },
 
   methods: {
-    updateOrder ({ oldIndex, newIndex, oldDraggableIndex }) {
+    updateOrder ({ oldIndex, newIndex }) {
       if (oldIndex >= this.results.length) {
+        this.sortedError= true
+
         return null
       }
 
