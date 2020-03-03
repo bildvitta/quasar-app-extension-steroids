@@ -5,7 +5,13 @@ import { ptBR } from 'date-fns/locale'
 
 // Private
 function __format (value, token, options = {}) {
-  return value ? format(parseISO(value), token, { locale: ptBR, ...options }) : ''
+  if (!value) {
+    return ''
+  }
+
+  value = value instanceof Date ? value : parseISO(value)
+
+  return format(value, token, { locale: ptBR, ...options })
 }
 
 // Asset
@@ -22,6 +28,10 @@ function date (value, token = 'dd/MM/yyyy', options) {
 }
 
 function dateTime (value, token = 'dd/MM/yyyy HH:mm:ss', options) {
+  return __format(value, token, options)
+}
+
+function time (value, token = 'HH:mm', options) {
   return __format(value, token, options)
 }
 
@@ -44,16 +54,28 @@ function percent (value = 0, places = 2) {
 function humanize (field = {}, value) {
   switch (field.type) {
     case 'boolean': return booleanLabel(value)
-    case 'select': return optionLabel(field.options, value)
+    case 'select': return selectLabel(field.options, value, field.multiple)
     case 'date': return date(value)
     case 'datetime': return dateTime(value)
+    case 'time': return time(value)
     default: return value
   }
 }
 
+function selectLabel (options, value, multiple) {
+  return multiple ? multipleOptionsLabel(options, value) : optionLabel(options, value)
+}
+
+function multipleOptionsLabel (options, value) {
+  return value.map(itemValue => optionLabel(options, itemValue)).join('\n')
+}
+
 function optionLabel (options, value) {
-  const option = options.find(option => option.value === value) || {}
-  return option.label || ''
+  return (options.find(option => String(option.value) === String(value)) || {}).label || ''
+}
+
+function parseValue (value) {
+  try { return JSON.parse(value) } catch { return value }
 }
 
 function booleanLabel (value, trueLabel = 'sim', falseLabel = 'não') {
@@ -69,5 +91,6 @@ export {
   humanize,
   money,
   optionLabel,
+  parseValue,
   percent
 }

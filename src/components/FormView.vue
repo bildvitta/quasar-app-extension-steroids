@@ -15,6 +15,10 @@
       </slot>
     </q-form>
 
+    <footer v-if="hasFooterSlot">
+      <slot name="footer" />
+    </footer>
+
     <q-inner-loading :showing="isFetching">
       <q-spinner color="grey" size="3em" />
     </q-inner-loading>
@@ -54,6 +58,11 @@ export default {
       type: Boolean
     },
 
+    route: {
+      default: () => ({}),
+      type: Object
+    },
+
     submitButton: {
       default: 'Salvar',
       type: String
@@ -77,11 +86,19 @@ export default {
     },
 
     id () {
-      return this.customId || this.$route.params.id
+      return this.customId || this.resolvedRoute.params.id
     },
 
     isCreateMode () {
       return this.mode === 'create'
+    },
+
+    resolvedRoute () {
+      if (this.route && Object.keys(this.route).length) {
+        return this.route
+      }
+
+      return this.$route
     }
   },
 
