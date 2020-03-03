@@ -39,7 +39,7 @@ export default {
       return this.$router.resolve(path).route
     },
 
-    show (route) {
+    async show (route) {
       this.parentRoute = this.$route.fullPath
       this.route = this.resolveRoute(route)
 
@@ -47,8 +47,26 @@ export default {
         history.replaceState(null, null, this.route.fullPath)
       }
 
-      this.component = [...this.route.matched].pop().components.default
-      this.$refs.dialog.show()
+      try {
+        this.$q.loading.show()
+
+        const component = [...this.route.matched].pop().components.default
+
+        if (typeof component !== 'function') {
+          this.component = component
+          this.$refs.dialog.show()
+        } else {
+          const componentFn = (await component()).default
+
+          this.component = componentFn
+          this.$refs.dialog.show()
+        }
+      } catch (error) {
+        this.$qs.error('Ops! Erro ao carregar item.')
+        this.emit('error', error)
+      } finally {
+        this.$q.loading.hide()
+      }
     }
   }
 }

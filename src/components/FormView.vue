@@ -15,6 +15,10 @@
       </slot>
     </q-form>
 
+    <footer v-if="hasFooterSlot">
+      <slot name="footer" />
+    </footer>
+
     <q-inner-loading :showing="isFetching">
       <q-spinner color="grey" size="3em" />
     </q-inner-loading>
