@@ -79,7 +79,7 @@ function parseValue (value) {
 }
 
 function booleanLabel (value, trueLabel = 'sim', falseLabel = 'não') {
-  try { return JSON.parse(value) ? trueLabel : falseLabel } catch { value }
+  try { return JSON.parse(value) ? trueLabel : falseLabel } catch { return value }
 }
 
 export {
