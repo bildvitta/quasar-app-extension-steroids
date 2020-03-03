@@ -41,8 +41,7 @@ export default {
 
   data () {
     return {
-      sorted: null,
-      sortedError: false
+      sorted: null
     }
   },
 
@@ -76,12 +75,6 @@ export default {
 
   methods: {
     updateOrder ({ oldIndex, newIndex }) {
-      if (oldIndex >= this.results.length) {
-        this.sortedError= true
-
-        return null
-      }
-
       const deleted = this.sorted.splice(oldIndex, 1)
       this.sorted.splice(newIndex, 0, deleted[0])
 
@@ -93,11 +86,7 @@ export default {
     },
 
     async replace () {
-      if (this.sortedError) {
-        return null
-      }
-
-      this.$q.loading.show({ color: 'grey', size: '3em' })
+      this.$q.loading.show()
 
       try {
         const response = await store.dispatch(`${this.entity}/replace`, {
