@@ -56,8 +56,8 @@ function optionLabel (options, value) {
   return option.label || ''
 }
 
-function booleanLabel (value) {
-  return value ? 'sim' : 'não'
+function booleanLabel (value, trueLabel = 'sim', falseLabel = 'não') {
+  try { return JSON.parse(value) ? trueLabel : falseLabel } catch { value }
 }
 
 export {
