@@ -48,7 +48,7 @@ export default {
       }
 
       try {
-        this.$q.loading.show({ color: 'grey', size: '3em' })
+        this.$q.loading.show()
 
         const component = [...this.route.matched].pop().components.default
 
