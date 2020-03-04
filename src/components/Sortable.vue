@@ -1,10 +1,6 @@
 <template>
   <component :is="tag" ref="items" v-bind="$attrs" v-on="$listeners">
     <slot :sorted="sorted" />
-
-    <q-inner-loading :showing="isSubmiting">
-      <q-spinner color="grey" size="3em" />
-    </q-inner-loading>
   </component>
 </template>
 
@@ -45,8 +41,7 @@ export default {
 
   data () {
     return {
-      sorted: null,
-      isSubmiting: false
+      sorted: null
     }
   },
 
@@ -91,7 +86,7 @@ export default {
     },
 
     async replace () {
-      this.isSubmiting = true
+      this.$q.loading.show()
 
       try {
         const response = await store.dispatch(`${this.entity}/replace`, {
@@ -103,7 +98,7 @@ export default {
       } catch (error) {
         this.handleError(error)
       } finally {
-        this.isSubmiting = false
+        this.$q.loading.hide()
       }
     },
 
