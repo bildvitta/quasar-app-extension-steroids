@@ -49,6 +49,10 @@ export default {
     results (value) {
       this.updateValue(value)
       sortable.sort(sortable.toArray())
+    },
+
+    options (value) {
+      sortable.options = { ...sortable.options, ...value }
     }
   },
 
