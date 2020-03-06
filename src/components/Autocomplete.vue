@@ -21,7 +21,6 @@
 
 <script>
 let fuse = null
-import humps from 'humps'
 
 export default {
   props: {
