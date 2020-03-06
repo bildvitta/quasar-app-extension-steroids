@@ -10,11 +10,18 @@
         </q-item-section>
       </q-item>
     </template>
+    <template v-if="hasOptionSlot" v-slot:option>
+      <slot name="option" :result="filteredOptions"/>
+    </template>
+    <template v-if="hasSelectedItemSlot" v-slot:selected-item="scope">
+      <slot name="selected-item" :scope="scope"/>
+    </template>
   </q-select>
 </template>
 
 <script>
 let fuse = null
+import humps from 'humps'
 
 export default {
   props: {
@@ -41,15 +48,13 @@ export default {
 
   data () {
     return {
+      fetchingFuse: false,
       filteredOptions: [],
-      loadingState: false,
-      result: [],
-      selectModel: null,
-      search: '',
       fuse: null,
       fuseError: null,
-      fetchingFuse: false,
-      formatted: []
+      result: [],
+      search: '',
+      selectModel: null
     }
   },
 
@@ -58,15 +63,11 @@ export default {
       this.filter(value)
     },
 
-    options () {
+    defaultOptions (value) {
       if (!this.fuseError || !this.fetchingFuse) {
-        fuse.options = { ...this.defaultOptions }
+        fuse.options = { ...fuse.options, ...value }
       }
     }
-  },
-
-  mounted() {
-    console.log(this.$scopedSlots, this.$slots)
   },
 
   created () {
@@ -78,12 +79,20 @@ export default {
       return this.result.length
     },
 
+    hasOptionSlot () {
+      return !!(this.$slots.option || this.$scopedSlots.option)
+    },
+
+    hasSelectedItemSlot () {
+      return !!(this.$slots['selected-item'] || this.$scopedSlots['selected-item'])
+    },
+
     formattedResult () {
       if (!this.labelKey && !this.valueKey) {
         return null
       }
 
-      return this.list.map(item => this.format(item))
+      return this.list.map(item => this.renameKey(item))
     },
 
     defaultOptions () {
@@ -98,22 +107,18 @@ export default {
         tokenize: true,
         ...this.options
       }
-    },
-
-    style () {
-      return { maxHeight: '65vh' }
     }
   },
 
   methods: {
-    format (item) {
-      const fromTo = { label: this.labelKey, value: this.valueKey }
+    renameKey (item) {
+      const mapKeys = { label: this.labelKey, value: this.valueKey }
 
-      for (const key in fromTo) {
-        if (!item[key]) {
-          item[key] = item[fromTo[key]]
+      for (const newKey in mapKeys) {
+        if (!item.hasOwnProperty(newKey)) {
+          item[newKey] = item[mapKeys[newKey]]
 
-          delete item[fromTo[key]]
+          delete item[mapKeys[newKey]]
         }
       }
 
@@ -123,14 +128,11 @@ export default {
     async fetchFuse () {
       this.fetchingFuse = true
 
-      // import('fus.js').then().catch(() => console.log('tururu'))
-
       try {
         const response = (await (import('fuse.js'))).default
 
         fuse = new response(this.list, this.defaultOptions)
       } catch {
-        console.log('cai')
         this.fuseError = true
       } finally {
         this.fetchingFuse = false
