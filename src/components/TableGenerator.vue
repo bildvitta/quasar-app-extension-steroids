@@ -2,7 +2,7 @@
   <q-table class="bg-transparent" v-bind="attributes">
     <template v-for="(slot, key) in $scopedSlots" v-slot:[key]="context">
       <q-td :key="key" :props="context">
-        <slot :name="key" v-bind="context" :raw="raw" />
+        <slot :name="key" v-bind="context"/>
       </q-td>
     </template>
   </q-table>
@@ -64,9 +64,9 @@ export default {
     resultsByFields () {
       const results = extend(true, [], this.results)
 
-      return results.map(result => {
+      return results.map((result, index) => {
         for (const key in result) {
-          this.raw[key] = result[key]
+          result.default = this.results[index]
           result[key] = humanize(this.fields[key], result[key])
         }
 
