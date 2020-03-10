@@ -6,7 +6,7 @@
       </header>
 
       <slot v-if="!noFilter" name="filter" :entity="entity" :errors="errors" :fields="fields" :metadata="metadata" :results="results">
-        <qs-filters :entity="entity" />
+        <qs-filters :entity="entity" @filter="test"/>
       </slot>
 
       <main class="relative-position">
@@ -106,6 +106,10 @@ export default {
     changePage () {
       const query = { ...this.$route.query, page: this.page }
       this.$router.push({ query })
+    },
+
+    test (value) {
+      console.log(value({nome: 'aaa'}))
     },
 
     async fetchList () {

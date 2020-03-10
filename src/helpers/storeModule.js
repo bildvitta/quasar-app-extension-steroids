@@ -397,7 +397,7 @@ export default function (resource, options = {}) {
   if (hasFetchList) {
     actions.fetchList = (
       { commit },
-      { filters = {}, increment, ordering = [], page = 1, limit, search, url } = {}
+      { filters = {}, increment, ordering = '', page = 1, limit, search, url } = {}
     ) => {
       const params = {
         ...filters,
@@ -406,6 +406,7 @@ export default function (resource, options = {}) {
         ordering: ordering.length ? ordering.join(',') : null,
         search
       }
+
 
       commit('fetchListStart')
       url = url || options.replaceURL || `/${resource}/`
