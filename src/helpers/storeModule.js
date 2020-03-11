@@ -403,10 +403,9 @@ export default function (resource, options = {}) {
         ...filters,
         limit: limit || perPage,
         offset: (page - 1) * (limit || perPage),
-        ordering: ordering.length ? ordering.join(',') : null,
+        ordering: ordering.length ? ordering.split(',') : null,
         search
       }
-
 
       commit('fetchListStart')
       url = url || options.replaceURL || `/${resource}/`

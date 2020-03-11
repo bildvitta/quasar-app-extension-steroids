@@ -163,8 +163,6 @@ export default {
   created () {
     this.fetchFilters()
     this.updateValues()
-
-    this.$emit('filter', this.filter)
   },
 
   mixins: [contextMixin],
@@ -224,7 +222,6 @@ export default {
     },
 
     filter (external) {
-      console.log('chamado >>', external)
       const { filters, page, ...context } = this.context
 
       const query = {
