@@ -19,7 +19,7 @@ import Profile from '../components/Profile.vue'
 import Resizer from '../components/Resizer.vue'
 import SingleView from '../components/SingleView.vue'
 import Sortable from '../components/Sortable.vue'
-import TabGenerator from '../components/TabGenerator.vue'
+import TabsGenerator from '../components/TabsGenerator.vue'
 import TableGenerator from '../components/TableGenerator.vue'
 import Uploader from '../components/Uploader.vue'
 
@@ -45,7 +45,7 @@ export default async ({ Vue }) => {
   Vue.component('qs-resizer', Resizer)
   Vue.component('qs-single-view', SingleView)
   Vue.component('qs-sortable', Sortable)
-  Vue.component('qs-tab-generator', TabGenerator)
+  Vue.component('qs-tabs-generator', TabsGenerator)
   Vue.component('qs-table-generator', TableGenerator)
   Vue.component('qs-uploader', Uploader)
 }
