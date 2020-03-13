@@ -15,6 +15,11 @@ import { extend } from 'quasar'
 
 export default {
   props: {
+    // Basic usage: :tabs="{ teste1: 'teste-1', teste2: 'teste-2' }".
+    // Example of usage: You can manipulate the tabs outsite the component and send: --->
+    // ---> :tabs="{ teste1: 'teste-1', teste2: 'teste-2', teste3: { label: 'teste-3', icon: 'email' }".
+    // If you just send :tabs="{ teste: 'teste-1', teste2: 'teste-2' }" the component will automatically format to: --->
+    // ---> "{ teste: { label: 'teste-1' }, teste2: { label: 'teste-2' } }"
     tabs: {
       default: () => ({}),
       type: Object,
@@ -30,16 +35,6 @@ export default {
     value: {
       default: '',
       type: String
-    },
-
-    // Basic usage: :tabs="{ teste1: 'teste-1', teste2: 'teste-2' }".
-    // Example of usage: You can manipulate the tabs outsite the component and send: --->
-    // ---> :tabs="{ teste1: 'teste-1', teste2: 'teste-2', teste3: { label: 'teste-3', icon: 'email' }".
-    // If you just send :tabs="{ teste: 'teste-1', teste2: 'teste-2' }" the component will automatically format to: --->
-    // ---> "{ teste: { label: 'teste-1' }, teste2: { label: 'teste-2' } }"
-    tabAttributes: {
-      default: () => ({}),
-      type: Object
     }
   },
 
