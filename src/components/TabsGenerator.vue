@@ -28,8 +28,7 @@ export default {
 
     counters: {
       default: () => ({}),
-      type: Object,
-      required: true
+      type: Object
     },
 
     value: {
