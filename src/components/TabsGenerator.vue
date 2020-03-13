@@ -1,9 +1,9 @@
 <template>
-  <q-tabs v-model="tab" v-bind="$attrs" @input="handleInput">
-    <slot v-for="(item, index) in tabs" :name="`tab-${item.label}`" :item="item">
-      <q-tab :name="item.value" :label="item.label" :key="index" v-bind="setAttributes(index)">
-        <slot :name="`tab-slot-${item.label}`" :item="item">
-          <q-badge v-if="counters[item.value]" color="red" floating>{{ counters[item.value] }}</q-badge>
+  <q-tabs v-model="currentTab" v-bind="$attrs" @input="handleInput">
+    <slot v-for="(tab, key) in formattedTabs" :name="`tab-${tab.label}`" :item="tab">
+      <q-tab :name="key" :label="tab.label" :key="key" v-bind="tab">
+        <slot :name="`tab-slot-${tab.label}`" :item="tab">
+          <q-badge v-if="counters[key]" color="red" floating>{{ counters[key] }}</q-badge>
         </slot>
       </q-tab>
     </slot>
@@ -11,11 +11,13 @@
 </template>
 
 <script>
+import { extend } from 'quasar'
+
 export default {
   props: {
     tabs: {
-      default: () => [],
-      type: Array,
+      default: () => ({}),
+      type: Object,
       required: true
     },
 
@@ -30,8 +32,11 @@ export default {
       type: String
     },
 
-    // Example of usage: :tab-attributes="{ 1: { icon: 'mail' } }" will get tab of index "1" and set email icon.
-    // Example of usage 2: if you pass only :tab-attributes="{ icon: 'mail' }" it will set icon to every tab.
+    // Basic usage: :tabs="{ teste1: 'teste-1', teste2: 'teste-2' }".
+    // Example of usage: You can manipulate the tabs outsite the component and send: --->
+    // ---> :tabs="{ teste1: 'teste-1', teste2: 'teste-2', teste3: { label: 'teste-3', icon: 'email' }".
+    // If you just send :tabs="{ teste: 'teste-1', teste2: 'teste-2' }" the component will automatically format to: --->
+    // ---> "{ teste: { label: 'teste-1' }, teste2: { label: 'teste-2' } }"
     tabAttributes: {
       default: () => ({}),
       type: Object
@@ -40,27 +45,31 @@ export default {
 
   data () {
     return {
-      tab: ''
+      currentTab: ''
     }
   },
 
   created () {
-    this.tab = this.value
+    this.currentTab = this.value
   },
 
   computed: {
-    isObjectOfObject () {
-      return Object.keys(this.tabAttributes).some(item => !isNaN(item))
+    formattedTabs () {
+      const tabs = extend(true, {}, this.tabs)
+
+      for (const key in tabs) {
+        if (typeof tabs[key] === 'string') {
+          tabs[key] = { label: tabs[key] }
+        }
+      }
+
+      return tabs
     }
   },
 
   methods: {
     handleInput () {
-      this.$emit('input', this.tab)
-    },
-
-    setAttributes (index) {
-      return this.isObjectOfObject ? this.tabAttributes[index] : this.tabAttributes
+      this.$emit('input', this.currentTab)
     }
   }
 }
