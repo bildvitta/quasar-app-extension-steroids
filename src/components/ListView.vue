@@ -2,9 +2,17 @@
   <component :is="componentTag">
     <q-pull-to-refresh @refresh="refresh" :disable="disableRefresh">
       <header v-if="hasHeaderSlot">
+        <!-- @slot Use this slot header -->
         <slot name="header" :fields="fields" :metadata="metadata" :results="results" />
       </header>
-
+      <!--
+				@slot for access the filter component
+				@binding {string} entity
+				@binding {object} errors
+				@binding {object} fields
+				@binding {array} results
+				@binding {object} metadata
+			-->
       <slot v-if="!noFilter" name="filter" :entity="entity" :errors="errors" :fields="fields" :metadata="metadata" :results="results">
         <qs-filters :entity="entity" />
       </slot>
@@ -33,6 +41,7 @@
       </main>
     </q-pull-to-refresh>
 
+    <!-- @slot Use this slot footer -->
     <slot name="footer" />
   </component>
 </template>
@@ -42,16 +51,25 @@ import store from 'store'
 
 import contextMixin from '../mixins/context'
 import viewMixin from '../mixins/view'
-
+/**
+ * This component is responsible for make the fetch api and return a list.
+ * It already has the filter component and pagination.
+ */
 export default {
   mixins: [contextMixin, viewMixin],
 
   props: {
+    /**
+     * Disable filter
+     */
     noFilter: {
       default: false,
       type: Boolean
     },
-
+    /**
+     * Disable q-pull-to-refresh
+     * Normally used together with sortable
+     */
     disableRefresh: {
       type: Boolean
     }
@@ -118,10 +136,19 @@ export default {
         this.setErrors(errors)
         this.setFields(fields)
         this.setMetadata(metadata)
-
+        /**
+         * Triggers when fetch success
+         *
+         * @property {object} response response of api
+         */
         this.$emit('fetch-success', response)
       } catch (error) {
         this.fetchError(error)
+        /**
+         * Triggers when fetch error
+         *
+         * @property {object} error error body
+         */
         this.$emit('fetch-error', error)
       } finally {
         this.isFetching = false
