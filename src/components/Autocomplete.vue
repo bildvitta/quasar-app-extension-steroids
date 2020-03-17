@@ -1,5 +1,6 @@
 <template>
-  <q-select v-model="selectModel" v-bind="$attrs" v-on="$listeners" :options="filteredOptions" use-input map-options emit-value outlined input-debounce="0" @filter="filterOptions" @input="inputHandler" @input.native="clearSelectModel" @keyup.delete="clearSelectModel" clearable>
+  <q-select v-model="selectModel" v-bind="$attrs" v-on="$listeners" :options="filteredOptions" use-input map-options emit-value outlined :fill-input="isTextType" :hide-selected="isTextType" @filter="filterOptions" @input="inputHandler" @input-value="setModel" clearable>
+    {{$attrs}}
     <template v-slot:append>
       <q-icon name="o_search" />
     </template>
@@ -78,6 +79,10 @@ export default {
       return this.result.length
     },
 
+    isTextType () {
+      return !(this.$attrs.multiple || this.$attrs['use-chips'])
+    },
+
     hasOptionSlot () {
       return !!(this.$slots.option || this.$scopedSlots.option)
     },
@@ -88,7 +93,7 @@ export default {
 
     formattedResult () {
       if (!this.labelKey && !this.valueKey) {
-        return null
+        return this.list
       }
 
       return this.list.map(item => this.renameKey(item))
@@ -97,7 +102,7 @@ export default {
     defaultOptions () {
       return {
         distance: 100,
-        keys: [ 'label', 'value'],
+        keys: ['label', 'value'],
         location: 0,
         maxPatternLength: 32,
         minMatchCharLength: 1,
@@ -157,10 +162,8 @@ export default {
       this.$emit('input', this.selectModel)
     },
 
-    clearSelectModel () {
-      if (this.selectModel && (!this.$attrs.multiple || !this.$attrs.useChips)) {
-        this.selectModel = ''
-      }
+    setModel (value) {
+      this.selectModel = value
     }
   }
 }
