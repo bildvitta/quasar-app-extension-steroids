@@ -2,11 +2,11 @@
   <component :is="componentTag">
     <q-pull-to-refresh @refresh="refresh" :disable="disableRefresh">
       <header v-if="hasHeaderSlot">
-        <!-- @slot Use this slot header -->
+        <!-- @slot Use este slot para o header -->
         <slot name="header" :fields="fields" :metadata="metadata" :results="results" />
       </header>
       <!--
-				@slot for access the filter component
+				@slot slot para acessar o componente de filtro
 				@binding {string} entity
 				@binding {object} errors
 				@binding {object} fields
@@ -41,7 +41,7 @@
       </main>
     </q-pull-to-refresh>
 
-    <!-- @slot Use this slot footer -->
+    <!-- @slot Use este slot para o footer -->
     <slot name="footer" />
   </component>
 </template>
@@ -52,23 +52,23 @@ import store from 'store'
 import contextMixin from '../mixins/context'
 import viewMixin from '../mixins/view'
 /**
- * This component is responsible for make the fetch api and return a list.
- * It already has the filter component and pagination.
+ * Este componente faz a requisão get e retorna uma lista baseado no endpoint passado
+ * Já inclui o componente de Filtro e a paginação
  */
 export default {
   mixins: [contextMixin, viewMixin],
 
   props: {
     /**
-     * Disable filter
+     * Desabilita filtro
      */
     noFilter: {
       default: false,
       type: Boolean
     },
     /**
-     * Disable q-pull-to-refresh
-     * Normally used together with sortable
+     * Desabilita o q-pull-to-refresh
+     * Normalmente usado junto com o sortable
      */
     disableRefresh: {
       type: Boolean
@@ -137,17 +137,17 @@ export default {
         this.setFields(fields)
         this.setMetadata(metadata)
         /**
-         * Triggers when fetch success
+         * Dispara quando a requição é feita com sucesso
          *
-         * @property {object} response response of api
+         * @property {object} response resposta da api
          */
         this.$emit('fetch-success', response)
       } catch (error) {
         this.fetchError(error)
         /**
-         * Triggers when fetch error
+         * Dispara quando a há falha na requisição
          *
-         * @property {object} error error body
+         * @property {object} error resposta de erro da api
          */
         this.$emit('fetch-error', error)
       } finally {

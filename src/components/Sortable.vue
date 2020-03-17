@@ -12,41 +12,42 @@ import store from 'store'
 
 let sortable = null
 /**
- * This component is for sorting elements on dragging.
- * This component use SortableJS: https://github.com/SortableJS/Sortable
+ * Este componente é para ordenar elementos quando arrastados.
+ * Este component usa a biblioteca SortableJS: https://github.com/SortableJS/Sortable
  */
 export default {
   props: {
     /**
-     * List of elements to sorting
+     * Lista de elementos há serem ordenados
      */
     results: {
       type: Array,
       default: () => []
     },
     /**
-     * Component tag
+     * Tag do componente
      */
     tag: {
       type: String,
       default: 'div'
     },
     /**
-     * Entity of api to replace when finish sorting
+     * Entidade da api para usar no storeModule e como endpoint após o elemento ser ordenado
      */
     entity: {
       type: String,
       required: false
     },
     /**
-     * This prop is for when the endpoint api is different of entity
+     * Caso a entidade seja diferente do endpoit
+     * você pode usar essa prop como especificar qual é o endpoint correto
      */
     url: {
       type: String,
       default: ''
     },
     /**
-     * SortableJS options.
+     * Prop para passar as opçãos da biblioteca SortableJS.
      */
     options: {
       type: Object,
@@ -82,7 +83,7 @@ export default {
       onUpdate: event => {
         this.updateOrder(event)
         /**
-         * Triggers when finishe sorting
+         * Dispara evento nativo da bibliteca, que é acionado quando temrina de ordenar o elemento
          *
          * @property {object} event
          */
@@ -118,7 +119,7 @@ export default {
           url: this.url || `${this.entity}/sort`
         })
         /**
-         * Triggers when finishe sorting and api return success
+         * Dispara quando termina de ordenar e a api retorna sucesso
          *
          * @property {object} response
          */
