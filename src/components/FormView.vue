@@ -1,13 +1,13 @@
 <template>
   <component :is="componentTag">
     <header v-if="hasHeaderSlot">
-      <slot name="header" :fields="fields" :metadata="metadata" />
+      <slot name="header" :errors="errors" :fields="fields" :metadata="metadata" />
     </header>
 
     <q-form @submit="submit">
       <slot :errors="errors" :fields="fields" :metadata="metadata" />
 
-      <slot v-if="!readOnly" name="actions" :fields="fields">
+      <slot v-if="!readOnly" name="actions" :errors="errors" :fields="fields" :metadata="metadata">
         <div class="q-my-lg text-right">
           <q-btn v-close-popup="dialog" class="q-mr-md" color="grey-8" :disable="disable || isSubmiting" :label="cancelButton" outline type="button" @click="cancel" />
           <q-btn color="primary" :disable="disable" :label="submitButton" :loading="isSubmiting" type="submit" unelevated />
@@ -16,7 +16,7 @@
     </q-form>
 
     <footer v-if="hasFooterSlot">
-      <slot name="footer" />
+      <slot name="footer" :errors="errors" :fields="fields" :metadata="metadata"/>
     </footer>
 
     <q-inner-loading :showing="isFetching">
