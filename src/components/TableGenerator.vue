@@ -11,30 +11,43 @@
 <script>
 import { extend } from 'quasar'
 import { humanize } from '../helpers/filters'
-
+/**
+ * Componente para gerar tabela dinamicamente
+ */
 export default {
   props: {
+    /**
+     * Colunas
+     */
     columns: {
       default: () => [],
       type: Array
     },
-
+    /**
+     * Campos da api
+     */
     fields: {
       default: () => ({}),
       type: [Array, Object]
     },
-
+    /**
+     * @ignore
+     */
     order: {
       default: () => [],
       type: Array
     },
-
+    /**
+     * Resultados da api
+     */
     results: {
       default: () => [],
       required: true,
       type: Array
     },
-
+    /**
+     * Propriedade de cada linha que define a chave exclusiva de cada linha
+     */
     rowKey: {
       default: 'name',
       type: String

@@ -10,14 +10,21 @@
 
 <script>
 import { copyToClipboard } from 'quasar'
-
+/**
+ * Componente para copiar texto ao clicar no botão
+ */
 export default {
   props: {
+    /**
+     * Icone do botão
+     */
     icon: {
       default: 'o_file_copy',
       type: String
     },
-
+    /**
+     * Texto a ser copiado
+     */
     label: {
       required: true,
       type: String

@@ -2,6 +2,10 @@
   <section class="q-mb-lg">
     <div v-if="showFilters" class="row q-gutter-x-md">
       <div v-if="showSearch" class="col">
+      <!--
+				@slot slot para campo de pesquisa
+				@binding {function} filter função que recebe como parametro objeto que irá para query da url
+			-->
         <slot name="search" :filter="filter">
           <q-form v-if="!noSearch" @submit.prevent="filter()">
             <q-input v-model="search" dense :placeholder="searchPlaceholder" type="search">
@@ -13,7 +17,10 @@
           </q-form>
         </slot>
       </div>
-
+      <!--
+				@slot slot para do menu do filtro
+				@binding {function} filter função que recebe como parametro objeto que irá para query da url
+			-->
       <slot v-if="showFilterButton" name="filter-button" :filter="filter">
         <q-btn v-if="!noFilterButton" :color="filterButtonColor" flat icon="o_filter_list" :label="filterButtonLabel">
           <q-menu stretch @before-show="fetchFilters">
@@ -43,7 +50,13 @@
     <div v-if="badges && hasActiveFilters" class="q-mt-md">
       <q-chip v-for="(filter, key) in activeFilters" :key="key" color="grey-4" dense removable size="md" text-color="grey-8" @remove="removeFilter(filter)">{{ filter.label }} = "{{ filter.value }}"</q-chip>
     </div>
-
+      <!--
+				@slot slot default
+				@binding {function} filter função que recebe como parametro objeto que irá para query da url
+				@binding {object} context
+				@binding {object} activeFilters filtros ativos
+				@binding {object} removeFilter remover filtros
+			-->
     <slot :context="context" :filter="filter" :filters="activeFilters" :removeFilter="removeFilter" />
   </section>
 </template>
@@ -54,34 +67,47 @@ import { humanize, parseValue } from '../helpers/filters'
 import store from 'store'
 
 import contextMixin from '../mixins/context'
-
+/**
+ * Componente para gerar filtros dinamicamente
+ */
 export default {
   props: {
     badges: {
       default: true,
       type: Boolean
     },
-
+    /**
+     * Entidade da api para usar no storeModule e como endpoint
+     */
     entity: {
       required: true,
       type: String
     },
-
+    /**
+     * Remover botão do filtro
+     */
     noFilterButton: {
       default: false,
       type: Boolean
     },
-
+    /**
+     * Remover campo de pesquisa
+     */
     noSearch: {
       default: false,
       type: Boolean
     },
-
+    /**
+     * Label do placeholder do campo de pesquisa
+     */
     searchPlaceholder: {
       default: 'Pesquisar...',
       type: String
     },
-
+    /**
+     * Caso a entidade seja diferente do endpoit
+     * você poderá usar essa prop para especificar qual é o endpoint correto
+     */
     url: {
       default: '',
       type: String
@@ -212,9 +238,19 @@ export default {
 
       try {
         const response = await store.dispatch(`${this.entity}/fetchFilters`, { url: this.url })
+        /**
+         * Dispara quando a requição é feita com sucesso
+         *
+         * @property {object} response resposta da api
+         */
         this.$emit('fetch-success', response)
       } catch (error) {
         this.hasFetchError = true
+        /**
+         * Dispara quando a há falha na requisição
+         *
+         * @property {object} error resposta de erro da api
+         */
         this.$emit('fetch-error', error)
       } finally {
         this.isFetching = false

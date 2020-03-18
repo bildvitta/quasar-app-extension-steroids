@@ -12,11 +12,16 @@
 
 export default {
   props: {
+    /**
+     * Array of object with label e value
+     */
     options: {
       default: () => [],
       type: Array
     },
-
+    /**
+     * @model
+     */
     value: {
       default: () => [],
       type: Array

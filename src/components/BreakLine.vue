@@ -9,31 +9,44 @@
 <script>
 export default {
   props: {
+    /**
+     * Uma tag válida do HTML ou um componente do Vue, para utilização em cada quebra
+     */
     parentTag: {
       default: 'div',
       type: String
     },
-
+    /**
+     * Uma tag válida do HTML ou um componente do Vue, para utilização no elemento pai
+     */
     tag: {
       default: 'div',
       type: String
     },
-
+    /**
+     * Classes para cada tag
+     */
     tagClass: {
       default: null,
       type: [Array, Object, String]
     },
-
+    /**
+     * Estilos para cada tag
+     */
     tagStyle: {
       default: null,
       type: [Array, Object, String]
     },
-
+    /**
+     * Texto que será utilizado como base
+     */
     text: {
       default: '',
       type: String
     },
-
+    /**
+     * Caracter que definirá a quebra
+     */
     split: {
       default: '\n',
       type: String

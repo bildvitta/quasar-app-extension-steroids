@@ -1,11 +1,25 @@
 <template>
   <component :is="componentTag">
     <header v-if="hasHeaderSlot">
+      <!--
+				@slot slot para acessar o header
+				@binding {object} errors
+o				@binding {object} fields
+				@binding {array} results
+				@binding {object} metadata
+			-->
       <slot name="header" :errors="errors" :fields="fields" :metadata="metadata" :result="result" />
     </header>
 
     <template v-if="hasResult">
-      <slot :errors="errors" :fields="fields" :metadata="metadata" :result="result" />
+      <!--
+				@slot slot para acessar conteudo main
+				@binding {object} errors
+o				@binding {object} fields
+				@binding {array} results
+				@binding {object} metadata
+			-->
+      <slot :errrs="errors" :fields="fields" :metadata="metadata" :result="result" />
     </template>
 
     <div v-else-if="!isFetching" class="q-my-xl text-center">
@@ -14,6 +28,7 @@
     </div>
     
     <footer v-if="hasFooterSlot">
+      <!-- @slot slot para acessar footer -->
       <slot name="footer" />
     </footer>
 
@@ -26,11 +41,16 @@
 <script>
 import viewMixin from '../mixins/view'
 import store from 'store'
-
+/**
+ * Componente semelhante ao ListView porem não retorna uma lista, usado como "show" nas paginas
+ */
 export default {
   mixins: [viewMixin],
 
   props: {
+    /**
+     * Caso o Id da URL seja diferente do ID real, você pode passar um id customizado por essa prop
+     */
     customId: {
       default: '',
       type: [Number, String]
@@ -72,10 +92,19 @@ export default {
         this.setErrors(errors)
         this.setFields(fields)
         this.setMetadata(metadata)
-
+        /**
+         * Dispara quando a requição é feita com sucesso
+         *
+         * @property {object} response resposta da api
+         */
         this.$emit('fetch-success', response)
       } catch (error) {
         this.fetchError(error)
+        /**
+         * Dispara quando a há falha na requisição
+         *
+         * @property {object} error resposta de erro da api
+         */
         this.$emit('fetch-error', error)
       } finally {
         this.isFetching = false

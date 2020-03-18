@@ -20,37 +20,54 @@
 
 <script>
 import { date } from 'quasar'
-
+/**
+ * Componente de data e hora
+ */
 export default {
   props: {
+    /**
+     * Mascara da data
+     */
     dateMask: {
       default: 'DD/MM/YYYY',
       type: String
     },
-
+    /**
+     * Somente data
+     */
     dateOnly: {
       type: Boolean
     },
-
+    /**
+     * Atributos da data para o componente de data do quasar
+     */
     dateOptions: {
       default: () => ({}),
       type: Object
     },
-
+    /**
+     * Mascara da hora
+     */
     timeMask: {
       default: 'HH:mm:ss',
       type: String
     },
-
+    /**
+     * Somente hora
+     */
     timeOnly: {
       type: Boolean
     },
-
+    /**
+     * Atributos da hora para o componente de hora do quasar
+     */
     timeOptions: {
       default: () => ({}),
       type: Object
     },
-
+    /**
+     * @model
+     */
     value: {
       default: '',
       type: String
@@ -133,7 +150,10 @@ export default {
 
       if (value === '' || valueLength === this.mask.length) {
         this.lastValue = this.toISOString(value)
-        this.$emit('input', this.lastValue)
+        /**
+         * Dispara quando valor é inputado
+         */
+        this.$emit('input', this.lastVallue)
       }
 
       if (this.dateOnly) {

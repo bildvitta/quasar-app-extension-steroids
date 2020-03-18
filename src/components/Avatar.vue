@@ -7,6 +7,9 @@
 </template>
 
 <script>
+/**
+ * Componente para cria um avatar automaticamente com a foto ou as iniciais a partir de um título
+ */
 const colors = [
   'amber',
   'blue',
@@ -31,31 +34,44 @@ const colors = [
 
 export default {
   props: {
+    /**
+     * Utilização em modo escuro
+     */
     dark: {
       default: false,
       type: Boolean
     },
-
+    /**
+     * Nome do ícone que aparecerá quando imagem e nome não existirem
+     */
     icon: {
       default: 'o_error_outline',
       type: String
     },
-
+    /**
+     * Endereço remoto da imagem. Quando informado, prevalece como principal
+     */
     image: {
       default: '',
       type: String
     },
-
+    /**
+     * Altera a cor do texto ou ícone
+     */
     textColor: {
       default: '',
       type: String
     },
-
+    /**
+     * Título utilizado para extrair as iniciais quando não há imagem definida
+     */
     title: {
       default: '',
       type: String
     },
-
+    /**
+     * Código único utilizado para alterar a cor de fundo quando não há título definido
+     */
     token: {
       default: 0,
       type: Number

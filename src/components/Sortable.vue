@@ -32,7 +32,7 @@ export default {
       default: 'div'
     },
     /**
-     * Entidade da api para usar no storeModule e como endpoint após o elemento ser ordenado
+     * Entidade da api para usar no storeModule e como endpoint
      */
     entity: {
       type: String,
@@ -40,7 +40,7 @@ export default {
     },
     /**
      * Caso a entidade seja diferente do endpoit
-     * você pode usar essa prop como especificar qual é o endpoint correto
+     * você poderá usar essa prop para especificar qual é o endpoint correto
      */
     url: {
       type: String,

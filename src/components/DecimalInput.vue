@@ -3,18 +3,28 @@
 </template>
 
 <script>
+/**
+ * Componente de input para campos decimais
+ */
 export default {
   props: {
+    /**
+     * Separação por virgula
+     */
     comma: {
       default: false,
       type: Boolean
     },
-
+    /**
+     * Espaço depois da virgula
+     */
     places: {
       default: 2,
       type: Number
     },
-
+    /**
+     * @model
+     */
     value: {
       default: 0,
       required: true,
@@ -65,6 +75,9 @@ export default {
 
     input (value) {
       this.inputedValue = this.toDecimal(value)
+      /**
+       * Dispara quando inputa valorrror resposta de erro da api
+       */
       this.$emit('input', this.inputedValue)
     },
 
