@@ -397,13 +397,13 @@ export default function (resource, options = {}) {
   if (hasFetchList) {
     actions.fetchList = (
       { commit },
-      { filters = {}, increment, ordering = [], page = 1, limit, search, url } = {}
+      { filters = {}, increment, ordering = '', page = 1, limit, search, url } = {}
     ) => {
       const params = {
         ...filters,
         limit: limit || perPage,
         offset: (page - 1) * (limit || perPage),
-        ordering: ordering.length ? ordering.join(',') : null,
+        ordering: ordering.length ? ordering.split(',') : null,
         search
       }
 

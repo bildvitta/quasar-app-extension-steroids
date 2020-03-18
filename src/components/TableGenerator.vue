@@ -1,8 +1,8 @@
 <template>
-  <q-table class="bg-transparent" v-bind="attributes">
+  <q-table class="bg-transparent" v-bind="attributes" binary-state-sort @request="request" :pagination.sync="pagination">
     <template v-for="(slot, key) in $scopedSlots" v-slot:[key]="context">
       <q-td :key="key" :props="context">
-        <slot :name="key" v-bind="context" :raw="raw" />
+        <slot :name="key" v-bind="context"/>
       </q-td>
     </template>
   </q-table>
@@ -38,12 +38,23 @@ export default {
     rowKey: {
       default: 'name',
       type: String
+    },
+
+    noSortable: {
+      type: [Boolean, String, Array]
     }
   },
 
   data () {
     return {
-      raw: {}
+      raw: {},
+      orderingMap: {},
+      filter: '',
+      pagination: {
+        rowsNumber: 10,
+        descending: false,
+        sortBy: 'name',
+      }
     }
   },
 
@@ -64,9 +75,9 @@ export default {
     resultsByFields () {
       const results = extend(true, [], this.results)
 
-      return results.map(result => {
+      return results.map((result, index) => {
         for (const key in result) {
-          this.raw[key] = result[key]
+          result.default = this.results[index]
           result[key] = humanize(this.fields[key], result[key])
         }
 
@@ -81,9 +92,17 @@ export default {
 
       const columns = []
 
-      function columnByField (field) {
+      const columnByField = (field) => {
         const { align, label, name } = field
-        columns.push({ align: align || 'left', field: name, label, name })
+        const mapObject = { align: align || 'left', field: name, label, name }
+
+        if (typeof this.noSortable === 'boolean') {
+          return columns.push({ ...mapObject, sortable: !this.noSortable })
+        }
+
+        const noSortable = typeof this.noSortable === 'string' ? [this.noSortable] : this.noSortable
+
+        return columns.push({ ...mapObject, sortable: !noSortable.find(item => item === name) })
       }
 
       // Automatic columns.
@@ -113,6 +132,28 @@ export default {
 
     rowsPerPage () {
       return this.results.length
+    }
+  },
+
+  methods: {
+    request (props) {
+      const { rowsPerPage, sortBy, descending } = props.pagination || {}
+      const orderingList = []
+
+      this.orderingMap = {
+        ...this.orderingMap,
+        [sortBy]: `${sortBy}_${descending === false ? 'asc' : 'desc'}`
+      }
+
+      for (const key in this.orderingMap) {
+        orderingList.push(this.orderingMap[key])
+      }
+
+      this.$router.push({ query: { ...this.$route.query, ordering: orderingList.join(',') } })
+
+      this.pagination.descending = descending
+      this.pagination.rowsPerPage = rowsPerPage
+      this.pagination.sortBy = sortBy
     }
   }
 }
