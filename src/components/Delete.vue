@@ -66,7 +66,7 @@ export default {
       } catch (error) {
         this.$qs.error('Ops! Não foi possível deletar o item.')
         /**
-         * Dispara quando a há falha na requisição
+         * Dispara quando há falha na requisição
          *
          * @property {object} error resposta de erro da api
          */

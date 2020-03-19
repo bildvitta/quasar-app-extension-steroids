@@ -3,6 +3,9 @@
 </template>
 
 <script>
+/**
+ * Componente responsavel por renderizar field
+ */
 const attributesProfile = {
   maxLength: 'maxlength',
   minLength: 'minlength',
@@ -11,11 +14,16 @@ const attributesProfile = {
 
 export default {
   props: {
+    /**
+     * Mensagem de erro
+     */
     error: {
       default: '',
       type: [String, Array]
     },
-
+    /**
+     * Field a ser renderizado
+     */
     field: {
       default: () => ({}),
       type: Object,
