@@ -1,6 +1,6 @@
 import AppBar from '../components/AppBar.vue'
 import AppMenu from '../components/AppMenu.vue'
-import Avatar from '../components/Avatar.vue'
+import Avatar from '../components/avatar/Avatar.vue'
 import BreakLine from '../components/BreakLine.vue'
 import CheckboxGroup from '../components/CheckboxGroup.vue'
 import Copy from '../components/Copy.vue'
