@@ -47,7 +47,7 @@ export default {
       default: ''
     },
     /**
-     * Prop para passar as opçãos da biblioteca SortableJS.
+     * Prop para passar as opções da biblioteca SortableJS.
      */
     options: {
       type: Object,
