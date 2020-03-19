@@ -1,6 +1,5 @@
 <template>
   <q-select v-model="selectModel" v-bind="$attrs" v-on="$listeners" :options="filteredOptions" use-input map-options emit-value outlined :fill-input="isTextType" :hide-selected="isTextType" @filter="filterOptions" @input="inputHandler" @input-value="setModel" clearable>
-    {{$attrs}}
     <template v-slot:append>
       <q-icon name="o_search" />
     </template>
