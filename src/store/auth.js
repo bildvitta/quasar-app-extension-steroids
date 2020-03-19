@@ -36,7 +36,7 @@ const mutations = {
 const actions = {
   async authenticate ({ commit }, { code, sessionState, state }) {
     try {
-      const { data } = await api.get('/authenticate', {
+      const { data } = await api.get('/authentication', {
         params: { code, session_state: sessionState, state }
       })
 
@@ -50,7 +50,7 @@ const actions = {
 
   async getUser ({ commit }) {
     try {
-      const { data } = await api.get('/get-user/')
+      const { data } = await api.get('/authentication/user/')
 
       commit('replaceUser', data)
       return data
