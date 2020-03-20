@@ -3,7 +3,7 @@
 Componente para gerar tabela dinamicamente via **API**.
 
 ```
-<qs-list-view />
+<qs-table-generator />
 ```
 
 ## Propriedades
