@@ -1,4 +1,4 @@
-# Avatar
+# Sortable
 
 Este componente é para ordenar elementos quando arrastados, o mesmo usa a biblioteca **SortableJS**: https://github.com/SortableJS/Sortable
 
