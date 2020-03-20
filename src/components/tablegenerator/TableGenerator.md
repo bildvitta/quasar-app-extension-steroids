@@ -29,13 +29,13 @@ Componente para gerar tabela dinamicamente via **API**.
 
 ## Exemplos
 ```js
-    const columns = [
-        'startedAt',
-        'finishedAt',
-        'property',
-        'ticketCategory',
-        { align: 'right', name: 'actions' }
-      ]
+const columns = [
+  'startedAt',
+  'finishedAt',
+  'property',
+  'ticketCategory',
+  { align: 'right', name: 'actions' }
+]
 ```
 fields e results vem da **API**.
 ```html
