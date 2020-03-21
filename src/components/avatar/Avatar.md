@@ -17,6 +17,14 @@ Cria um avatar automaticamente com a foto ou as iniciais a partir de um título.
 | `title` | `String` | Não | | Título utilizado para extrair as iniciais quando não há imagem definida. |
 | `token` | `Number` | Não | | Código único utilizado para alterar a cor de fundo quando não há título definido. |
 
+## Slots
+
+> Sem slots.
+
+## Eventos
+
+> Sem ventos.
+
 ## Exemplos
 
 Avatar apenas com ícone e código para fixar a cor.

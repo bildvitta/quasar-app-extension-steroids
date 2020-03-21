@@ -1,6 +1,6 @@
 # TabsGenerator
 
-Componente para gerar  **Tab** dinamicamente vindo da **API**.
+Componente para gerar  **Tab** dinamicamente.
 
 *obs: componente implementa **QTabs e QTAb** do quasar:* https://quasar.dev/vue-components/tabs#Introduction
 

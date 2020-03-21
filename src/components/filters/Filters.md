@@ -27,14 +27,14 @@ Componente para gerar filtros dinamicamente vindos da **API**.
 
 ## Eventos
 
-| Nome | Parametro | Descrição
+| Nome | Parâmetro | Descrição
 |:-:|:-:|:-|
 | `fetch-success` | param: `response` / tipo: `Object` | Dispara quando a requição é feita com sucesso. |
 | `fetch-error` | param: `error` / tipo: `Object` | Dispara quando a há falha na requisição. |
 
 ## Metodos
 
-| Nome | Parametro | Descrição
+| Nome | Parâmetro | Descrição
 |:-:|:-:|:-|
 | `filter` | param: `external` / tipo: `Object` | metodo repassado para os slots para adicionar query externas. |
 

@@ -17,6 +17,16 @@ Quebra o texto a partir de um determinado caractere, geralmente `\n`, em várias
 | `text` | `String` | Não | | Texto que será utilizado como base. |
 | `split` | `String` | Não | `\n` | Caracter que definirá a quebra. |
 
+## Slots
+
+| Nome | Escopo | Descrição
+|:-:|:-:|:-|
+| `default` | | Texto pode ser quebrado passando por esse slot sem a necessidade de passar para a prop. |
+
+## Eventos
+
+> Sem eventos.
+
 ## Exemplos
 
 Uso simples.

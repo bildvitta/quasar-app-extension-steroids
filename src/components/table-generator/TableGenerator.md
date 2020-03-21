@@ -1,6 +1,6 @@
 # TableGenerator
 
-Componente para gerar tabela dinamicamente via **API**.
+Componente para gerar tabela dinamicamente.
 
 *obs: Este componente implementa o **QTable**: https://quasar.dev/vue-components/table#Introduction*
 
