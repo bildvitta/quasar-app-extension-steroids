@@ -28,7 +28,7 @@ Componente para criação do **Cabeçalho/Header** do **Menu** do **Layout**.
 
 ## Exemplos
 
-#####  Use AppBar dentro do QLayout
+##### Use AppBar dentro do QLayout
 
 ```html
 <q-header>

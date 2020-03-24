@@ -16,8 +16,8 @@ Componente de data e hora com formatação correta para trabalhar com **API**.
 | `dateOnly` | `Boolean` | Não | | Somente data. |
 | `dateOptions` | `Object` | Não | `{}` | Atributos da data para o componente de data do quasar. |
 | `timeMask` | `String` | Não | `HH:mm:ss` | Mascara da hora. |
-| `timeOnly` | `Boolean` | Não |  | Somente hora. |
-| `timeOptions` | `Object` | Não | `{}`  | Atributos da hora para o componente de hora do quasar. |
+| `timeOnly` | `Boolean` | Não | | Somente hora. |
+| `timeOptions` | `Object` | Não | `{}` | Atributos da hora para o componente de hora do quasar. |
 
 ## Slots
 

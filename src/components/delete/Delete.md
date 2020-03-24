@@ -17,13 +17,13 @@ Componente para deletar via requisição da **API**.
 
 ## Slots
 
-| Nome | Escopo | Descrição
+| Nome | Escopo | Descrição |
 |:-:|:-:|:-|
 | `default` | | |
 
 ## Eventos
 
-| Nome | Parâmetro | Descrição
+| Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
 | `success` | | Dispara quando o item é deletado com sucesso. |
 | `error` | param: `error` / tipo: `Object` | Dispara quando há falha ao deletar item. |

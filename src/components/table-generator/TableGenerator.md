@@ -37,7 +37,7 @@ const columns = [
   { align: 'right', name: 'actions' }
 ]
 ```
-fields e results vem da **API**.
+
 ```html
 <qs-table-generator :columns="columns" :fields="fields" :results="results">
 	<template v-slot:body-cell-property="{ row }">

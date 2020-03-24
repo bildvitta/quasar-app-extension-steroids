@@ -17,7 +17,7 @@ Componente para gerar  **Tab** dinamicamente.
 
 ## Slots
 
-| Nome | Escopo | Descrição
+| Nome | Escopo | Descrição |
 |:-:|:-:|:-|
 | tab-`nome dinamico` | escopo: `item` / tipo: `Object` | Escopo com nome dinamico possível acessar pelo **label** do obj. Neste slot você substitui o tab inteiro.
 | tab-slot-`nome dinamico` | escopo: `item` / tipo: `Object` | Escopo com nome dinamico, possível acessar pelo **label** do obj. Neste slot você substitui o que está dentro do tab.
@@ -52,6 +52,7 @@ Caso tenha necessidade de passar propriedades para cada tab individualmente sem 
 	</template>
 </qs-tabs-generator>
 ```
+
 ##### Usando template para substituir o conteudo do Tab:
 ```html
 <qs-tabs-generator v-model="value" :tabs="tabs" :counters="counters">

@@ -27,9 +27,10 @@ Componente de cabeçalho.
 
 ## Eventos
 
-> Sem eventos
+> Sem eventos.
 
 ## Exemplos
+
 ```js
 const breadcrumbs = [
 	{ label: 'Label 1', route: { name: 'ComponentName' } },

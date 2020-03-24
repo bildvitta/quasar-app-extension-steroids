@@ -8,22 +8,22 @@ Componente para abrir paginas dentro de **modais**.
 
 ## Propriedades
 
-> Sem propriedades
+> Sem propriedades.
 
-## Slots
+## Slots.
 
 > Sem slots
 
 ## Eventos
 
-| Nome | Parâmetro | Descrição
+| Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
 | `hide` | | Fechar dialog. |
 | `error` | param: `error` / tipo: `Object` | Dispara quando a há erro ao carregar componente. |
 
 ## Métodos
 
-| Nome | Parâmetro | Descrição
+| Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
 | `show` | param: `route` / tipo: `Object` | Metodo a ser chamado para carregar componente no modal. |
 

@@ -14,7 +14,7 @@ obs: este componente implementa o **QOptionGroup** e **QCheckbox** do quasar:*
 
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
-| `options` | `Array` | Não |  `[]` | Array com **label** e **children**, onde **children** é um array de objeto com label e value. |
+| `options` | `Array` | Não | `[]` | Array com **label** e **children**, onde **children** é um array de objeto com label e value. |
 
 ## Slots
 

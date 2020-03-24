@@ -15,7 +15,7 @@ Componente para copiar texto ao clicar.
 
 ## Slots
 
-| Nome | Escopo | Descrição
+| Nome | Escopo | Descrição |
 |:-:|:-:|:-|
 | `default` | | |
 

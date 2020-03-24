@@ -18,7 +18,7 @@ Componente para gerar formularios a aprtir de uma estrutura pré-definida de cam
 
 ## Slots
 
-| Nome | Escopo | Descrição
+| Nome | Escopo | Descrição |
 |:-:|:-:|:-|
 | field-`${nome-do-field}` | escopo: `field` / tipo: `Object` | pode acessar o field pelo template e modificá-lo caso haja necessidade. |
 

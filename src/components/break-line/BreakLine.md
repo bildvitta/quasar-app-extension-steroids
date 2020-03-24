@@ -19,7 +19,7 @@ Quebra o texto a partir de um determinado caractere, geralmente `\n`, em várias
 
 ## Slots
 
-| Nome | Escopo | Descrição
+| Nome | Escopo | Descrição |
 |:-:|:-:|:-|
 | `default` | | Texto pode ser quebrado passando por esse slot sem a necessidade de passar para a prop. |
 

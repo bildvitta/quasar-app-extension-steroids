@@ -19,13 +19,13 @@ Este componente é para ordenar elementos quando arrastados, o mesmo usa a bibli
 
 ## Slots
 
-| Nome | Escopo | Descrição
+| Nome | Escopo | Descrição |
 |:-:|:-:|:-|
 | `default` | escopo: `sorted` / tipo: `Object` | Retorna o array com os dados ordenados.
 
 ## Eventos
 
-| Nome | Parâmetro | Descrição
+| Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
 | `sort` | param: `event` / tipo: `Object` | Dispara evento nativo da bibliteca, que é acionado quando temrina de ordenar o elemento. |
 | `sort` | param: `response` / tipo: `Object` | Dispara quando termina de ordenar e a API retorna sucesso. |

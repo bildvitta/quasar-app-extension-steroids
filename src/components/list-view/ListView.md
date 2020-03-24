@@ -27,14 +27,14 @@ Este componente faz a requisão **GET** e retorna uma lista baseado no **endpoin
 
 ## Eventos
 
-| Nome | Parâmetro | Descrição
+| Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
 | `fetch-success` | param: `response` / tipo: `Object` | Dispara quando a requição é feita com sucesso. |
 | `fetch-error` | param: `error` / tipo: `Object` | Dispara quando a há falha na requisição. |
 
 ## Métodos
 
-| Nome | Parâmetro | Descrição
+| Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
 | `fetchList` | | Muito utilizado para atualizar lista de dados. |
 

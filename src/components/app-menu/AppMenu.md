@@ -19,11 +19,11 @@ Componente para criação dinâmica do **Menu lateral** do **Layout**.
 
 ## Slots
 
-> Sem slots
+> Sem slots.
 
 ## Eventos
 
-> Sem eventos
+> Sem eventos.
 
 ## Exemplos
 ```js
@@ -38,7 +38,7 @@ const menu = [
   }]
 ```
 
-#####  Use AppBar dentro do QLayout
+##### Use AppBar dentro do QLayout
 
 ```html
 <qs-app-menu v-model="value" :items="menu" />
