@@ -22,14 +22,14 @@ Este componente é o responsável por criar a barra do topo da aplicação e con
 ## Eventos
 | Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
-| `toggle-menu` | | Dispara quando o botão QDrawer é clicado. |
+| `toggle-menu` | | Sempre que o QDrawer é acionado. |
 
 ## Exemplos
 
 ```html
 <q-layout>
   <q-header>
-    <qs-app-bar title="Título de exemplo" @toggle-menu="___MUDAR_VMODEL_DO_QDRAWER___" />
+    <qs-app-bar title="Título de exemplo" />
   </q-header>
 </q-layout>
 ```
