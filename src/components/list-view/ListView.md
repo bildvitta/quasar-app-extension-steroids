@@ -43,7 +43,7 @@ Este componente faz a requisão **GET** e retorna uma lista baseado no **endpoin
 ```html
 <qs-list-view ref="listView"  entity="posts">
 	<template v-slot:header>
-		Acessando headr
+		Acessando header
 	</template>
 
 	<template v-slot:filter="{ entity }">
