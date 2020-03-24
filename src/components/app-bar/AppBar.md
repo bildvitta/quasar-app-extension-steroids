@@ -16,8 +16,8 @@ Este componente é o responsável por criar a barra do topo da aplicação e con
 
 | Nome | Escopo | Descrição |
 |:-:|:-:|:-|
-| `tools` | | Slot para acessar ferramentas. |
-| `user` | { `user`: `Object` } | Slot para acessar menu do usuário. |
+| `tools` | | Usado para adicionar ações ao lado das informações do usuário. |
+| `user` | { `user`: `Object` } | Usado para acessar menu do usuário. |
 
 ## Eventos
 | Nome | Parâmetro | Descrição |
