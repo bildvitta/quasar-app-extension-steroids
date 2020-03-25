@@ -27,5 +27,5 @@ Componente para fazer upload de arquivos.
 ## Exemplos
 
 ```html
-<uploader v-model="values" accept=".jpeg,.jpg,.png" auto-upload entity="posts/image" label="Imagem"  />
+<uploader v-model="values" accept=".jpeg,.jpg,.png" auto-upload entity="posts/image" label="Imagem" />
 ```

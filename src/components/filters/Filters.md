@@ -21,16 +21,16 @@ Componente para gerar filtros dinamicamente e adicinar na query da **URL**.
 
 | Nome | Escopo | Descrição |
 |:-:|:-:|:-|
-| `search` | { `filter`: `Function` } | slot para campo de pesquisa. |
-| `filter-button` | { `filter`: `Function` } | slot para do menu do filtro. |
 | `default` | { `filter`: `Function`, `context`: `Object`, `filters`: `Object`, `removeFilter`: `Function` } | slot para do menu do filtro. |
+| `filter-button` | { `filter`: `Function` } | slot para do menu do filtro. |
+| `search` | { `filter`: `Function` } | slot para campo de pesquisa. |
 
 ## Eventos
 
 | Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
-| `fetch-success` | { `response`: `Object` } | Dispara quando a requição é feita com sucesso. |
 | `fetch-error` | { `error`: `Object` } | Dispara quando a há falha na requisição. |
+| `fetch-success` | { `response`: `Object` } | Dispara quando a requição é feita com sucesso. |
 
 ## Metodos
 

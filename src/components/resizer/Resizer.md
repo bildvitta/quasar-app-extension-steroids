@@ -10,9 +10,9 @@ Componente para redimensionar imagens.
 
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
+| `resize` | `String` | Não | `cover` | opções para redimencionar: `cover`, `contain`, `fill`, `inside`, `outside`. |
 | `size` | `String` | Não | | Tamanho da imagem. |
 | `source` | `String` | Sim | | Caminho da imagem. |
-| `resize` | `String` | Não | `cover` | opções para redimencionar: `cover`, `contain`, `fill`, `inside`, `outside`. |
 
 ## Slots
 

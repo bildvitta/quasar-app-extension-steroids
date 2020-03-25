@@ -11,24 +11,24 @@ Assim como o **ListView** este componente faz a requisão e retorna objeto basea
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
 | `customId` | `[Numer, String]` | Não | `false` | Caso o **Id** da URL seja diferente do **id** do item a ser deletado, você pode passar um **id customizado**. |
+| `dialog` | `Boolean` | Não | `false` | usado para alterar a tag do componente caso use dentro de algum modal passa a ser `div` e não `QPage`. |
 | `entity` | `String` | Sim | | Entidade da **API** para usar como **endpoint**. |
 | `url` | `String` | Não | | Caso a entidade seja diferente do **endpoint**, poderá usar esta propriedade para especificar qual é o endpoint. |
-| `dialog` | `Boolean` | Não | `false` | usado para alterar a tag do componente caso use dentro de algum modal passa a ser `div` e não `QPage`. |
 
 ## Slots
 
 | Nome | Escopo | Descrição |
 |:-:|:-:|:-|
-| `header` | { `fields`: `[Array, Object]`, `metadata`: `Object`, `results`: `Array`, `errors`: `[Array, Object]` } | slot para acessar o header. |
 | `default` | { `fields`: `[Array, Object]`, `metadata`: `Object`, `results`: `Array`, `errors`: `[Array, Object]` } | |
 | `footer` | | Slot para acessar o footer. |
+| `header` | { `fields`: `[Array, Object]`, `metadata`: `Object`, `results`: `Array`, `errors`: `[Array, Object]` } | slot para acessar o header. |
 
 ## Eventos
 
 | Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
-| `fetch-success` | { `response`: `Object` } | Dispara quando a requição é feita com sucesso. |
 | `fetch-error` | { `error`: `Object` } | Dispara quando a há falha na requisição. |
+| `fetch-success` | { `response`: `Object` } | Dispara quando a requição é feita com sucesso. |
 
 ## Métodos
 

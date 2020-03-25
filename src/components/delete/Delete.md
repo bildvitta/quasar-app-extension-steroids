@@ -25,8 +25,8 @@ Componente para deletar via requisição da **API**.
 
 | Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
-| `success` | | Dispara quando o item é deletado com sucesso. |
 | `error` | { `error`: `Object` } | Dispara quando há falha ao deletar item. |
+| `success` | | Dispara quando o item é deletado com sucesso. |
 
 ## Exemplos
 

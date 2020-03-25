@@ -10,27 +10,27 @@ Este componente retorna uma lista de objetos baseado em uma requisição, já in
 
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
-| `noFilter` | `Bollean` | Não | `false` | Desabilita filtro. |
-| `entity` | `String` | Sim | | Entidade da **API** para usar como **endpoint**. |
-| `disableRefresh` | `Boolean` | Não | `false` | Desabilita o q-pull-to-refresh, normalmente usado junto com o **sortable**. |
-| `url` | `String` | Não | | Caso a entidade seja diferente do endpoint, poderá usar esta propriedade para especificar qual é o endpoint. |
 | `dialog` | `Boolean` | Não | `false` | usado para alterar a tag do componente caso use dentro de algum modal passa a ser `div` e não `QPage`. |
+| `disableRefresh` | `Boolean` | Não | `false` | Desabilita o q-pull-to-refresh, normalmente usado junto com o **sortable**. |
+| `entity` | `String` | Sim | | Entidade da **API** para usar como **endpoint**. |
+| `noFilter` | `Bollean` | Não | `false` | Desabilita filtro. |
+| `url` | `String` | Não | | Caso a entidade seja diferente do endpoint, poderá usar esta propriedade para especificar qual é o endpoint. |
 
 ## Slots
 
 | Nome | Escopo | Descrição |
 |:-:|:-:|:-|
-| `header` | { `fields`: `[Array, Object]`, `metadata`: `Object`, `results`: `Array` } | slot para acessar o header. |
-| `filter` | { `fields`: `[Array, Object]`, `metadata`: `Object`, `results`: `Array`, `entity`: `String`, `errors`: `[Array, Object]` } | slot para acessar o componente de filtro. |
 | `default` | { `fields`: `[Array, Object]`, `metadata`: `Object`, `results`: `Array` } | |
+| `filter` | { `fields`: `[Array, Object]`, `metadata`: `Object`, `results`: `Array`, `entity`: `String`, `errors`: `[Array, Object]` } | slot para acessar o componente de filtro. |
 | `footer` | | Slot para acessar o footer |
+| `header` | { `fields`: `[Array, Object]`, `metadata`: `Object`, `results`: `Array` } | slot para acessar o header. |
 
 ## Eventos
 
 | Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
-| `fetch-success` | { `response`: `Object` } | Dispara quando a requição é feita com sucesso. |
 | `fetch-error` | { `error`: `Object` } | Dispara quando a há falha na requisição. |
+| `fetch-success` | { `response`: `Object` } | Dispara quando a requição é feita com sucesso. |
 
 ## Métodos
 

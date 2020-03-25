@@ -18,8 +18,8 @@ Componente para abrir paginas dentro de **modais**.
 
 | Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
-| `hide` | | Fechar dialog. |
 | `error` | { `error`: `Object` } | Dispara quando a há erro ao carregar componente. |
+| `hide` | | Fechar dialog. |
 
 ## Métodos
 

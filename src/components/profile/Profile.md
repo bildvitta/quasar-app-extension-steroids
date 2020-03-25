@@ -21,8 +21,8 @@ obs: este componente utiliza o componente: **Avatar**.
 
 | Nome | Escopo | Descrição |
 |:-:|:-:|:-|
-| `beforeTitle` | | Slot para acessar antes do título. |
 | `afterTitle` | | Slot para acessar depois do título. |
+| `beforeTitle` | | Slot para acessar antes do título. |
 | `meta` | | Slot para acessar meta. |
 
 ## Eventos

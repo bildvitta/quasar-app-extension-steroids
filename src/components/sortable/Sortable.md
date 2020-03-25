@@ -11,11 +11,11 @@ Este componente é para ordenar elementos quando arrastados, o mesmo usa a bibli
 
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
+| `entity` | `String` | Não | | Entidade da API para usar como endpoint. |
+| `options` | `Object` | Não | `{ animation: 500 }` | Opções da biblioteca SortableJS. |
 | `results` | `Array` | Não | `[]` | Lista de elementos há serem ordenados. |
 | `tag` | `String` | Não | `div` | Tag do componente. |
-| `entity` | `String` | Não | | Entidade da API para usar como endpoint. |
 | `url` | `String` | Não | | Caso a entidade seja diferente do endpoint, poderá usar esta propriedade para especificar qual é o endpoint. |
-| `options` | `Object` | Não | `{ animation: 500 }` | Opções da biblioteca SortableJS. |
 
 ## Slots
 
@@ -28,7 +28,7 @@ Este componente é para ordenar elementos quando arrastados, o mesmo usa a bibli
 | Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
 | `sort` | { `event`: `Object` } | Dispara evento nativo da bibliteca, que é acionado quando temrina de ordenar o elemento. |
-| `sort` | { `response`: `Object` } | Dispara quando termina de ordenar e a API retorna sucesso. |
+| `success` | { `response`: `Object` } | Dispara quando termina de ordenar e a API retorna sucesso. |
 
 
 ## Exemplos

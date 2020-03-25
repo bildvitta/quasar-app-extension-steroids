@@ -16,8 +16,8 @@ Componente de cabeçalho de Páginas com breadcrumbs que indicam a localização
 |:-|:-:|:-:|:-:|:-|
 | `breadcrumbs` | `[Array, Boolean, String]` | Não | | "Migalhas de pão", para saber mais acesse o link acima. |
 | `noBreadcrumbs` | `Boolean` | Não | `false` | Sem "Migalhas de pão". |
-| `title` | `String` | Não | | Título do cabeçalho. |
 | `root` | `[Object, String]` | Não | `{ label: 'Início', routeName: 'Root' }` | Rotas e label. |
+| `title` | `String` | Não | | Título do cabeçalho. |
 
 ## Slots
 

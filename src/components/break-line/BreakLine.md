@@ -11,11 +11,11 @@ Quebra o texto a partir de um determinado caractere, geralmente `\n`, em várias
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
 | `is` | `String` | Não | `div` | Uma _tag_ válida do HTML ou um componente do Vue, para utilização no elemento pai. |
-| `tag` | `String` | Não | `div` | Uma _tag_ válida do HTML ou um componente do Vue, para utilização em cada quebra. |
+| `split` | `String` | Não | `\n` | Caracter que definirá a quebra. |
 | `tag-class` | `Array`, `Object` ou `String` | Não | | Classes para cada `tag`. |
 | `tag-style` | `Array`, `Object` ou `String` | Não | | Estilos para cada `tag`. |
+| `tag` | `String` | Não | `div` | Uma _tag_ válida do HTML ou um componente do Vue, para utilização em cada quebra. |
 | `text` | `String` | Não | | Texto que será utilizado como base. |
-| `split` | `String` | Não | `\n` | Caracter que definirá a quebra. |
 
 ## Slots
 

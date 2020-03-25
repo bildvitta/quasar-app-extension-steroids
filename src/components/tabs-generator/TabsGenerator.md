@@ -12,8 +12,8 @@ Componente para gerar **Tabs** dinamicamente.
 
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
-| `tabs` | `Object` | Sim | `{}` | chave equivale ao **value** e valor do objeto equivalente ao **label**. |
 | `counters` | `Object` | Não | `{}` | Numero da badge que vai aparecer no tab. |
+| `tabs` | `Object` | Sim | `{}` | chave equivale ao **value** e valor do objeto equivalente ao **label**. |
 
 ## Slots
 
