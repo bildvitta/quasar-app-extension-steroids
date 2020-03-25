@@ -1,8 +1,6 @@
 # AppMenu
 
-Cria o menu da aplicação através de um **QDrawer**.
-
-*obs: este componente implementa **QDrawer** do quasar:* https://quasar.dev/layout/drawer#Introduction
+Cria o menu da aplicação através de um [QDrawer](https://quasar.dev/layout/drawer).
 
 ```
 <qs-app-menu />
@@ -12,7 +10,7 @@ Cria o menu da aplicação através de um **QDrawer**.
 
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
-| `items` | `Array` | Não | `[]` | Itens do menu. |
+| `items` | `Array` | Não | `[]` | Lista de itens do menu, onde cada item é um objeto contendo: `label` e `chindren`, sendo **children** um array de objetos com: `label`, `icon` e `to`. Dentro do **to** é passado a rota desejada. |
 
 ## Slots
 
@@ -27,7 +25,6 @@ Cria o menu da aplicação através de um **QDrawer**.
 ```js
 const menu = [
   {
-    type: 'header',
     label: 'Usuários',
     children: [
       { label: 'Clientes', icon: 'o_group', to: { name: 'CustomersList' } },

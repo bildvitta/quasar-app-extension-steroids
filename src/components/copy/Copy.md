@@ -1,6 +1,6 @@
 # Copy
 
-Componente para copiar texto ao clicar.
+Possibilita copiar um texto para a área de transferência ao clicar.
 
 ```
 <qs-copy />

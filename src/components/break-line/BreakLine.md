@@ -21,7 +21,7 @@ Quebra o texto a partir de um determinado caractere, geralmente `\n`, em várias
 
 | Nome | Escopo | Descrição |
 |:-:|:-:|:-|
-| `default` | | Texto pode ser quebrado passando por esse slot sem a necessidade de passar para a prop **text**. |
+| `default` | | Texto que será utilizado como base, embora a prioridade seja do conteúdo que vier através da propriedade `text`. |
 
 ## Eventos
 

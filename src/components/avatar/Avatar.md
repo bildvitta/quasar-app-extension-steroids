@@ -23,7 +23,7 @@ Cria um avatar automaticamente com a foto ou as iniciais a partir de um título.
 
 ## Eventos
 
-> Sem ventos.
+> Sem eventos.
 
 ## Exemplos
 
