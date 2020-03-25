@@ -1,6 +1,6 @@
 # FormView
 
-Componente de formulário, faz as requisições **GET**, **PUT** e **POST**, é usuado para **criar**, **editar**.
+Componente de formulário, é usuado para **criar** e **editar**.
 ```
 <qs-form-view />
 ```
@@ -12,7 +12,7 @@ Componente de formulário, faz as requisições **GET**, **PUT** e **POST**, é 
 | `cancelButton` | `String` | Não | `Cancelar` | Título botão cancelar. |
 | `customId` | `[Number, String]` | Não | | Título botão cancelar. |
 | `entity` | `String` | Sim | | Entidade da **API** para usar como **endpoint**. |
-| `dialog` | `Boolean` | Não | `false` | usado para alterar a tag do componente caso use dentro de algum modal passa a ser **div** e não **q-page**. |
+| `dialog` | `Boolean` | Não | `false` | usado para alterar a tag do componente caso use dentro de algum modal passa a ser `div` e não `QPage`. |
 | `url` | `String` | Não |  | Caso a entidade seja diferente do endpoint, poderá usar esta propriedade para especificar qual é o endpoint. |
 | `customId` | `[Numer, String]` | Não | `false` | Caso o **Id** da URL seja diferente do **id** do item a ser deletado, você pode passar um **id customizado**. |
 | `disable` | `Boolean` | Não | `false` | Desabilitar submit do form. |
@@ -25,38 +25,38 @@ Componente de formulário, faz as requisições **GET**, **PUT** e **POST**, é 
 
 | Nome | Escopo | Descrição |
 |:-:|:-:|:-|
-| `header` | (escopo: `fields` tipo: `Object`), (escopo: `metadata` tipo: `Object`), (escopo: `errors` tipo: `[Array, Object]`) | Slot para acessar o header. |
-| `default` | (escopo: `fields` tipo: `Object`), (escopo: `metadata` tipo: `Object`), (escopo: `errors` tipo: `[Array, Object]`) | |
-| `footer` | (escopo: `fields` tipo: `Object`), (escopo: `metadata` tipo: `Object`), (escopo: `errors` tipo: `[Array, Object]`) | Slot para acessar o header. |
+| `header` | { `fields`: `Object`, `metadata`: `Object`, `errors`: `[Array, Object]` } | Slot para acessar o header. |
+| `default` | { `fields`: `Object`, `metadata`: `Object`, `errors`: `[Array, Object]` } | |
+| `footer` | { `fields`: `Object`, `metadata`: `Object`, `errors`: `[Array, Object]` } | Slot para acessar o footer. |
 
 ## Eventos
 | Nome | Parametro | Descrição |
 |:-:|:-:|:-|
-| `fetch-success` | (param: `response` / tipo: `Object`), param: `value` / tipo: `Object` | Dispara quando a requição é feita com sucesso. |
-| `submit-success` | (param: `response` / tipo: `Object`), param: `value` / tipo: `Object` | Dispara quando a requição é feita com sucesso. |
-| `fetch-error` | param: `error` / tipo: `Object` | Dispara quando a há falha na requisição. |
-| `submit-error` | param: `error` / tipo: `Object` | Dispara quando a há falha na requisição. |
+| `fetch-success` | { `response`: `Object`, `value`: `Object` } | Dispara quando a requição é feita com sucesso. |
+| `submit-success` | { `response`: `Object`, `value`: `Object` } | Dispara quando formulário é submetido com sucesso. |
+| `fetch-error` | { `error`: `Object` } | Dispara quando a há falha na requisição. |
+| `submit-error` | { `error`: `Object` } | Dispara quando a há falha ao submeter formulário. |
 
 ## Métodos
 
 | Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
-| `fetch` | param: `params` | Recebe os parametros e envia para a **API**. |
+| `fetch` | { `params`: `Object` } | Recebe os parametros e envia para a **API**. |
 
 ## Exemplos
 
 ```html
-<qs-form-view v-model="values"  mode="create" entity="posts" @submit-success="__FAÇA_ALGO__">
-	<template v-slot:header>
-		// Faça algo
-	</template>
+<qs-form-view v-model="values" mode="create" entity="posts" @submit-success="__FAÇA_ALGO__">
+ <template v-slot:header>
+  // Faça algo
+ </template>
 
-	<template v-slot="{ errors, fields }">
-		// Aqui normalmente é usado o componente **FormGenerator** 
-	</template>
+ <template v-slot="{ errors, fields }">
+  // Aqui normalmente é usado o componente **FormGenerator**
+ </template>
 
-	<template v-slot:footer>
-		// Faça algo
-	</template>
+ <template v-slot:footer>
+  // Faça algo
+ </template>
 </qs-form-view>
 ```

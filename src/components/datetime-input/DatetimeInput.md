@@ -2,7 +2,7 @@
 
 Componente de data e hora com formatação correta para trabalhar com **API**.
 
-*obs: componente implementa **QDate e QTime com QInput **do quasar:* https://quasar.dev/vue-components/date#Example--QDate-and-QTime-with-QInput
+*obs: componente implementa **QDate e QTime com QInput** do quasar:* https://quasar.dev/vue-components/date#Example--QDate-and-QTime-with-QInput
 
 ```
 <qs-datetime-input />

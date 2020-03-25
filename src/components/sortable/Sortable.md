@@ -21,14 +21,14 @@ Este componente é para ordenar elementos quando arrastados, o mesmo usa a bibli
 
 | Nome | Escopo | Descrição |
 |:-:|:-:|:-|
-| `default` | escopo: `sorted` / tipo: `Object` | Retorna o array com os dados ordenados.
+| `default` | { `sorted`: `Object` } | Retorna o array com os dados ordenados.
 
 ## Eventos
 
 | Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
-| `sort` | param: `event` / tipo: `Object` | Dispara evento nativo da bibliteca, que é acionado quando temrina de ordenar o elemento. |
-| `sort` | param: `response` / tipo: `Object` | Dispara quando termina de ordenar e a API retorna sucesso. |
+| `sort` | { `event`: `Object` } | Dispara evento nativo da bibliteca, que é acionado quando temrina de ordenar o elemento. |
+| `sort` | { `response`: `Object` } | Dispara quando termina de ordenar e a API retorna sucesso. |
 
 
 ## Exemplos
@@ -41,7 +41,7 @@ const results = [
 ```
 
 ```html
-<qs-sortable :result="result" entity="photo" tag="figure" :options="{ animation: 600 }">
+<qs-sortable :result="result" entity="photo" :options="{ animation: 600 }">
   <div v-for="result in results" :key="result.id"> <img :href="result.photo" /></div>
 </qs-sortable>
 ```
@@ -49,7 +49,7 @@ const results = [
 Caso você tenha a necessidade de mostar os index atualizados, utilize:
 
 ```html
-<qs-sortable :result="result" entity="photo" tag="figure" :options="{ animation: 600 }">
+<qs-sortable :result="result" entity="photo" :options="{ animation: 600 }">
   <template v-slot="{ sorted }">
     <div v-for="result in sorted" :key="result.id"> <img :href="result.photo" /></div>
   </template>

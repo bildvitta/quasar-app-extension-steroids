@@ -1,6 +1,6 @@
 # AppMenu
 
-Componente para criação dinâmica do **Menu lateral** do **Layout**.
+Cria o menu da aplicação através de um **QDrawer**.
 
 *obs: este componente implementa **QDrawer** do quasar:* https://quasar.dev/layout/drawer#Introduction
 
@@ -13,9 +13,6 @@ Componente para criação dinâmica do **Menu lateral** do **Layout**.
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
 | `items` | `Array` | Não | `[]` | Itens do menu. |
-| `noBreadcrumbs` | `Boolean` | Não | `false` | Sem "Migalhas de pão". |
-| `title` | `String` | Não |  | Título do cabeçalho. |
-| `root` | `[Object, String]` | Não | `{ label: 'Início', routeName: 'Root' }` | Rotas e label. |
 
 ## Slots
 
@@ -26,6 +23,7 @@ Componente para criação dinâmica do **Menu lateral** do **Layout**.
 > Sem eventos.
 
 ## Exemplos
+
 ```js
 const menu = [
   {
@@ -37,8 +35,6 @@ const menu = [
     ]
   }]
 ```
-
-##### Use AppBar dentro do QLayout
 
 ```html
 <qs-app-menu v-model="value" :items="menu" />

@@ -1,6 +1,6 @@
 # PageHeader
 
-Componente de cabeçalho.
+Componente de cabeçalho de Páginas com breadcrumbs que indicam a localização atual do usuário.
 
 *obs: este componente implementa **QBreadcrumbs e QToolbar** do quasar:*
 * https://quasar.dev/vue-components/breadcrumbs#Introduction
@@ -16,7 +16,7 @@ Componente de cabeçalho.
 |:-|:-:|:-:|:-:|:-|
 | `breadcrumbs` | `[Array, Boolean, String]` | Não | | "Migalhas de pão", para saber mais acesse o link acima. |
 | `noBreadcrumbs` | `Boolean` | Não | `false` | Sem "Migalhas de pão". |
-| `title` | `String` | Não |  | Título do cabeçalho. |
+| `title` | `String` | Não | | Título do cabeçalho. |
 | `root` | `[Object, String]` | Não | `{ label: 'Início', routeName: 'Root' }` | Rotas e label. |
 
 ## Slots
@@ -33,11 +33,11 @@ Componente de cabeçalho.
 
 ```js
 const breadcrumbs = [
-	{ label: 'Label 1', route: { name: 'ComponentName' } },
-	{ label: 'este é o titulo' }
+  { label: 'Label 1', route: { name: 'ComponentName' } },
+  { label: 'este é o titulo' }
 ]
 ```
 
 ```html
-<qs-page-header :breadcrumbs="breadcrumbs" title="este é o titulo" />
+<qs-page-header :breadcrumbs="breadcrumbs" title="Este é o titulo" />
 ```

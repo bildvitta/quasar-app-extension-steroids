@@ -12,11 +12,10 @@ obs: este componente utiliza o componente: **Avatar**.
 
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
-| `icon` | `String` | Não |  | Icone do avatar. |
-| `iconic` | `Boolean` | Não | `false` | |
-| `image` | `String` | Não |  | Imagem do avatar. |
+| `icon` | `String` | Não | | Icone do avatar. |
+| `iconic` | `Boolean` | Não | `false` | Força icone no **Avatar** |
+| `image` | `String` | Não | | Imagem do avatar. |
 | `title` | `String` | Sim | | Título do profile. |
-
 
 ## Slots
 
@@ -33,18 +32,17 @@ obs: este componente utiliza o componente: **Avatar**.
 ## Exemplos
 
 ```html
-      <!-- Profile -->
 <profile image="/imagem.png" title="título " icon="o_person">
-	<template v-slot:beforeTitle>
-		// Antes do título
-	</template>
+  <template v-slot:beforeTitle>
+    // Antes do título
+  </template>
 
-	<template v-slot:afterTitle>
-		// Depois do título
-	</template>
+  <template v-slot:afterTitle>
+    // Depois do título
+  </template>
 
-	<template v-slot:meta>
-		// Meta
-	</template>
+  <template v-slot:meta>
+    // Meta
+  </template>
 </profile>
 ```

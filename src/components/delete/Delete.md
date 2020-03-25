@@ -26,11 +26,10 @@ Componente para deletar via requisição da **API**.
 | Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
 | `success` | | Dispara quando o item é deletado com sucesso. |
-| `error` | param: `error` / tipo: `Object` | Dispara quando há falha ao deletar item. |
+| `error` | { `error`: `Object` } | Dispara quando há falha ao deletar item. |
 
 ## Exemplos
 
 ```html
-  <qs-delete entity="posts" color="grey-8" custom-id="post-1s2us">
-  </qs-delete>
+<qs-delete entity="posts" color="grey-8" custom-id="post-1s2us" />
 ```

@@ -21,7 +21,7 @@ Componente para gerar tabela dinamicamente.
 
 | Nome | Escopo | Descrição |
 |:-:|:-:|:-|
-| `body-cell-${nomeDaColuna}` | row | slot para acessar o conteudo do TD. |
+| `body-cell-${nomeDaColuna}` | { `row`: `Object` } | slot para acessar o conteudo do TD. |
 
 ## Eventos
 
@@ -36,6 +36,26 @@ const columns = [
   'ticketCategory',
   { align: 'right', name: 'actions' }
 ]
+
+const fields = {
+  status: {
+    name: 'status',
+    label: 'Status',
+    default: '',
+    type: 'text'
+  },
+
+  user: {
+    name: 'user',
+    label: 'Cliente',
+    default: '',
+    type: 'Select',
+    optons: [
+      { label: 'Ronaldo', value: 1 },
+      { label: 'Cleyton', value: 2}
+    ]
+  }
+}
 ```
 
 ```html

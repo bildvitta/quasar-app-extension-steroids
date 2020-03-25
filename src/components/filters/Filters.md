@@ -1,6 +1,6 @@
 # Filters
 
-Componente para gerar filtros dinamicamente vindos da **API**.
+Componente para gerar filtros dinamicamente e adicinar na query da **URL**.
 
 ```
 <qs-filters />
@@ -10,7 +10,7 @@ Componente para gerar filtros dinamicamente vindos da **API**.
 
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
-| `badges` | `Bollean` | Não | `true` | Habilita os bades para mostrar os filtros ativos. |
+| `badges` | `Bollean` | Não | `true` | Habilita os badges para mostrar os filtros ativos. |
 | `entity` | `String` | Sim | | Entidade da **API** para usar como **endpoint**. |
 | `noFilterButton` | `Boolean` | Não | `false` | Remover botão do filtro. |
 | `noSearch` | `Boolean` | Não | `false` | Remove campo de pesquisa. |
@@ -21,22 +21,22 @@ Componente para gerar filtros dinamicamente vindos da **API**.
 
 | Nome | Escopo | Descrição |
 |:-:|:-:|:-|
-| `search` | escopo: `filter` tipo: `Function` | slot para campo de pesquisa. |
-| `filter-button` | escopo: `filter` tipo: `Function` | slot para do menu do filtro. |
-| `default` | (escopo: `filter` tipo: `Function`), (escopo: `context` tipo: `Object`), (escopo: `filters` tipo: `Object`), (escopo: `removeFilter` tipo: `Function`) | slot para do menu do filtro. |
+| `search` | { `filter`: `Function` } | slot para campo de pesquisa. |
+| `filter-button` | { `filter`: `Function` } | slot para do menu do filtro. |
+| `default` | { `filter`: `Function`, `context`: `Object`, `filters`: `Object`, `removeFilter`: `Function` } | slot para do menu do filtro. |
 
 ## Eventos
 
 | Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
-| `fetch-success` | param: `response` / tipo: `Object` | Dispara quando a requição é feita com sucesso. |
-| `fetch-error` | param: `error` / tipo: `Object` | Dispara quando a há falha na requisição. |
+| `fetch-success` | { `response`: `Object` } | Dispara quando a requição é feita com sucesso. |
+| `fetch-error` | { `error`: `Object` } | Dispara quando a há falha na requisição. |
 
 ## Metodos
 
 | Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
-| `filter` | param: `external` / tipo: `Object` | metodo repassado para os slots para adicionar query externas. |
+| `filter` | { `external`: `Object` } | metodo repassado para os slots para adicionar query externas. |
 
 ## Exemplos
 
