@@ -31,13 +31,13 @@ Quebra o texto a partir de um determinado caractere, geralmente `\n`, em várias
 
 Uso simples.
 
-```
+```html
 <qs-break-line :text="customParagraph" />
 ```
 
 Uso alternativo.
 
-```
+```html
 <qs-break-line>
   {{ customParagraph }}
 </qs-break-line>
@@ -45,7 +45,7 @@ Uso alternativo.
 
 Uso como lista.
 
-```
+```html
 <qs-break-line is="ul" text="Um|Dois|Três" tag="li" split="|" />
 
 ---
