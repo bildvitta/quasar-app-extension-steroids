@@ -3,16 +3,19 @@
     <template v-slot:append>
       <q-icon name="o_search" />
     </template>
+
     <template v-slot:no-option>
       <q-item>
         <q-item-section class="text-grey">
-          Nenhum resultado encontrado.
+          Nenhum resultado foi encontrado.
         </q-item-section>
       </q-item>
     </template>
+
     <template v-if="hasOptionSlot" v-slot:option>
-      <slot name="option" :result="filteredOptions"/>
+      <slot name="option" :results="filteredOptions"/>
     </template>
+
     <template v-if="hasSelectedItemSlot" v-slot:selected-item="scope">
       <slot name="selected-item" :scope="scope"/>
     </template>
@@ -20,6 +23,8 @@
 </template>
 
 <script>
+import Fuse from 'fuse.js'
+
 let fuse = null
 
 export default {
@@ -47,11 +52,8 @@ export default {
 
   data () {
     return {
-      fetchingFuse: false,
       filteredOptions: [],
-      fuse: null,
-      fuseError: null,
-      result: [],
+      results: [],
       search: '',
       selectModel: null
     }
@@ -63,19 +65,17 @@ export default {
     },
 
     defaultOptions (value) {
-      if (!this.fuseError || !this.fetchingFuse) {
-        fuse.options = { ...fuse.options, ...value }
-      }
+      fuse.options = { ...fuse.options, ...value }
     }
   },
 
   created () {
-    this.fetchFuse()
+    fuse = new Fuse(this.list, this.defaultOptions)
   },
 
   computed: {
     hasResult () {
-      return this.result.length
+      return this.results.length
     },
 
     isTextType () {
@@ -128,31 +128,12 @@ export default {
       return item
     },
 
-    async fetchFuse () {
-      this.fetchingFuse = true
-
-      try {
-        const response = (await (import('fuse.js'))).default
-
-        fuse = new response(this.list, this.defaultOptions)
-      } catch {
-        this.fuseError = true
-      } finally {
-        this.fetchingFuse = false
-      }
-    },
-
     filterOptions (value, update) {
       update(() => {
         if (value === '') {
           this.filteredOptions = this.formattedResult
         } else {
-          const filtered = value.toLowerCase().trim()
-
-          this.filteredOptions = (this.fuseError || this.fetchingFuse
-            ? this.formattedResult.filter(item => item.label.toLowerCase().indexOf(filtered) > -1)
-            : fuse.search(value)
-          )
+          this.filteredOptions = fuse.search(value)
         }
       })
     },
