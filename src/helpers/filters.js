@@ -82,16 +82,6 @@ function booleanLabel (value, trueLabel = 'sim', falseLabel = 'não') {
   try { return JSON.parse(value) ? trueLabel : falseLabel } catch { return value }
 }
 
-function permitions (validations, permitions = []) {
-  if (!permitions) {
-    return false
-  }
-
-  validations = Array.isArray(validations) ? validations : [validations]
-
-  return validations.some(validation => permitions.find(permition => permition === validation))
-}
-
 export {
   asset,
   booleanLabel,
@@ -102,6 +92,5 @@ export {
   money,
   optionLabel,
   parseValue,
-  percent,
-  permitions
+  percent
 }
