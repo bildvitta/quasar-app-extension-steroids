@@ -138,7 +138,6 @@ export default {
           this.filteredOptions = this.formattedResult
         } else {
           this.filteredOptions = fuse.search(value)
-          console.log(value, this.filterOptions)
         }
       })
     },
