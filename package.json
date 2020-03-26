@@ -25,6 +25,7 @@
     "humps": "^2.0.1",
     "imask": "^6.0.3",
     "lodash": "^4.17.15",
-    "sortablejs": "^1.10.2"
+    "sortablejs": "^1.10.2",
+    "vue-imask": "^6.0.3"
   }
 }
