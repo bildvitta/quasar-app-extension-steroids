@@ -1,6 +1,6 @@
 # Debugger
 
-Componente para inspecionar variáveis.
+Componente para inspecionar múltiplas variáveis reativas.
 
 ```
 <qs-debugger />
@@ -10,7 +10,7 @@ Componente para inspecionar variáveis.
 
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
-| `inspect` | `Array` | Sim | `[]` | Array a ser inspecionado. |
+| `inspect` | `Array` | Sim | `[]` | Lista de variáveis que serão inspecionadas. |
 
 ## Slots
 
@@ -32,13 +32,11 @@ const inspect = [
   },
 
   {
-      name:'comment',
-      label:'Descrição',
-      default:'',
-      type:'textarea'
+      name: 'comment',
+      label: 'Descrição',
+      default: '',
+      type: 'textarea'
   }
-/
-
 ```
 
 ```html

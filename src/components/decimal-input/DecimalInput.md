@@ -1,8 +1,6 @@
 # DecimalInput
 
-Componente de input para campos **decimais** com formatação.
-
-*obs: componente implementa **QInput** do quasar:* https://quasar.dev/vue-components/input#Introduction
+Campo para formatar valores decimais. Utiliza o QInput.
 
 ```
 <qs-decimal-input />
@@ -12,8 +10,8 @@ Componente de input para campos **decimais** com formatação.
 
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
-| `comma` | `Boolean` | Não | `false` | Separação por vírgula. |
-| `places` | `Number` | Não | `2` | casas decimais. |
+| `comma` | `Boolean` | Não | `false` | Separação das casas decimais utilizando vírgula ao invés de pontos. |
+| `places` | `Number` | Não | `2` | Número de casas decimais. |
 
 ## Slots
 
@@ -28,4 +26,3 @@ Componente de input para campos **decimais** com formatação.
 ```html
 <qs-decimal-input v-model="value" :places="3" />
 ```
-

@@ -17,7 +17,7 @@ Possibilita copiar um texto para a área de transferência ao clicar.
 
 | Nome | Escopo | Descrição |
 |:-:|:-:|:-|
-| `default` | | |
+| `default` | | Caso queria um texto diferente da label pode passar pelo slot default. |
 
 ## Eventos
 
@@ -26,6 +26,6 @@ Possibilita copiar um texto para a área de transferência ao clicar.
 ## Exemplos
 
 ```html
-<qs-copy class="text-weight-medium" label="Clique aqui para copiar" />
+<qs-copy class="text-weight-medium" label="texto que será copiado" />
 ```
 

@@ -1,6 +1,6 @@
 # DatetimeInput
 
-Componente de data e hora com formatação correta para trabalhar com **API**.
+Campo para a selecionar uma data e/ou hora, já normalizado para exibição (humanamente legível) e formatado na programação para trabalhar com o padrão internacional ISO 8601. Este componente utilizada o QDate, QTime e o QInput para funcionar.
 
 *obs: componente implementa **QDate e QTime com QInput** do quasar:* https://quasar.dev/vue-components/date#Example--QDate-and-QTime-with-QInput
 
@@ -12,12 +12,12 @@ Componente de data e hora com formatação correta para trabalhar com **API**.
 
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
-| `dateMask` | `String` | Não | `DD/MM/YYYY` | Mascara da data. |
+| `dateMask` | `String` | Não | `DD/MM/YYYY` | Máscara da data. |
 | `dateOnly` | `Boolean` | Não | | Somente data. |
-| `dateOptions` | `Object` | Não | `{}` | Atributos da data para o componente de data do quasar. |
-| `timeMask` | `String` | Não | `HH:mm:ss` | Mascara da hora. |
+| `dateOptions` | `Object` | Não | `{}` | Atributos da data para o componente QDate. |
+| `timeMask` | `String` | Não | `HH:mm:ss` | Máscara da hora. |
 | `timeOnly` | `Boolean` | Não | | Somente hora. |
-| `timeOptions` | `Object` | Não | `{}` | Atributos da hora para o componente de hora do quasar. |
+| `timeOptions` | `Object` | Não | `{}` | Atributos da hora para o componente QTime. |
 
 ## Slots
 
@@ -29,17 +29,20 @@ Componente de data e hora com formatação correta para trabalhar com **API**.
 
 ## Exemplos
 
-##### Date e Hora
+### Date e hora
+
 ```html
-<qs-datetime-input v-model="value" label="data e hora" outlined  class="col-6" />
+<qs-datetime-input v-model="value" label="Data e hora" outlined />
 ```
 
-##### Somente Data
+### Somente data
+
 ```html
-<qs-datetime-input v-model="value" data-only label="data" outlined  class="col-6" />
+<qs-datetime-input v-model="value" data-only label="Data" outlined />
 ```
 
-##### Somente Hora
+### Somente hora
+
 ```html
-<qs-datetime-input v-model="value" time-only label="hora" outlined  class="col-6" />
+<qs-datetime-input v-model="value" time-only label="Hora" outlined />
 ```
