@@ -1,6 +1,7 @@
 <template>
-  <q-select v-model="selectModel" v-bind="$attrs" v-on="$listeners" :options="filteredOptions" use-input map-options emit-value outlined :fill-input="isTextType" :hide-selected="isTextType" @filter="filterOptions" @input="inputHandler" @input-value="setModel" clearable>
-    <template v-slot:append>
+  <q-select v-model="__value" v-bind="$attrs" v-on="$listeners" :options="filteredOptions" use-input map-options emit-value outlined :fill-input="isTextType" :hide-selected="isTextType" @filter="filterOptions" clearable>
+  <!-- <q-select :value="selectModel" v-bind="$attrs" v-on="$listeners" :options="filteredOptions" use-input map-options emit-value outlined :fill-input="isTextType" :hide-selected="isTextType" @filter="filterOptions" @input="inputHandler" @input-value="setModel" clearable> -->
+    <!-- <template v-slot:append>
       <q-icon name="o_search" />
     </template>
 
@@ -18,7 +19,7 @@
 
     <template v-if="hasSelectedItemSlot" v-slot:selected-item="scope">
       <slot name="selected-item" :scope="scope"/>
-    </template>
+    </template> -->
   </q-select>
 </template>
 
@@ -35,6 +36,11 @@ export default {
     },
 
     valueKey: {
+      type: String,
+      default: ''
+    },
+
+    value: {
       type: String,
       default: ''
     },
@@ -69,15 +75,29 @@ export default {
     },
 
     options (value) {
+      // this.selectModel = this.value
       fuse.list = value
     }
   },
 
   created () {
+    // this.selectModel = this.value
+    // this.$emit('input', this.selectModel)
     fuse = new Fuse(this.options, this.defaultFuseOptions)
   },
 
   computed: {
+    __value: {
+      get () {
+        return this.value
+      },
+
+      set (value) {
+        console.log(value, '>> novo value')
+        this.$emit('input', value)
+      }
+    },
+
     hasResult () {
       return this.results.length
     },
@@ -143,6 +163,7 @@ export default {
     },
 
     inputHandler (value) {
+      console.log(value, '>> input')
       this.$emit('input', this.selectModel)
     },
 
