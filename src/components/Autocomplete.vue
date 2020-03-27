@@ -29,11 +29,6 @@ let fuse = null
 
 export default {
   props: {
-    list: {
-      type: Array,
-      default: () => []
-    },
-
     labelKey: {
       type: String,
       default: ''
@@ -45,6 +40,11 @@ export default {
     },
 
     options: {
+      type: Array,
+      default: () => []
+    },
+
+    fuseOptions: {
       type: Object,
       default: () => ({})
     }
@@ -64,13 +64,17 @@ export default {
       this.filter(value)
     },
 
-    defaultOptions (value) {
+    defaultFuseOptions (value) {
       fuse.options = { ...fuse.options, ...value }
+    },
+
+    options (value) {
+      fuse.list = value
     }
   },
 
   created () {
-    fuse = new Fuse(this.list, this.defaultOptions)
+    fuse = new Fuse(this.options, this.defaultFuseOptions)
   },
 
   computed: {
@@ -92,13 +96,13 @@ export default {
 
     formattedResult () {
       if (!this.labelKey && !this.valueKey) {
-        return this.list
+        return this.options
       }
 
-      return this.list.map(item => this.renameKey(item))
+      return this.options.map(item => this.renameKey(item))
     },
 
-    defaultOptions () {
+    defaultFuseOptions () {
       return {
         distance: 100,
         keys: ['label', 'value'],
@@ -108,7 +112,7 @@ export default {
         shouldSort: true,
         threshold: 0.1,
         tokenize: true,
-        ...this.options
+        ...this.fuseOptions
       }
     }
   },
