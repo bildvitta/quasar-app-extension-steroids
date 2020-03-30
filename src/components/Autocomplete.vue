@@ -1,7 +1,6 @@
 <template>
-  <q-select v-model="__value" v-bind="$attrs" v-on="$listeners" :options="filteredOptions" use-input map-options emit-value outlined :fill-input="isTextType" :hide-selected="isTextType" @filter="filterOptions" clearable>
-  <!-- <q-select :value="selectModel" v-bind="$attrs" v-on="$listeners" :options="filteredOptions" use-input map-options emit-value outlined :fill-input="isTextType" :hide-selected="isTextType" @filter="filterOptions" @input="inputHandler" @input-value="setModel" clearable> -->
-    <!-- <template v-slot:append>
+  <q-select v-model="selectModel" v-bind="$attrs" v-on="$listeners" :options="filteredOptions" use-input map-options emit-value outlined :fill-input="!multiple" :hide-selected="!multiple" @filter="filterOptions" clearable>
+    <template v-slot:append>
       <q-icon name="o_search" />
     </template>
 
@@ -14,12 +13,13 @@
     </template>
 
     <template v-if="hasOptionSlot" v-slot:option>
+      {{ filteredOptions }}
       <slot name="option" :results="filteredOptions"/>
     </template>
 
     <template v-if="hasSelectedItemSlot" v-slot:selected-item="scope">
       <slot name="selected-item" :scope="scope"/>
-    </template> -->
+    </template>
   </q-select>
 </template>
 
@@ -41,7 +41,7 @@ export default {
     },
 
     value: {
-      type: String,
+      type: [String, Object, Array],
       default: ''
     },
 
@@ -61,7 +61,7 @@ export default {
       filteredOptions: [],
       results: [],
       search: '',
-      selectModel: null
+      selectModel: null || []
     }
   },
 
@@ -75,35 +75,33 @@ export default {
     },
 
     options (value) {
-      // this.selectModel = this.value
+      if (!this.filteredOptions.length) {
+        this.filteredOptions = value
+      }
+
       fuse.list = value
+    },
+
+    value (value) {
+      this.$emit('input', value)
     }
   },
 
   created () {
-    // this.selectModel = this.value
-    // this.$emit('input', this.selectModel)
+    if (this.value) {
+      this.selectModel = this.multiple ? [this.value] : this.value
+    }
+
     fuse = new Fuse(this.options, this.defaultFuseOptions)
   },
 
   computed: {
-    __value: {
-      get () {
-        return this.value
-      },
-
-      set (value) {
-        console.log(value, '>> novo value')
-        this.$emit('input', value)
-      }
-    },
-
     hasResult () {
       return this.results.length
     },
 
-    isTextType () {
-      return !(this.$attrs.multiple || this.$attrs['use-chips'])
+    multiple () {
+      return this.$attrs.multiple || this.$attrs.multiple === ''
     },
 
     hasOptionSlot () {
@@ -160,15 +158,6 @@ export default {
           this.filteredOptions = fuse.search(value)
         }
       })
-    },
-
-    inputHandler (value) {
-      console.log(value, '>> input')
-      this.$emit('input', this.selectModel)
-    },
-
-    setModel (value) {
-      this.selectModel = value
     }
   }
 }
