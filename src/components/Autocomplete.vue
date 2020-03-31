@@ -1,5 +1,5 @@
 <template>
-  <q-select v-model="selectModel" v-bind="$attrs" v-on="$listeners" :options="filteredOptions" use-input map-options emit-value outlined :fill-input="!multiple" :hide-selected="!multiple" @filter="filterOptions" clearable>
+  <q-select v-model="selectModel" v-bind="$attrs" v-on="$listeners" :options="filteredOptions" use-input map-options emit-value outlined :fill-input="!multiple" :hide-selected="!hideSelected" @filter="filterOptions" clearable>
     <template v-slot:append>
       <q-icon name="o_search" />
     </template>
@@ -12,9 +12,8 @@
       </q-item>
     </template>
 
-    <template v-if="hasOptionSlot" v-slot:option>
-      {{ filteredOptions }}
-      <slot name="option" :results="filteredOptions"/>
+    <template v-if="hasOptionSlot" v-slot:option="scope">
+      <slot name="option" :scope="scope"/>
     </template>
 
     <template v-if="hasSelectedItemSlot" v-slot:selected-item="scope">
@@ -102,6 +101,10 @@ export default {
 
     multiple () {
       return this.$attrs.multiple || this.$attrs.multiple === ''
+    },
+
+    hideSelected () {
+      return !(this.multiple || this.$attrs['hide-selected'])
     },
 
     hasOptionSlot () {
