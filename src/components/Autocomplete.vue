@@ -56,7 +56,7 @@ export default {
       filteredOptions: [],
       results: [],
       search: '',
-      selectModel: null || []
+      selectModel: null
     }
   },
 
