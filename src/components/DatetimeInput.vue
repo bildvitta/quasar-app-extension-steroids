@@ -38,7 +38,7 @@ export default {
     },
 
     timeMask: {
-      default: 'HH:mm:ss',
+      default: 'HH:mm',
       type: String
     },
 
