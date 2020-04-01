@@ -21,7 +21,7 @@
 
       <template v-slot:list="scope">
         <q-list separator>
-          <q-item v-if="hasApiValue && !scope.isUploading" class="q-pa-none">
+          <q-item v-if="hasAPIValue && !scope.isUploading" class="q-pa-none">
             <q-item-section avatar top>
               <q-avatar v-if="value" rounded>
                 <img :src="value">
@@ -102,7 +102,7 @@ export default {
     return {
       files: [],
       paths: {},
-      isRequesting: false
+      isFetching: false
     }
   },
 
@@ -115,14 +115,12 @@ export default {
       return this.files.length >= this.maxFiles
     },
 
-    hasApiValue () {
+    hasAPIValue () {
       return this.value.startsWith('https://s3.amazonaws.com/')
     },
 
     imageName () {
-      const splittedValue = this.value.split('/')
-
-      return splittedValue[splittedValue.length - 1]
+      return `${this.value}`.split('/').pop()
     }
   },
 
@@ -135,7 +133,7 @@ export default {
   methods: {
     async factory ([file]) {
       const name = `${uid()}.${file.name.split('.').pop()}`
-      const { endpoint, path } = await this.request(name)
+      const { endpoint, path } = await this.fetch(name)
 
       this.paths[file.name] = path
 
@@ -162,8 +160,8 @@ export default {
       return file.__status === 'uploading'
     },
 
-    async request (filename) {
-      this.isRequesting = true
+    async fetch (filename) {
+      this.isFetching = true
 
       try {
         const { data } = await api.post('/upload-credentials/', {
@@ -175,7 +173,7 @@ export default {
       } catch (error) {
         throw error
       } finally {
-        this.isRequesting = false
+        this.isFetching = false
       }
     },
 
