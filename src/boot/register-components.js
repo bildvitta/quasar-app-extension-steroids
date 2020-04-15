@@ -1,5 +1,6 @@
 import AppBar from '../components/AppBar.vue'
 import AppMenu from '../components/AppMenu.vue'
+import Autocomplete from '../components/Autocomplete.vue'
 import Avatar from '../components/Avatar.vue'
 import BreakLine from '../components/BreakLine.vue'
 import CheckboxGroup from '../components/CheckboxGroup.vue'
@@ -27,6 +28,7 @@ import Mask from '../components/Mask.vue'
 export default async ({ Vue }) => {
   Vue.component('qs-app-bar', AppBar)
   Vue.component('qs-app-menu', AppMenu)
+  Vue.component('qs-autocomplete', Autocomplete)
   Vue.component('qs-avatar', Avatar)
   Vue.component('qs-break-line', BreakLine)
   Vue.component('qs-checkbox-group', CheckboxGroup)

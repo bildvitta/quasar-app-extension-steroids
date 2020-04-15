@@ -1,9 +1,9 @@
 <template>
-  <q-tabs v-model="currentTab" v-bind="$attrs" @input="handleInput">
+  <q-tabs v-model="currentTab" v-bind="$attrs" v-on="$listeners">
     <slot v-for="(tab, key) in formattedTabs" :name="`tab-${tab.label}`" :item="tab">
       <q-tab :name="key" :label="tab.label" :key="key" v-bind="tab">
         <slot :name="`tab-slot-${tab.label}`" :item="tab">
-          <q-badge v-if="counters[key]" color="red" floating>{{ counters[key] }}</q-badge>
+          <q-badge v-if="counters[key]" color="negative" floating>{{ counters[key] }}</q-badge>
         </slot>
       </q-tab>
     </slot>
@@ -37,17 +37,17 @@ export default {
     }
   },
 
-  data () {
-    return {
-      currentTab: ''
-    }
-  },
-
-  created () {
-    this.currentTab = this.value
-  },
-
   computed: {
+    currentTab: {
+      get () {
+        return this.value
+      },
+
+      set (value) {
+        this.$emit('input', value)
+      }
+    },
+
     formattedTabs () {
       const tabs = extend(true, {}, this.tabs)
 
@@ -58,12 +58,6 @@ export default {
       }
 
       return tabs
-    }
-  },
-
-  methods: {
-    handleInput () {
-      this.$emit('input', this.currentTab)
     }
   }
 }

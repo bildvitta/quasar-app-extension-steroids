@@ -1,53 +1,74 @@
 <template>
-  <q-uploader v-bind="$attrs" bordered class="fit" :factory="factory" flat method="PUT" :readonly="readOnly" v-on="$listeners" @removed="removed" @uploaded="uploaded">
-    <template v-slot:header="scope">
-      <div class="flex flex-center no-wrap q-gutter-xs q-pa-sm">
-        <q-spinner v-if="scope.isUploading" size="24px" />
+  <q-field :error="$attrs.error" :error-message="$attrs.errorMessage" borderless>
+    <q-uploader v-bind="$attrs" auto-upload bordered class="fit" :factory="factory" flat method="PUT" :readonly="readOnly" v-on="$listeners" @removed="removed" @uploaded="uploaded">
+      <template v-slot:header="scope">
+        <div class="flex flex-center no-wrap q-gutter-xs q-pa-sm">
+          <q-spinner v-if="scope.isUploading" size="24px" />
 
-        <div class="col column justify-center">
-          <div v-if="scope.label" class="q-uploader__title">{{ scope.label }}</div>
-          <div class="q-uploader__subtitle">{{ scope.uploadProgressLabel }} ({{ scope.uploadSizeLabel }})</div>
+          <div class="col column justify-center">
+            <div v-if="scope.label" class="q-uploader__title">{{ scope.label }}</div>
+            <div class="q-uploader__subtitle">{{ scope.uploadProgressLabel }} ({{ scope.uploadSizeLabel }})</div>
+          </div>
+
+          <q-btn v-if="!scope.hideUploadBtn && scope.canAddFiles" dense flat icon="o_add" round>
+            <q-uploader-add-trigger />
+          </q-btn>
+
+          <q-btn v-if="scope.canUpload" dense flat icon="o_cloud_upload" round @click="scope.upload" />
+          <q-btn v-if="scope.isUploading" dense flat icon="o_clear" round @click="scope.abort" />
         </div>
+      </template>
 
-        <q-btn v-if="!scope.hideUploadBtn && scope.canAddFiles" dense flat icon="o_add" round>
-          <q-uploader-add-trigger />
-        </q-btn>
+      <template v-slot:list="scope">
+        <q-list separator>
+          <q-item v-if="hasAPIValue && !scope.isUploading" class="q-pa-none">
+            <q-item-section avatar top>
+              <q-avatar v-if="value" rounded>
+                <img :src="value">
+              </q-avatar>
 
-        <q-btn v-if="scope.canUpload" dense flat icon="o_cloud_upload" round @click="scope.upload" />
-        <q-btn v-if="scope.isUploading" dense flat icon="o_clear" round @click="scope.abort" />
-      </div>
-    </template>
+              <q-avatar v-else color="grey-3" icon="o_attach_file" rounded :text-color="isFileFailed(file) ? 'negative' : 'primary'" />
+            </q-item-section>
 
-    <template v-slot:list="scope">
-      <q-list separator>
-        <q-item v-for="file in scope.files" :key="file.name" class="q-pa-none">
-          <q-item-section avatar top>
-            <q-avatar v-if="file.__img" rounded>
-              <img :alt="file.name" :src="file.__img.src">
-            </q-avatar>
+            <q-item-section>
+              <q-item-label class="text-black">{{ imageName }}</q-item-label>
+            </q-item-section>
 
-            <q-avatar v-else color="grey-3" icon="o_attach_file" rounded :text-color="isFileFailed(file) ? 'negative' : 'primary'" />
-          </q-item-section>
+            <q-item-section side>
+              <div class="q-gutter-xs text-grey-8">
+                <q-btn dense flat icon="o_delete" round @click="resetValue" />
+              </div>
+            </q-item-section>
+          </q-item>
+          <q-item v-for="file in scope.files" :key="file.name" class="q-pa-none">
+            <q-item-section avatar top>
+              <q-avatar v-if="file.__img" rounded>
+                <img :alt="file.name" :src="file.__img.src">
+              </q-avatar>
 
-          <q-item-section>
-            <q-item-label :class="{ 'text-negative': isFileFailed(file) }">{{ file.name }}</q-item-label>
-            <q-item-label caption>{{ file.__progressLabel }} ({{ file.__sizeLabel }})</q-item-label>
-          </q-item-section>
+              <q-avatar v-else color="grey-3" icon="o_attach_file" rounded :text-color="isFileFailed(file) ? 'negative' : 'primary'" />
+            </q-item-section>
 
-          <q-item-section side>
-            <div class="q-gutter-xs text-grey-8">
-              <q-circular-progress v-if="isFileUploading(file)" :indeterminate="!file.__progress" :max="1" :min="0" :value="file.__progress" />
+            <q-item-section>
+              <q-item-label class="text-black" :class="{ 'text-negative': isFileFailed(file) }">{{ file.name }}</q-item-label>
+              <q-item-label caption>{{ file.__progressLabel }} ({{ file.__sizeLabel }})</q-item-label>
+            </q-item-section>
 
-              <q-icon v-if="isFileFailed(file)" color="negative" name="warning" size="20px" />
+            <q-item-section side>
+              <div class="q-gutter-xs text-grey-8">
+                <q-circular-progress v-if="isFileUploading(file)" :indeterminate="!file.__progress" :max="1" :min="0" :value="file.__progress" />
 
-              <!-- <q-btn v-if="isFileUploaded(file)" dense flat icon="o_cloud_download" round /> -->
-              <q-btn dense flat :icon="isFileUploaded(file) ? 'o_delete' : 'o_clear'" round @click="scope.removeFile(file)" />
-            </div>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </template>
-  </q-uploader>
+                <q-icon v-if="isFileFailed(file)" color="negative" name="warning" size="20px" />
+
+                <!-- <q-btn v-if="isFileUploaded(file)" dense flat icon="o_cloud_download" round /> -->
+                <q-btn dense flat :icon="isFileUploaded(file) ? 'o_delete' : 'o_clear'" round @click="scope.removeFile(file)" />
+              </div>
+            </q-item-section>
+          </q-item>
+        </q-list>
+      </template>
+    </q-uploader>
+  </q-field>
 </template>
 
 <script>
@@ -69,6 +90,11 @@ export default {
     maxFiles: {
       default: 1,
       type: Number
+    },
+
+    value: {
+      default: '',
+      type: [Array, String]
     }
   },
 
@@ -76,9 +102,7 @@ export default {
     return {
       files: [],
       paths: {},
-
-      isRequesting: false,
-      isUploading: false
+      isFetching: false
     }
   },
 
@@ -89,6 +113,14 @@ export default {
 
     readOnly () {
       return this.files.length >= this.maxFiles
+    },
+
+    hasAPIValue () {
+      return this.value.startsWith('https://s3.amazonaws.com/')
+    },
+
+    imageName () {
+      return `${this.value}`.split('/').pop()
     }
   },
 
@@ -101,7 +133,7 @@ export default {
   methods: {
     async factory ([file]) {
       const name = `${uid()}.${file.name.split('.').pop()}`
-      const { endpoint, path } = await this.request(name)
+      const { endpoint, path } = await this.fetch(name)
 
       this.paths[file.name] = path
 
@@ -128,8 +160,8 @@ export default {
       return file.__status === 'uploading'
     },
 
-    async request (filename) {
-      this.isRequesting = true
+    async fetch (filename) {
+      this.isFetching = true
 
       try {
         const { data } = await api.post('/upload-credentials/', {
@@ -141,7 +173,7 @@ export default {
       } catch (error) {
         throw error
       } finally {
-        this.isRequesting = false
+        this.isFetching = false
       }
     },
 
@@ -152,6 +184,10 @@ export default {
     removed ([file]) {
       const path = this.paths[file.name]
       this.files = this.files.filter(item => item !== path)
+    },
+
+    resetValue () {
+      this.$emit('input', '')
     }
   }
 }

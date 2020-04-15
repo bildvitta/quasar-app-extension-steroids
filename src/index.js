@@ -48,6 +48,8 @@ module.exports = function (api) {
   api.compatibleWith('date-fns', '^2.9.0')
   api.compatibleWith('lodash', '^4.17.15')
   api.compatibleWith('humps', '^2.0.1')
+  api.compatibleWith('fuse.js', '^3.4.6')
+  api.compatibleWith('sortablejs', '^1.10.2')
 
   api.extendQuasarConf(extendQuasar)
 

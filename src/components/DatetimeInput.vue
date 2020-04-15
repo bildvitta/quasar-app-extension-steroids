@@ -38,7 +38,7 @@ export default {
     },
 
     timeMask: {
-      default: 'HH:mm:ss',
+      default: 'HH:mm',
       type: String
     },
 
@@ -104,6 +104,11 @@ export default {
 
   watch: {
     value (current, original) {
+      if (!current || this.timeOnly) {
+        this.currentValue = current
+        return
+      }
+
       if (current !== original && current !== this.lastValue) {
         this.currentValue = this.toMask(current)
       }
@@ -132,7 +137,7 @@ export default {
       const valueLength = value.replace(/_/g, '').length
 
       if (value === '' || valueLength === this.mask.length) {
-        this.lastValue = this.toISOString(value)
+        this.lastValue = this.timeOnly ? value : this.toISOString(value)
         this.$emit('input', this.lastValue)
       }
 
@@ -154,8 +159,8 @@ export default {
     },
 
     toMask (value) {
-      if (!value) {
-        return ''
+      if (!value || this.timeOnly) {
+        return value || ''
       }
 
       const newDate = new Date(value).toISOString()
