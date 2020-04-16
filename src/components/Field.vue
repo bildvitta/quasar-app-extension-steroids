@@ -80,6 +80,8 @@ export default {
         type
         } = this.formatedField
 
+        console.log(this.formatedField)
+
       // Default error attributes for Quasar.
       const error = {
         error: this.hasError || undefined,

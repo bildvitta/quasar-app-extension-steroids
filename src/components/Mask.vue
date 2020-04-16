@@ -1,11 +1,15 @@
 <template>
-  <q-field v-model="text" class="full-width" v-bind="$attrs" stack-label contenteditable="true">
+  <!-- <q-field v-model="text" class="full-width" v-bind="$attrs" stack-label contenteditable="true">
     <input ref="field" :value="text" @input="handleInput" class="full-width" :style="{ all: 'initial'}" type="text" placeholder="ahhh">
-  </q-field>
+  </q-field> -->
+  <div>
+    <imask-input v-model="text" :mask="mask" :unmask="true" @accept="onAccept"/>
+  </div>
 </template>
 
 <script>
 import IMask from 'imask'
+import { IMaskComponent } from 'vue-imask';
 import { cloneDeep } from 'lodash'
 
 let mask = null
@@ -18,10 +22,25 @@ export default {
     }
   },
 
+  components: {
+    'imask-input': IMaskComponent
+  },
+
   data () {
     return {
       text: '',
-      field: null
+      field: null,
+      mask: [
+        { mask: "(00) 0000-0000" },
+        { mask: "(00) 00000-0000" }
+      ],
+      // mask: {
+      //   mask: '00 0000-0000',
+      //   lazy: false
+      // },
+      onAccept (value) {
+        console.log(value);
+      }
     }
   },
 
