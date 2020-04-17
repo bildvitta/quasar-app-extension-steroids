@@ -1,5 +1,10 @@
 <template>
-  <q-input ref="mask" v-model="text" v-bind="$attrs" v-on="$listeners" :mask="mask" />
+  <q-input ref="mask" :value="value" v-bind="$attrs" unmasked-value v-on="$listeners" :mask="mask">
+    <slot v-for="(slot, key) in $slots" :name="key" :slot="key" />
+    <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
+      <slot :name="key" v-bind="scope"/>
+    </template>
+  </q-input>
 </template>
 
 <script>
@@ -11,29 +16,33 @@ export default {
     }
   },
 
-  data () {
-    return {
-      text: ''
-    }
-  },
-
   watch: {
     mask () {
       const input = this.$refs.mask.$refs.input
-
       requestAnimationFrame(() => input.selectionStart = input.value ? input.value.length : '')
     }
   },
 
   computed: {
     mask () {
-      console.log(this.$attrs.mask)
-      switch (true) {
-        case this.text.length <= 8 && this.$attrs.mask === 'phone': return '####-#####'
-        case this.text.length === 9 && this.$attrs.mask === 'phone': return '#####-#####'
-        case this.text.length === 10 && this.$attrs.mask === 'phone': return '(##) ####-#####'
-        default: return '(##) #####-####'
+      const { mask } = this.$attrs
+      return this.masks.hasOwnProperty(mask) ? this.masks[mask]() : mask
+    },
+
+    masks () {
+      return {
+        'phone': () => this.maskLenght(10, '(##) ####-#####', '(##) #####-####'),
+        'personal-document': () => '###.###.###-##',
+        'company-document': () => '##.###.###/###-##',
+        'document': () => this.maskLenght(11, '###.###.###-###', '##.###.###/###-##'),
+        'postal-code': () => '##.###-###'
       }
+    }
+  },
+
+  methods: {
+    maskLenght (length, first, second) {
+      return this.value.length > length ? second : first
     }
   }
 }
