@@ -35,7 +35,7 @@ export default {
         'personal-document': () => '###.###.###-##',
         'company-document': () => '##.###.###/###-##',
         'document': () => this.maskLenght(11, '###.###.###-###', '##.###.###/###-##'),
-        'postal-code': () => '##.###-###'
+        'postal-code': () => '#####-###'
       }
     }
   },
