@@ -77,7 +77,8 @@ export default {
         filled = readonly,
         suffix,
         prefix,
-        type
+        type,
+        mask
         } = this.formatedField
 
       // Default error attributes for Quasar.
@@ -107,9 +108,9 @@ export default {
 
       // Profiles
       const profiles = {
-        default: { is: 'q-input', ...input },
+        default: { is: 'qs-input', ...input, mask },
         textarea: { is: 'q-input', type, ...input },
-        hidden: { is: 'input', name, type },
+        hidden: { is: 'qs-input', name, type },
 
         decimal: { ...decimalInput },
         money: { ...decimalInput, prefix: 'R$' },

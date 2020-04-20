@@ -23,6 +23,7 @@ import Sortable from '../components/Sortable.vue'
 import TableGenerator from '../components/TableGenerator.vue'
 import TabsGenerator from '../components/TabsGenerator.vue'
 import Uploader from '../components/Uploader.vue'
+import Input from '../components/Input.vue'
 
 export default async ({ Vue }) => {
   Vue.component('qs-app-bar', AppBar)
@@ -50,4 +51,5 @@ export default async ({ Vue }) => {
   Vue.component('qs-table-generator', TableGenerator)
   Vue.component('qs-tabs-generator', TabsGenerator)
   Vue.component('qs-uploader', Uploader)
+  Vue.component('qs-input', Input)
 }
