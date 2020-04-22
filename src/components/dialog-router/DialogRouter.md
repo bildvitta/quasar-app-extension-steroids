@@ -19,38 +19,31 @@ Componente para abrir paginas dentro de **modais**.
 | Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
 | `error` | { `error`: `Object` } | Dispara quando a há erro ao carregar componente. |
-| `hide` | | Fechar dialog. |
+| `hide` | | Dispara ao fechar o modal. |
 
 ## Métodos
 
 | Nome | Parâmetro | Descrição |
 |:-:|:-:|:-|
-| `show` | { `route`: `Object` } | Metodo a ser chamado para carregar componente no modal. |
+| `show` | { `route`: `Object` } | Método para carregar o componente. Deve ser informado um objeto de rota no mesmo padrão utilizado pelo Vue Router. |
 
 ## Exemplos
-Chame o componente **DialogRouter** dentro da página/componente que for usar:
 
 ```html
-<template v-slot:template-de-exemplo>
-  <qs-dialog-router ref="dialogRouter" @hide="reload" />
-</template>
+<qs-dialog-router ref="dialogRouter" />
 ```
 
-crie os metodos:
+Crie os métodos abaixo. Recomendamos a utilização de um mixin para este fim.
 
 ```js
     dialogRouter (route) {
       this.$refs.dialogRouter.show(route)
-    },
-
-    reload () {
-    // faça alguma coisa
     }
 ```
 
-Quando chamar o método **DialogRouter** passe o `name` do comonente do **vue-router** que queira carregar.
+Chame o método `dialogRouter()` informando a rota desejada.
 
 ```html
-<q-btn label="abrir página em modal" @click="dialogRouter({ name: 'NomeDoComponente' })"/>
+<q-btn label="Navegar (modal)" @click="dialogRouter({ name: 'NomeDaRota' })"/>
 ```
 

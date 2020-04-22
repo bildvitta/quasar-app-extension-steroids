@@ -1,6 +1,6 @@
 # DecimalInput
 
-Campo para formatar valores decimais. Utiliza o QInput.
+Campo para formatar valores decimais. Utiliza o [QInput](https://quasar.dev/vue-components/input#Introduction).
 
 ```
 <qs-decimal-input />

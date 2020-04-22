@@ -31,12 +31,8 @@ const inspect = [
       type: 'select'
   },
 
-  {
-      name: 'comment',
-      label: 'Descrição',
-      default: '',
-      type: 'textarea'
-  }
+  ['value 1', 'value 2', 'value 3']
+]
 ```
 
 ```html

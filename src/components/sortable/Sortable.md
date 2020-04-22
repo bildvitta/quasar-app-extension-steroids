@@ -11,7 +11,7 @@ Este componente é para ordenar elementos quando arrastados, o mesmo usa a bibli
 
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
-| `entity` | `String` | Não | | Entidade da API para usar como endpoint. |
+| `entity` | `String` | Não | | Entidade do `vuex`. |
 | `options` | `Object` | Não | `{ animation: 500 }` | Opções da biblioteca SortableJS. |
 | `results` | `Array` | Não | `[]` | Lista de elementos há serem ordenados. |
 | `tag` | `String` | Não | `div` | Tag do componente. |

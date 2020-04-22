@@ -1,8 +1,6 @@
 # Uploader
 
-Componente para fazer upload de arquivos.
-
-*obs: este componente implementa o **QUploader** do quasar: * https://quasar.dev/vue-components/uploader#Introduction
+Componente para fazer upload de arquivos. Este componente implementa o [QUploader](https://quasar.dev/vue-components/uploader#Introduction).
 
 ```
 <qs-uploader />
@@ -12,7 +10,7 @@ Componente para fazer upload de arquivos.
 
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
-| `entity` | `String` | Sim | | Entidade da **API** para usar como **endpoint**. |
+| `entity` | `String` | Sim | | Entidade do `vuex`. |
 | `hint` | `String` | Não | | Mensagem de dica. |
 | `maxFiles` | `Number` | Não | `1` | Número máximo de arquivos. |
 

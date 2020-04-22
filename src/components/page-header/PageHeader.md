@@ -1,10 +1,6 @@
 # PageHeader
 
-Componente de cabeçalho de Páginas com breadcrumbs que indicam a localização atual do usuário.
-
-*obs: este componente implementa **QBreadcrumbs e QToolbar** do quasar:*
-* https://quasar.dev/vue-components/breadcrumbs#Introduction
-* https://quasar.dev/vue-components/breadcrumbs#Introduction
+Componente de cabeçalho de Páginas com breadcrumbs que indicam a localização atual do usuário. Este componente implementa [QBreadcrumbs](https://quasar.dev/vue-components/breadcrumbs#Introduction) e [QToolbar](https://quasar.dev/vue-components/toolbar#Introduction).
 
 ```
 <qs-page-header />

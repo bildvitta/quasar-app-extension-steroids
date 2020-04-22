@@ -17,7 +17,7 @@ Possibilita copiar um texto para a área de transferência ao clicar.
 
 | Nome | Escopo | Descrição |
 |:-:|:-:|:-|
-| `default` | | Caso queria um texto diferente da label pode passar pelo slot default. |
+| `default` | | Informar um texto alternativo ao informado via propriedade label. |
 
 ## Eventos
 

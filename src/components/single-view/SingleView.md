@@ -12,7 +12,7 @@ Assim como o **ListView** este componente faz a requisão e retorna objeto basea
 |:-|:-:|:-:|:-:|:-|
 | `customId` | `[Numer, String]` | Não | `false` | Caso o **Id** da URL seja diferente do **id** do item a ser deletado, você pode passar um **id customizado**. |
 | `dialog` | `Boolean` | Não | `false` | usado para alterar a tag do componente caso use dentro de algum modal passa a ser `div` e não `QPage`. |
-| `entity` | `String` | Sim | | Entidade da **API** para usar como **endpoint**. |
+| `entity` | `String` | Sim | | Entidade do `vuex`. |
 | `url` | `String` | Não | | Caso a entidade seja diferente do **endpoint**, poderá usar esta propriedade para especificar qual é o endpoint. |
 
 ## Slots

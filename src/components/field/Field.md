@@ -1,6 +1,6 @@
 # Field
 
-Componente responsavel por renderizar **campos**.
+Componente coringa para a renderização de campos de formulário.
 
 ```
 <qs-field />
@@ -24,26 +24,20 @@ Componente responsavel por renderizar **campos**.
 ## Exemplos
 
 ```js
-// simulando field que vem da API.
-const fields = {
-  user: {
-    name: 'user',
-    label: 'Cliente',
-    default: '',
-    type: 'select'
-  },
+const field = {
+  name:'comment',
+  label:'Descrição',
+  default:'',
+  type:'textarea'
+}
 
-  comment: {
-    name:'comment',
-    label:'Descrição',
-    default:'',
-    type:'textarea'
+data () {
+  return {
+    value: 'Model com valor incial'
   }
 }
 ```
 
 ```html
-<div v-for="(field, key) in fields" :key="key">
-  <qs-field v-model="__VALOR_DO_MODEL__" :field="field" />
-</div>
+<qs-field v-model="value" :field="field" />
 ```

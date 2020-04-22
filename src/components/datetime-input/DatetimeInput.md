@@ -1,8 +1,7 @@
 # DatetimeInput
 
-Campo para a selecionar uma data e/ou hora, já normalizado para exibição (humanamente legível) e formatado na programação para trabalhar com o padrão internacional ISO 8601. Este componente utilizada o QDate, QTime e o QInput para funcionar.
+Campo para a selecionar uma data e/ou hora, já normalizado para exibição (humanamente legível) e formatado na programação para trabalhar com o padrão internacional ISO 8601. Este componente utilizada o [QDate, QTime e o QInput](https://quasar.dev/vue-components/date#Example--QDate-and-QTime-with-QInput) para funcionar.
 
-*obs: componente implementa **QDate e QTime com QInput** do quasar:* https://quasar.dev/vue-components/date#Example--QDate-and-QTime-with-QInput
 
 ```
 <qs-datetime-input />

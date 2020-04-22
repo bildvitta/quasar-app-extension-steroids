@@ -14,8 +14,8 @@ Componente de formulário, é usuado para **criar** e **editar**.
 | `customId` | `[Numer, String]` | Não | `false` | Caso o **Id** da URL seja diferente do **id** do item a ser deletado, você pode passar um **id customizado**. |
 | `dialog` | `Boolean` | Não | `false` | usado para alterar a tag do componente caso use dentro de algum modal passa a ser `div` e não `QPage`. |
 | `disable` | `Boolean` | Não | `false` | Desabilitar submit do form. |
-| `entity` | `String` | Sim | | Entidade da **API** para usar como **endpoint**. |
-| `mode` | `String` | Não | `create` | Define qual método a **API** vai bater: **PUT** ou **POST**. |
+| `entity` | `String` | Sim | | Entidade do `vuex`. |
+| `mode` | `String` | Não | `create` | Define qual método a **API** vai bater: **PUT**, **GET**, ou **POST**. |
 | `readOnly` | `Boolean` | Não | `false` | Habilita forumalário apenas para leitura |
 | `route` | `Object` | Não | `{}` | Rotas |
 | `submitButton` | `String` | Não | `Salvar` | Título do botão de salvar. |

@@ -11,7 +11,7 @@ Componente para gerar filtros dinamicamente e adicinar na query da **URL**.
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
 | `badges` | `Bollean` | Não | `true` | Habilita os badges para mostrar os filtros ativos. |
-| `entity` | `String` | Sim | | Entidade da **API** para usar como **endpoint**. |
+| `entity` | `String` | Sim | | Entidade do `vuex`. |
 | `noFilterButton` | `Boolean` | Não | `false` | Remover botão do filtro. |
 | `noSearch` | `Boolean` | Não | `false` | Remove campo de pesquisa. |
 | `searchPlaceholder` | `String` | Não | `Pesquisar...` | Label do placeholder do campo de pesquisa. |

@@ -1,8 +1,6 @@
 # Profile
 
-Componente para criar perfil.
-
-obs: este componente utiliza o componente: **Avatar**.
+Componente para criar perfil. Este componente utiliza o componente [Avatar](https://github.com/bildvitta/quasar-app-extension-steroids/tree/documentation/src/components/avatar).
 
 ```
 <qs-profile />

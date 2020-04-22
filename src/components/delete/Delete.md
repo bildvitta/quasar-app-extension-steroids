@@ -1,6 +1,6 @@
 # Delete
 
-Componente para deletar via requisição da **API**.
+Componente para deletar um registro a partir do evento de clique. Opcionalmente pode exibir uma caixa de diálogo.
 
 ```
 <qs-delete />
@@ -10,16 +10,16 @@ Componente para deletar via requisição da **API**.
 
 | Nome | Tipo | Obrigatório? | Padrão | Descrição |
 |:-|:-:|:-:|:-:|:-|
-| `customId` | `String` | Não | `false` | Caso o **Id** da URL seja diferente do **id** do item a ser deletado, você pode passar um **id customizado**. |
+| `customId` | `String` | Não | `false` | Informa o `id` a ser utilizado. Normalmente considera-se o parâmetro `id` da URL. |
 | `dialog` | `Object` | Não | `{}` | Configuração do `$q.dialog` para confirmação ao deletar. |
-| `entity` | `String` | Sim | | Entidade da **API** para usar como **endpoint**. |
-| `tab` | `String` | Não | `q-btn` | Uma tag válida do HTML ou um componente do Vue. |
+| `entity` | `String` | Sim | | Entidade do `vuex`. |
+| `tag` | `String` | Não | `q-btn` | Uma tag válida do HTML ou um componente do Vue. |
 
 ## Slots
 
 | Nome | Escopo | Descrição |
 |:-:|:-:|:-|
-| `default` | | |
+| `default` | | Conteúdo principal do campo. |
 
 ## Eventos
 
@@ -31,5 +31,5 @@ Componente para deletar via requisição da **API**.
 ## Exemplos
 
 ```html
-<qs-delete entity="posts" color="grey-8" custom-id="post-1s2us" />
+<qs-delete entity="posts" custom-id="post-1s2us" />
 ```
