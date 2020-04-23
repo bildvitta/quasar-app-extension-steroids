@@ -1,5 +1,6 @@
 import AppBar from '../components/app-bar/AppBar.vue'
 import AppMenu from '../components/app-menu/AppMenu.vue'
+import Autocomplete from '../components/Autocomplete.vue'
 import Avatar from '../components/avatar/Avatar.vue'
 import BreakLine from '../components/break-line/BreakLine.vue'
 import CheckboxGroup from '../components/checkbox-group/CheckboxGroup.vue'
@@ -13,6 +14,7 @@ import Field from '../components/field/Field.vue'
 import Filters from '../components/filters/Filters.vue'
 import FormGenerator from '../components/form-generator/FormGenerator.vue'
 import FormView from '../components/form-view/FormView.vue'
+import Input from '../components/Input.vue'
 import ListView from '../components/list-view/ListView.vue'
 import PageHeader from '../components/page-header/PageHeader.vue'
 import Profile from '../components/profile/Profile.vue'
@@ -26,6 +28,7 @@ import Uploader from '../components/uploader/Uploader.vue'
 export default async ({ Vue }) => {
   Vue.component('qs-app-bar', AppBar)
   Vue.component('qs-app-menu', AppMenu)
+  Vue.component('qs-autocomplete', Autocomplete)
   Vue.component('qs-avatar', Avatar)
   Vue.component('qs-break-line', BreakLine)
   Vue.component('qs-checkbox-group', CheckboxGroup)
@@ -48,4 +51,5 @@ export default async ({ Vue }) => {
   Vue.component('qs-table-generator', TableGenerator)
   Vue.component('qs-tabs-generator', TabsGenerator)
   Vue.component('qs-uploader', Uploader)
+  Vue.component('qs-input', Input)
 }

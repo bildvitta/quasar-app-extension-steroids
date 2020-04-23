@@ -4,7 +4,7 @@
 
     <q-toolbar-title class="cursor-pointer" @click="goToRoot">
       <img :src="getBrandURL(theme)" alt="" class="qs-toolbar__brand">
-      {{ title }}
+      {{ title }} <q-badge v-if="hasDevelopmentBadge" color="negative" align="middle">{{ developmentBadgeLabel }}</q-badge>
     </q-toolbar-title>
 
     <div class="items-center no-wrap q-gutter-md row">
@@ -83,6 +83,28 @@ export default {
 
     isFullscreen () {
       return !!this.$q.fullscreen.isActive
+    },
+
+    developmentBadgeLabel () {
+      const hosts = {
+        localhost: 'Local',
+        develop: 'Desenvolvimento',
+        release: 'Homologação'
+      }
+
+      if (process.env.DEV) {
+        return hosts.localhost
+      }
+
+      const current = Object.keys(hosts).find(
+        host => location.hostname.includes(host)
+      )
+
+      return current ? hosts[current] : ''
+    },
+
+    hasDevelopmentBadge () {
+      return !!this.developmentBadgeLabel
     }
   },
 

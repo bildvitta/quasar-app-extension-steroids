@@ -75,7 +75,10 @@ export default {
         options,
         readonly,
         filled = readonly,
-        type
+        suffix,
+        prefix,
+        type,
+        mask
         } = this.formatedField
 
       // Default error attributes for Quasar.
@@ -85,7 +88,7 @@ export default {
       }
 
       // Compact default fields attributes.
-      const input = { label, outlined: true, ...error, readonly, filled, maxlength, minlength }
+      const input = { label, outlined: true, ...error, readonly, filled, maxlength, minlength, suffix, prefix }
 
       const datetimeInput = { is: 'qs-datetime-input', ...input }
       const decimalInput = { is: 'qs-decimal-input', comma: true, fillMask: '0', reverseFillMask: true, ...input }
@@ -105,9 +108,9 @@ export default {
 
       // Profiles
       const profiles = {
-        default: { is: 'q-input', ...input },
+        default: { is: 'qs-input', ...input, mask },
         textarea: { is: 'q-input', type, ...input },
-        hidden: { is: 'input', name, type },
+        hidden: { is: 'qs-input', name, type },
 
         decimal: { ...decimalInput },
         money: { ...decimalInput, prefix: 'R$' },
