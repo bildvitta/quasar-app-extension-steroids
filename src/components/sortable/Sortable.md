@@ -41,7 +41,7 @@ const results = [
 ```
 
 ```html
-<qs-sortable :result="result" entity="photo" :options="{ animation: 600 }">
+<qs-sortable :results="results" entity="photo" :options="{ animation: 600 }">
   <div v-for="result in results" :key="result.id"> <img :href="result.photo" /></div>
 </qs-sortable>
 ```
@@ -49,7 +49,7 @@ const results = [
 Caso você tenha a necessidade de mostar os index atualizados, utilize:
 
 ```html
-<qs-sortable :result="result" entity="photo" :options="{ animation: 600 }">
+<qs-sortable :results="results" entity="photo" :options="{ animation: 600 }">
   <template v-slot="{ sorted }">
     <div v-for="result in sorted" :key="result.id"> <img :href="result.photo" /></div>
   </template>
