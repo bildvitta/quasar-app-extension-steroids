@@ -14,27 +14,49 @@ Este repositório contém métodos, componentes e estilos que auxiliarão na con
   - Router history
 - **Components:**
   - AppBar
+  - AppMenu
+  - Autocomplete
   - Avatar
   - BreakLine
+  - CheckboxGroup
+  - Copy
   - DatetimeInput
+  - Debugger
   - DecimalInput
+  - Delete
+  - DialogRouter
   - Field
+  - Filters
+  - FormGenerator
+  - FormView
+  - Input
+  - ListView
   - PageHeader
   - Profile
   - Resizer
+  - SingleView
+  - Sortable
+  - TableGenerator
+  - TabsGenerator
   - Uploader
 - **Directives:**
   - v-test
 - **Filters:**
   - asset
+  - booleanLabel
   - date
   - dateTime
   - humanDate
+  - humanize
   - money
+  - optionLabel
+  - parseValue
   - percent
+  - time
 - **Library:**
   - company
   - greatestCommonDivisor
+  - hasPermissions
   - storeModule
 - **Styles**
   - Colors
