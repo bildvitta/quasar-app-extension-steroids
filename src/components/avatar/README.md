@@ -17,16 +17,24 @@ Cria um avatar automaticamente com a foto ou as iniciais a partir de um título.
 | `title` | `String` | Não | | Título utilizado para extrair as iniciais quando não há imagem definida. |
 | `token` | `Number` | Não | | Código único utilizado para alterar a cor de fundo quando não há título definido. |
 
+## Slots
+
+> Sem slots.
+
+## Eventos
+
+> Sem eventos.
+
 ## Exemplos
 
 Avatar apenas com ícone e código para fixar a cor.
 
-```
+```html
 <qs-avatar icon="o_person" token="a1b2c3d4e5" />
 ```
 
 Com imagem ou texto.
 
-```
+```html
 <qs-avatar image="http://placehold.it/300x300" title="John Appleseed" />
 ```
