@@ -6,14 +6,14 @@
       </header>
 
       <slot v-if="!noFilter" name="filter" :entity="entity" :errors="errors" :fields="fields" :metadata="metadata" :results="results">
-        <qs-filters :entity="entity" />
+        <qs-filters :entity="entity" :debounce-search="debounceSearch" />
       </slot>
 
       <main class="relative-position">
         <div v-if="hasResults">
           <slot :fields="fields" :metadata="metadata" :results="results" />
         </div>
- 
+
         <div v-else-if="!isFetching" class="q-my-xl text-center">
           <q-icon class="text-center q-mb-sm" color="grey-6" name="o_search" size="38px" />
           <div class="text-grey-6">Nenhum item encontrado.</div>
@@ -53,6 +53,10 @@ export default {
     },
 
     disableRefresh: {
+      type: Boolean
+    },
+
+    debounceSearch: {
       type: Boolean
     }
   },

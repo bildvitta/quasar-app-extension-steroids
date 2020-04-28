@@ -4,10 +4,10 @@
       <div v-if="showSearch" class="col">
         <slot name="search" :filter="filter">
           <q-form v-if="!noSearch" @submit.prevent="filter()">
-            <q-input v-model="search" dense :placeholder="searchPlaceholder" type="search">
+            <q-input v-model="search" :debounce="debounce" dense :placeholder="searchPlaceholder" type="search">
               <template v-slot:append>
                 <q-btn v-if="hasSearch" icon="o_clear" unelevated @click="clearSearch" />
-                <q-btn icon="o_search" type="submit" unelevated @click="filter()" />
+                <q-btn v-if="!debounce" icon="o_search" type="submit" unelevated @click="filter()" />
               </template>
             </q-input>
           </q-form>
@@ -52,6 +52,7 @@
 import { camelize, camelizeKeys } from 'humps'
 import { humanize, parseValue } from '../helpers/filters'
 import store from 'store'
+import { debounce } from 'quasar'
 
 import contextMixin from '../mixins/context'
 
@@ -85,6 +86,10 @@ export default {
     url: {
       default: '',
       type: String
+    },
+
+    debounceSearch: {
+      type: Boolean
     }
   },
 
@@ -157,6 +162,10 @@ export default {
 
     showSearch () {
       return !!this.$scopedSlots.search || !this.noSearch
+    },
+
+    debounce () {
+      return this.debounceSearch ? '500' : ''
     }
   },
 
@@ -171,6 +180,12 @@ export default {
     $route () {
       this.fetchFilters()
       this.updateValues()
+    },
+
+    search () {
+      if (this.debounce) {
+        this.filter()
+      }
     }
   },
 
