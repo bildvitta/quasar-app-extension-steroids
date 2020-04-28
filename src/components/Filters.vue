@@ -52,7 +52,6 @@
 import { camelize, camelizeKeys } from 'humps'
 import { humanize, parseValue } from '../helpers/filters'
 import store from 'store'
-import { debounce } from 'quasar'
 
 import contextMixin from '../mixins/context'
 
@@ -97,7 +96,6 @@ export default {
     return {
       filters: {},
       search: '',
-
       hasFetchError: false,
       isFetching: false
     }
