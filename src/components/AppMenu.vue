@@ -1,5 +1,5 @@
 <template>
-  <q-drawer bordered v-model="__value">
+  <q-drawer bordered v-model="model">
     <q-scroll-area class="fit">
       <q-list class="text-grey-8" padding>
         <div v-for="(header, index) in items" :key="index">
@@ -35,7 +35,7 @@ export default {
   },
 
   computed: {
-    __value: {
+    model: {
       get () {
         return this.value
       },
