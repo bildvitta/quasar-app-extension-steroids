@@ -110,7 +110,7 @@ export default {
       const profiles = {
         default: { is: 'qs-input', ...input, mask },
         textarea: { is: 'q-input', type, ...input },
-        hidden: { is: 'qs-input', name, type },
+        hidden: { is: 'input', name, type },
 
         decimal: { ...decimalInput },
         money: { ...decimalInput, prefix: 'R$' },
