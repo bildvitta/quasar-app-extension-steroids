@@ -1,5 +1,5 @@
 <template>
-  <q-drawer bordered :value="value">
+  <q-drawer bordered v-model="model">
     <q-scroll-area class="fit">
       <q-list class="text-grey-8" padding>
         <div v-for="(header, index) in items" :key="index">
@@ -31,6 +31,18 @@ export default {
     value: {
       default: true,
       type: Boolean
+    }
+  },
+
+  computed: {
+    model: {
+      get () {
+        return this.value
+      },
+
+      set(value) {
+        return this.$emit('input', value)
+      }
     }
   }
 }
