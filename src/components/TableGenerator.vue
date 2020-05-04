@@ -1,7 +1,8 @@
 <template>
   <q-table class="bg-transparent" v-bind="attributes">
     <template v-for="(slot, key) in $scopedSlots" v-slot:[key]="context">
-      <q-td :key="key" :props="context">
+      <slot v-if="hasBodySlot" name="body" :props="context"/>
+      <q-td v-else :key="key" :props="context">
         <slot :name="key" v-bind="context" />
       </q-td>
     </template>
@@ -107,7 +108,11 @@ export default {
 
     rowsPerPage () {
       return this.results.length
-    }
+    },
+
+    hasBodySlot () {
+      return !!(this.$slots.body || this.$scopedSlots.body)
+    },
   }
 }
 </script>
