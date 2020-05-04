@@ -16,7 +16,7 @@
 
       <slot v-if="showFilterButton" name="filter-button" :filter="filter">
         <q-btn v-if="!noFilterButton" :color="filterButtonColor" flat icon="o_filter_list" :label="filterButtonLabel">
-          <q-menu stretch @before-show="fetchFilters">
+          <q-menu @before-show="fetchFilters">
             <div v-if="isFetching" class="q-pa-xl text-center">
               <q-spinner color="grey" size="2em" />
             </div>
@@ -31,7 +31,7 @@
               </div>
 
               <div class="text-right">
-                <q-btn class="q-mr-sm" label="Limpar filtros" size="12px" unelevated @click="clearFilters" />
+                <q-btn class="q-mr-sm" label="Limpar" size="12px" unelevated @click="clearFilters" />
                 <q-btn color="primary" label="Filtrar" size="12px" unelevated type="submit" />
               </div>
             </q-form>
