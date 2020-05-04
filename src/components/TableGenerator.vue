@@ -112,7 +112,7 @@ export default {
 
     hasBodySlot () {
       return !!(this.$slots.body || this.$scopedSlots.body)
-    },
+    }
   }
 }
 </script>
