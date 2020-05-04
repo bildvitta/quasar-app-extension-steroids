@@ -6,20 +6,25 @@
 
     <q-toolbar-title class="cursor-pointer" @click="goToRoot">
       <img :src="getBrandURL(theme)" alt="" class="qs-toolbar__brand">
-      {{ title }} <q-badge v-if="hasDevelopmentBadge" color="negative" align="middle">{{ developmentBadgeLabel }}</q-badge>
+      {{ title }} <q-badge v-if="hasDevelopmentBadge" align="middle" color="negative" :label="developmentBadgeLabel" />
     </q-toolbar-title>
 
     <div class="items-center no-wrap q-gutter-md row">
       <slot name="tools" />
 
-      <q-btn v-if="isAuth" class="row" :title="user.givenName" flat round>
+      <div v-if="isAuth" class="qs-toolbar__user row items-center q-mr-sm" :title="user.name || user.givenName">
         <qs-avatar color="white" :image="asset(user.photo)" size="36px" :title="user.name || user.givenName" />
 
+        <div class="qs-toolbar__user-data cursor-pointer q-pl-xs q-pr-sm qs-lh-sm">
+          <div class="ellipsis">{{ user.name || user.givenName }}</div>
+          <div class="text-caption ellipsis opacity-60 qs-lh-sm">{{ user.email }}</div>
+        </div>
+
         <q-menu>
-          <div style="min-width: 150px;">
-            <div class="q-pa-md text-center">
+          <div class="qs-toolbar__user-menu">
+            <div class="text-center q-pa-md">
               <qs-avatar color="white" :image="asset(user.photo)" size="75px" :title="user.name || user.givenName" />
-              <div class="q-mt-md qs-lh-sm text-subtitle1">{{ user.name || user.givenName }}</div>
+              <div class="q-mt-md qs-lh-sm text-subtitle1 ellipsis">{{ user.name || user.givenName }}</div>
               <div class="text-caption text-grey-6 ellipsis">{{ user.email }}</div>
 
               <slot name="user" :user="user" />
@@ -48,7 +53,7 @@
             </q-list>
           </div>
         </q-menu>
-      </q-btn>
+      </div>
     </div>
   </q-toolbar>
 </template>
@@ -155,6 +160,31 @@ export default {
     margin-right: map-get($space-sm, x);
     position: relative;
     top: 4px;
+  }
+
+  &__user {
+    background-color: rgba(white, 0.1);
+    border-radius: 500rem;
+    transition: background-color $generic-hover-transition;
+
+    &:focus,
+    &:hover {
+      background-color: rgba(white, 0.2);
+    }
+  }
+
+  &__user-data {
+    max-width: 100px;
+  }
+
+  &__user-menu {
+    max-width: 150px;
+  }
+
+  @media (max-width: $breakpoint-xs) {
+    &__user-data {
+      display: none;
+    }
   }
 }
 </style>
