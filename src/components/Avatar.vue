@@ -1,6 +1,6 @@
 <template>
   <q-avatar :class="classes" :color="backgroundColor" v-bind="$attrs" v-on="$listeners">
-    <img v-if="hasImage" :alt="title" :src="image">
+    <q-img v-if="hasImage" :alt="title" :ratio="1" spinner-color="primary" spinner-size="16px" :src="image" @error="onImageLoadedError" />
     <template v-else-if="hasTitle">{{ firstLetter }}</template>
     <q-icon v-else :name="icon" />
   </q-avatar>
@@ -62,6 +62,12 @@ export default {
     }
   },
 
+  data () {
+    return {
+      hasImageError: false
+    }
+  },
+
   computed: {
     backgroundColor () {
       if (this.color) {
@@ -84,7 +90,7 @@ export default {
     },
 
     hasImage () {
-      return !!this.image
+      return !this.hasImageError && !!this.image
     },
 
     hasTitle () {
@@ -110,6 +116,18 @@ export default {
       }
 
       return this.color === 'black' || this.dark ? `text-${this.mainColor}-2` : `text-${this.mainColor}`
+    }
+  },
+
+  watch: {
+    image () {
+      this.hasImageError = false
+    }
+  },
+
+  methods: {
+    onImageLoadedError () {
+      this.hasImageError = true
     }
   }
 }
