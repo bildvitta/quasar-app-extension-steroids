@@ -78,6 +78,12 @@ export default {
         return item
       })
     }
+  },
+
+  meta () {
+    return {
+      title: this.title
+    }
   }
 }
 </script>
