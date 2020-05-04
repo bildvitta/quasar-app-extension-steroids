@@ -4,10 +4,10 @@
       <div v-if="showSearch" class="col">
         <slot name="search" :filter="filter">
           <q-form v-if="!noSearch" @submit.prevent="filter()">
-            <q-input v-model="search" dense :placeholder="searchPlaceholder" type="search">
+            <q-input v-model="search" :debounce="debounce" dense :placeholder="searchPlaceholder" type="search">
               <template v-slot:append>
                 <q-btn v-if="hasSearch" icon="o_clear" unelevated @click="clearSearch" />
-                <q-btn icon="o_search" type="submit" unelevated @click="filter()" />
+                <q-btn v-if="!debounce" icon="o_search" type="submit" unelevated @click="filter()" />
               </template>
             </q-input>
           </q-form>
@@ -85,6 +85,11 @@ export default {
     url: {
       default: '',
       type: String
+    },
+
+    searchOnType: {
+      default: true,
+      type: Boolean
     }
   },
 
@@ -92,7 +97,6 @@ export default {
     return {
       filters: {},
       search: '',
-
       hasFetchError: false,
       isFetching: false
     }
@@ -157,6 +161,10 @@ export default {
 
     showSearch () {
       return !!this.$scopedSlots.search || !this.noSearch
+    },
+
+    debounce () {
+      return this.searchOnType ? '500' : ''
     }
   },
 
@@ -171,6 +179,12 @@ export default {
     $route () {
       this.fetchFilters()
       this.updateValues()
+    },
+
+    search () {
+      if (this.debounce) {
+        this.filter()
+      }
     }
   },
 
