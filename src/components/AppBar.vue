@@ -1,5 +1,7 @@
 <template>
   <q-toolbar class="qs-toolbar">
+    <q-ajax-bar color="white" position="top" size="2px" />
+
     <q-btn dense flat icon="o_menu" round @click="toggleMenuDrawer" />
 
     <q-toolbar-title class="cursor-pointer" @click="goToRoot">
