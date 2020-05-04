@@ -6,7 +6,7 @@
       </header>
 
       <slot v-if="!noFilter" name="filter" :entity="entity" :errors="errors" :fields="fields" :metadata="metadata" :results="results">
-        <qs-filters :entity="entity" :debounce-search="debounceSearch" />
+        <qs-filters :entity="entity" />
       </slot>
 
       <main class="relative-position">
@@ -53,10 +53,6 @@ export default {
     },
 
     disableRefresh: {
-      type: Boolean
-    },
-
-    debounceSearch: {
       type: Boolean
     }
   },

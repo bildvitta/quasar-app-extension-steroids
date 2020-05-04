@@ -87,7 +87,8 @@ export default {
       type: String
     },
 
-    debounceSearch: {
+    searchOnType: {
+      default: true,
       type: Boolean
     }
   },
@@ -163,7 +164,7 @@ export default {
     },
 
     debounce () {
-      return this.debounceSearch ? '500' : ''
+      return this.searchOnType ? '500' : ''
     }
   },
 
