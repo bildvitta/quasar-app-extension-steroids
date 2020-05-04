@@ -3,7 +3,7 @@
     <slot v-for="(tab, key) in formattedTabs" :name="`tab-${tab.label}`" :item="tab">
       <q-tab :name="key" :label="tab.label" :key="key" v-bind="tab">
         <slot :name="`tab-slot-${tab.label}`" :item="tab">
-          <q-badge v-if="counters[key]" color="negative" floating>{{ counters[key] }}</q-badge>
+          <q-badge v-if="counters[key]" color="negative" floating :label="counters[key]" />
         </slot>
       </q-tab>
     </slot>
@@ -15,11 +15,6 @@ import { extend } from 'quasar'
 
 export default {
   props: {
-    // Basic usage: :tabs="{ teste1: 'teste-1', teste2: 'teste-2' }".
-    // Example of usage: You can manipulate the tabs outsite the component and send: --->
-    // ---> :tabs="{ teste1: 'teste-1', teste2: 'teste-2', teste3: { label: 'teste-3', icon: 'email' }".
-    // If you just send :tabs="{ teste: 'teste-1', teste2: 'teste-2' }" the component will automatically format to: --->
-    // ---> "{ teste: { label: 'teste-1' }, teste2: { label: 'teste-2' } }"
     tabs: {
       default: () => ({}),
       type: Object,
