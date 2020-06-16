@@ -2,8 +2,10 @@ import AppBar from '../components/AppBar.vue'
 import AppMenu from '../components/AppMenu.vue'
 import Autocomplete from '../components/Autocomplete.vue'
 import Avatar from '../components/Avatar.vue'
+import BoardView from '../components/BoardView.vue'
 import BreakLine from '../components/BreakLine.vue'
 import CheckboxGroup from '../components/CheckboxGroup.vue'
+import ColumnBoard from '../components/ColumnBoard.vue'
 import Copy from '../components/Copy.vue'
 import DatetimeInput from '../components/DatetimeInput.vue'
 import Debugger from '../components/Debugger.vue'
@@ -24,14 +26,17 @@ import Sortable from '../components/Sortable.vue'
 import TableGenerator from '../components/TableGenerator.vue'
 import TabsGenerator from '../components/TabsGenerator.vue'
 import Uploader from '../components/Uploader.vue'
+import Slider from '../components/Slider.vue'
 
 export default async ({ Vue }) => {
   Vue.component('qs-app-bar', AppBar)
   Vue.component('qs-app-menu', AppMenu)
   Vue.component('qs-autocomplete', Autocomplete)
   Vue.component('qs-avatar', Avatar)
+  Vue.component('qs-board-view', BoardView)
   Vue.component('qs-break-line', BreakLine)
   Vue.component('qs-checkbox-group', CheckboxGroup)
+  Vue.component('qs-column-board', ColumnBoard)
   Vue.component('qs-copy', Copy)
   Vue.component('qs-datetime-input', DatetimeInput)
   Vue.component('qs-debugger', Debugger)
@@ -48,6 +53,7 @@ export default async ({ Vue }) => {
   Vue.component('qs-profile', Profile)
   Vue.component('qs-resizer', Resizer)
   Vue.component('qs-single-view', SingleView)
+  Vue.component('qs-slider', Slider)
   Vue.component('qs-sortable', Sortable)
   Vue.component('qs-table-generator', TableGenerator)
   Vue.component('qs-tabs-generator', TabsGenerator)

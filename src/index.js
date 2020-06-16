@@ -27,7 +27,8 @@ const extendQuasar = quasar => {
     'css/line-height.scss',
     'css/opacity.scss',
     'css/steroids.scss',
-    'css/text.scss'
+    'css/text.scss',
+    'css/scroll.scss'
   ))
 
   // Extras

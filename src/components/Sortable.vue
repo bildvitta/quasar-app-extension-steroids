@@ -35,7 +35,7 @@ export default {
 
     options: {
       type: Object,
-      default: () => ({ animation: 500 })
+      default: () => ({ animation: 500, scroll: true })
     }
   },
 
@@ -61,10 +61,12 @@ export default {
   },
 
   mounted () {
-    sortable = new Sortable(this.$refs.items, {
+    // TODO remover.element
+    sortable = new Sortable(this.$refs.items.element, {
       ...this.options,
 
       onUpdate: event => {
+        console.log('fui chamado')
         this.updateOrder(event)
         this.$emit('sort', event)
       }

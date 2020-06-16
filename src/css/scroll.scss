@@ -1,0 +1,21 @@
+.qs-scroll {
+  $root: &;
+
+  &::-webkit-scrollbar {
+    background-color: $grey-4;
+    border-radius: 500rem;
+    height: 10px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $grey-5;
+    border-radius: 500rem;
+    opacity: 0.5;
+  }
+
+  &--y {
+    &::-webkit-scrollbar {
+      width: 10px;
+    }
+  }
+}
