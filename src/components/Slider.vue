@@ -149,8 +149,8 @@ export default {
           window.cancelAnimationFrame(animate)
         } else {
           this.element.scrollLeft += this.difference * step
-          // tick -= 0.02
-          tick -= 1
+          tick -= 0.02
+          // tick -= 1
 
           window.requestAnimationFrame(animate)
         }

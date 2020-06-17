@@ -3,11 +3,13 @@ import { asset, booleanLabel, date, dateTime, humanDate, money, optionLabel, per
 import greatestCommonDivisor from './greatestCommonDivisor.js'
 import storeModule from './storeModule.js'
 import hasPermissions from './hasPermissions.js'
+import findParent from './findParent.js'
 
 export {
   isBild, isExklusiv, isFegik, isVeraz, isVitta, getCompany,
   asset, booleanLabel, date, dateTime, humanDate, money, optionLabel, percent,
   greatestCommonDivisor,
   storeModule,
-  hasPermissions
+  hasPermissions,
+  findParent
 }

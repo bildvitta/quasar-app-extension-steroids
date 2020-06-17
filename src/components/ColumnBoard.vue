@@ -1,14 +1,14 @@
 <template>
   <div class="column-board no-wrap column" v-bind="$attrs" v-on="$listeners">
     <div class="column-board__box q-pa-sm rounded-borders">
-      <header class="q-mb-md text-weight-bold text-grey-8">
+      <header class="q-mb-md q-mt-sm text-weight-bold text-grey-9">
         <!-- header -->
         <slot name="header" />
       </header>
       <div ref="columnBoardContent" class="column-board__content overflow-auto qs-scroll qs-scroll--y q-gutter-sm">
         <slot />
       </div>
-      <footer class="q-mb-mt">
+      <footer class="q-mt-md">
         <!-- footer -->
         <slot name="footer" />
       </footer>

@@ -1,9 +1,11 @@
+import AddCard from '../components/AddCard.vue'
 import AppBar from '../components/AppBar.vue'
 import AppMenu from '../components/AppMenu.vue'
 import Autocomplete from '../components/Autocomplete.vue'
 import Avatar from '../components/Avatar.vue'
 import BoardView from '../components/BoardView.vue'
 import BreakLine from '../components/BreakLine.vue'
+import CardBoard from '../components/CardBoard.vue'
 import CheckboxGroup from '../components/CheckboxGroup.vue'
 import ColumnBoard from '../components/ColumnBoard.vue'
 import Copy from '../components/Copy.vue'
@@ -22,19 +24,21 @@ import PageHeader from '../components/PageHeader.vue'
 import Profile from '../components/Profile.vue'
 import Resizer from '../components/Resizer.vue'
 import SingleView from '../components/SingleView.vue'
+import Slider from '../components/Slider.vue'
 import Sortable from '../components/Sortable.vue'
 import TableGenerator from '../components/TableGenerator.vue'
 import TabsGenerator from '../components/TabsGenerator.vue'
 import Uploader from '../components/Uploader.vue'
-import Slider from '../components/Slider.vue'
 
 export default async ({ Vue }) => {
+  Vue.component('qs-add-card', AddCard)
   Vue.component('qs-app-bar', AppBar)
   Vue.component('qs-app-menu', AppMenu)
   Vue.component('qs-autocomplete', Autocomplete)
   Vue.component('qs-avatar', Avatar)
   Vue.component('qs-board-view', BoardView)
   Vue.component('qs-break-line', BreakLine)
+  Vue.component('qs-card-board', CardBoard)
   Vue.component('qs-checkbox-group', CheckboxGroup)
   Vue.component('qs-column-board', ColumnBoard)
   Vue.component('qs-copy', Copy)

@@ -7,11 +7,9 @@
           <q-input v-model="title" dense autofocus counter />
         </q-popup-edit>
       </template>
-      <div v-for="item in 3" :key="item">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem temporibus, numquam perferendis deleniti expedita nobis, dignissimos quaerat velit, dicta nemo eos! Commodi fugit ratione saepe natus provident necessitatibus cum fugiat.
-      </div>
+      <qs-card-board v-model="card" v-for="item in 3" :key="item" />
       <template v-slot:footer>
-        aqui é meu novo footer
+        <qs-add-card v-model="card.nome" @add="addCard($event, 'eae')"/>
       </template>
     </qs-column-board>
   </qs-slider>
@@ -27,7 +25,7 @@ const defaultSortableOptions = {
   animation: 350,
   scroll: true,
   fallbackOnBody: true,
-  swapThreshold: 1,
+  swapThreshold: 1
 }
 
 export default {
@@ -53,8 +51,19 @@ export default {
       windowHeight: window.innerHeight,
       boardTopPosition: null,
       isSorting: false,
-      title: 'titulo'
+      title: 'titulo',
+      // card
+      card: {
+        nome: 'douglas',
+        idade: 22
+      }
     }
+  },
+
+  created () {
+    !this.$q.platform.is.desktop && this.$q.notify({
+      message: 'A opção de ordenar está disponivél somente para desktop.'
+    }) || this.$emit('sortable-not-supported')
   },
 
   mounted () {
@@ -129,6 +138,10 @@ export default {
     destroySortable () {
       sortableColumn.destroy()
       sortableCard.forEach(card => card.destroy())
+    },
+
+    addCard (value, value2) {
+      console.log(value, value2)
     }
   }
 }
