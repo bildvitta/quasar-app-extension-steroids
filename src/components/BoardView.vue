@@ -1,30 +1,59 @@
 <template>
-  <component :is="boardTag" class="flex" :style="maxHeight" :sorting="isSorting">
-    <qs-column-board ref="columnBoard" v-for="item in 8" :key="item" @mousedown="boardActived">
+  <qs-slider ref="boardSlider" class="flex" :style="maxHeight" :sorting="isSorting">
+    <qs-column-board ref="columnBoard" v-for="item in 8" :key="item">
       <template v-slot:header>
-        aqui é meu novo header
+        {{ title }}
+        <q-popup-edit v-model="title">
+          <q-input v-model="title" dense autofocus counter />
+        </q-popup-edit>
       </template>
-      <div v-for="item in 10" :key="item" class="q-mt-sm">
+      <div v-for="item in 3" :key="item">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem temporibus, numquam perferendis deleniti expedita nobis, dignissimos quaerat velit, dicta nemo eos! Commodi fugit ratione saepe natus provident necessitatibus cum fugiat.
       </div>
       <template v-slot:footer>
         aqui é meu novo footer
       </template>
     </qs-column-board>
-  </component>
+  </qs-slider>
 </template>
 
 <script>
-// import Sortable from 'sortablejs'
-import Sortable, { AutoScroll } from 'sortablejs/modular/sortable.core.esm.js'
+import Sortable from 'sortablejs'
+
+let sortableColumn = null
+const sortableCard = []
+
+const defaultSortableOptions = {
+  animation: 350,
+  scroll: true,
+  fallbackOnBody: true,
+  swapThreshold: 1,
+}
 
 export default {
+  props: {
+    sortableColumnOptions: {
+      type: Object,
+      default: () => ({ ...defaultSortableOptions })
+    },
+
+    sortableCardOptions: {
+      type: Object,
+      default: () => ({ ...defaultSortableOptions })
+    },
+
+    sortableOptions: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+
   data () {
     return {
       windowHeight: window.innerHeight,
       boardTopPosition: null,
-      boardTag: 'qs-slider',
-      isSorting: false
+      isSorting: false,
+      title: 'titulo'
     }
   },
 
@@ -37,28 +66,19 @@ export default {
     this.setSortable()
   },
 
-  // updated () {
-  //   this.setSortable()
-  // },
-
-  destroyed() {
+  destroyed () {
     window.removeEventListener('resize', this.controlHeight)
+    this.destroySortable()
   },
 
   computed: {
     maxHeight () {
       const maxHeight = `${this.windowHeight - this.boardTopPosition - 20}px`
-      console.log(this.$el, '>>>> el')
       return this.boardTopPosition && { maxHeight }
     }
   },
 
   methods: {
-    boardActived () {
-      // this.boardTag = 'div'
-      console.log('fui clicado')
-    },
-
     getBoardTopPosition () {
       this.boardTopPosition = this.$el.offsetTop
     },
@@ -72,47 +92,43 @@ export default {
       window.addEventListener('resize', this.controlHeight)
     },
 
-    setSortable () {
-      if (!this.$q.platform.is.desktop) {
-        return null
-      }
-
-      new Sortable(this.$el.childNodes[0].childNodes[0], {
+    setSortableColumn () {
+      sortableColumn = new Sortable(this.$el.childNodes[0].childNodes[0], {
         group: 'column',
-        animation: 350,
-        scroll: true,
-        fallbackOnBody: true,
-        swapThreshold: 1,
-        // invertSwap: true,
-        // scrollSensitivity: 100,
-        // scrollSpeed: 100,
+        ...this.sortableColumnOptions,
+        ...this.sortableOptions,
 
-        // onUpdate: event => {
-        //   console.log('fui chamado')
-        // }
-          onStart: event => {
-            console.log('olokinho meu')
-            this.isSorting = true
-          }
+        onStart: event => {
+          console.log('olokinho meu')
+          this.isSorting = true
+        }
       })
+    },
 
+    setSortableCard () {
       this.$refs.columnBoard.forEach(boardElement => {
-        new Sortable(boardElement.$refs.columnBoardContent, {
-          group: 'card',
-          scroll: true,
-          animation: 350,
-          fallbackOnBody: true,
-          // invertSwap: true,
-          swapThreshold: 1,
-          // scrollSensitivity: 100,
-          // scrollSpeed: 100,
-          onStart: event => {
-            this.isSorting = true
-          }
-        })
-      })
+        // adiciona uma lista instâncias do sortable dos cards
+        sortableCard.push(
+          new Sortable(boardElement.$refs.columnBoardContent, {
+            group: 'card',
+            ...this.sortableCardOptions,
+            ...this.sortableOptions,
 
-      // Sortable.mount(new AutoScroll())
+            onStart: event => {
+              this.isSorting = true
+            }
+          })
+        )
+      })
+    },
+
+    setSortable () {
+      this.$q.platform.is.desktop && (this.setSortableColumn() || this.setSortableCard())
+    },
+
+    destroySortable () {
+      sortableColumn.destroy()
+      sortableCard.forEach(card => card.destroy())
     }
   }
 }

@@ -69,9 +69,8 @@ export default {
           element = element.parentElement
         }
       }
-      console.log(findParent(event.target, '.column-board'), '>> refs')
-      // console.log(event.target, event.target.matches('draggable'))
-      if (findParent(event.target, '.column-board')) { 
+
+      if (findParent(event.target, '.column-board__box')) { 
         console.log('mousedown')
 
         // event.preventDefault()
@@ -194,47 +193,6 @@ export default {
       max-height: inherit;
       display: flex;
       padding-bottom: 10px;
-
-      // -ms-overflow-style: none;
-      // -ms-overflow-style: none;
-      // -webkit-overflow-scrolling: touch;
-      // & > * {
-      // }
-
-      // &::-webkit-scrollbar {
-        // width: 0 !important;
-      // }
-    //   scroll-margin: 50px 0 0 50px;
-    //   &::-webkit-scrollbar {
-    //     /* 1 */
-    //     background-color: $grey-4;
-    //     border-radius: 500rem;
-    //     height: 10px;
-    //   }
-    //   ::-webkit-scrollbar-button       { /* 2 */ }
-    //   ::-webkit-scrollbar-track        { /* 3 */ }
-    //   ::-webkit-scrollbar-track-piece  { /* 4 */ }
-    //   &::-webkit-scrollbar-thumb {
-    //     /* 5 */
-    //     background-color: $grey-5;
-    //     border-radius: 500rem;
-    //   }
-    //   // 2
-    //   &::-webkit-scrollbar-button,
-    //   // 6
-    //   &::-webkit-scrollbar-corner {
-    //     // display: none;
-    //   }
-    //   ::-webkit-resizer                { /* 7 */ }
-    //   scrollbar-arrow-color:#000000 !important;
-    //   scrollbar-3dlight-color:#000000 !important;
-    //   scrollbar-highlight-color:#FF0000 !important;
-    //   scrollbar-face-color:#FFFFFF !important;
-    //   scrollbar-shadow-color:#0000FF !important;
-    //   scrollbar-darkshadow-color:#FFFF00 !important;
-    //   scrollbar-track-color:#00FF00 !important;
-    //   scrollbar-color: red;
-    // }
     }
 
     &__content {

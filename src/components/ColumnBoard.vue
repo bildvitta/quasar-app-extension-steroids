@@ -1,16 +1,18 @@
 <template>
-  <div class="column-board no-wrap column q-pa-sm bg-grey-4 rounded-borders" v-bind="$attrs" v-on="$listeners">
-    <header class="q-mb-lg">
-      <!-- header -->
-      <slot name="header" />
-    </header>
-    <div ref="columnBoardContent" class="column-board__content overflow-auto qs-scroll qs-scroll--y">
-      <slot />
+  <div class="column-board no-wrap column" v-bind="$attrs" v-on="$listeners">
+    <div class="column-board__box q-pa-sm rounded-borders">
+      <header class="q-mb-md text-weight-bold text-grey-8">
+        <!-- header -->
+        <slot name="header" />
+      </header>
+      <div ref="columnBoardContent" class="column-board__content overflow-auto qs-scroll qs-scroll--y q-gutter-sm">
+        <slot />
+      </div>
+      <footer class="q-mb-mt">
+        <!-- footer -->
+        <slot name="footer" />
+      </footer>
     </div>
-    <footer class="q-mb-mt">
-      <!-- footer -->
-      <slot name="footer" />
-    </footer>
   </div>
 </template>
 
@@ -21,7 +23,13 @@ export default {
 <style lang="scss">
   .column-board {
     max-height: inherit;
-    background-color: $primary;
+
+    &__box {
+      max-height: 100%;
+      display: flex;
+      flex-direction: column;
+      background-color: lighten($grey-5, 16%);
+    }
 
     &__content {
        * {
