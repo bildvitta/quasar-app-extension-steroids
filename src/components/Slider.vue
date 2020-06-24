@@ -4,6 +4,7 @@
       <div ref="sliderContent" class="slider__content" :class="gutter">
         <slot />
       </div>
+      <slot name="slider-side" />
     </div>
   </div>
 </template>
@@ -54,7 +55,7 @@ export default {
 
   methods: {
     mouseDown (event) {
-      this.handleScroll(event)
+      // this.handleScroll(event)
 
       const findParent = (element, selector) => {
         while (element.parentElement) {
@@ -70,10 +71,7 @@ export default {
         }
       }
 
-      if (findParent(event.target, '.column-board__box')) { 
-        console.log('mousedown')
-
-        // event.preventDefault()
+      if (findParent(event.target, '.board-view__box')) {
         return null
        }
 
@@ -89,30 +87,6 @@ export default {
     },
 
     mouseMove (event) {
-      const findParent = (element, selector) => {
-        while (element.parentElement) {
-          if (!element) {
-            continue
-          }
-
-          if (element && element.matches(selector)) {
-            return element
-          }
-
-          element = element.parentElement
-        }
-      }
-
-      // if (this.mousedownPosition !== this.clickPosition) {
-      //   console.log('opaaa')
-      // }
-
-      // if (findParent(event.target, '.column-board')) {
-      //   console.log(this.sorting)
-      //   // event.preventDefault()
-      //   return
-      //  }
-
       if (!this.drag) {
         return null
       }
@@ -165,7 +139,6 @@ export default {
       }
 
       const { type, clientX } = event
-      console.log(type, '>> tp')
 
       if (type === 'mousedown') {
         this.mousedownPosition = clientX
