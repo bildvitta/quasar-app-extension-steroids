@@ -31,38 +31,47 @@
     </template>
   </qs-slider> -->
   <qs-slider ref="boardSlider" class="board-view flex" :style="maxHeight" :sorting="isSorting" @mouseover="mouseOver">
-    <slot v-for="(column, index) in 10" :name="`column-${index}`" v-bind="self">
+    <slot v-for="(column, index) in mock" :name="`column-${index}`" v-bind="self">
       <div ref="columnBoard" :key="index" class="board-view__column no-wrap column">
-        <div class="board-view__box q-pa-md rounded-borders">
-          <slot :name="`column-header-${index}`" :column="column">
-            <header class="q-mb-md q-mt-sm text-weight-bold text-grey-9">
-              {{ title }}
-              <q-popup-edit v-model="title">
-                <q-input v-model="title" dense autofocus counter />
+        <div class="board-view__box q-pa-sm rounded-borders">
+          <slot name="column-header" :column="column">
+            <header class="q-mb-sm q-mt-xs q-mx-sm text-weight-bold text-grey-9 flex justify-between">
+              <div>
+                {{ column.name }}
+                <q-tooltip :offset="[10, 10]">
+                  Clique para editar
+                </q-tooltip>
+              </div>
+              <q-icon name="edit" />
+              <q-popup-edit v-model="column.name" auto-save>
+                <q-input v-model="column.name" dense autofocus counter>
+                  <template v-slot:append>
+                    <q-icon name="edit" />
+                  </template>
+                </q-input>
               </q-popup-edit>
             </header>
           </slot>
-          <div ref="columnBoardContent" class="board-view__content overflow-auto qs-scroll qs-scroll--y q-gutter-sm">
-            <slot v-for="(card, cardIndex) in 3" :name="`card-${index}-${cardIndex}`">
-              <qs-card-board v-model="card1" :key="cardIndex" />
+          <div ref="columnBoardContent" class="board-view__content q-px-sm q-py-xs overflow-auto qs-scroll qs-scroll--y">
+            <slot v-for="(card, cardIndex) in 6" :name="`card-${index}-${cardIndex}`">
+              <qs-card-board v-model="card1" :class="cardSpacing(cardIndex)" :key="cardIndex" />
             </slot>
           </div>
-          <slot :name="`column-footer-${index}`" :column="column">
-            <footer class="q-mt-md">
-              <qs-add-card v-model="card1.nome" @add="addCard($event, 'eae')"/>
+          <slot name="column-footer" :column="column">
+            <footer class="q-mt-sm q-px-sm">
+              <transition name="fade">
+                <qs-add-card label="Adicionar novo cartão" input-label="Insira um título para este card" @add="addCard('eae', $event)" card/>
+              </transition>
             </footer>
           </slot>
         </div>
       </div>
     </slot>
-    <qs-add-card class="test" v-model="card1.nome" @add="addCard($event, 'eae')"/>
-    <!-- <template v-slot:slider-side>
-      <slot name="slider-side">
-        <div class="">
-          <qs-add-card v-model="card1.nome" @add="addCard($event, 'eae')"/>
-        </div>
-      </slot>
-    </template> -->
+    <slot name="add-column">
+      <div class="board-view__add-column q-pa-sm rounded-borders">
+        <qs-add-card @add="addColumn($event, 'eae')" />
+      </div>
+    </slot>
   </qs-slider>
 </template>
 
@@ -103,7 +112,7 @@ export default {
       windowHeight: window.innerHeight,
       boardTopPosition: null,
       isSorting: false,
-      title: 'titulo',
+      title: 'Titulo da coluna',
       currentElement: false,
       // card
       card1: {
@@ -199,14 +208,13 @@ export default {
         ...this.sortableColumnOptions,
         ...this.sortableOptions,
 
-        onMove: event => !event.related.classList.contains('test')
+        onMove: event => !event.related.classList.contains('board-view__add-column')
       })
     },
 
     setSortableCard () {
       this.$refs.columnBoard.forEach((boardElement, index) => {
         // adiciona uma lista instâncias do sortable dos cards
-        console.log(boardElement, '>>elemento')
         sortableCard.push(
           new Sortable(this.$refs.columnBoardContent[index], {
             group: 'card',
@@ -251,6 +259,22 @@ export default {
 
       this.currentElement = !!findParent(event.target, '.test')
       // console.log(sortableColumn.disabled)
+    },
+
+    cardSpacing (index) {
+      return index ? 'q-mt-sm' : ''
+    },
+
+    addColumn (name) {
+      this.$set(this.mock, this.mock.length, {
+        name: name
+      })
+
+      const scrollElement = this.$refs.boardSlider.element
+
+      this.$nextTick(() => {
+        scrollElement.scroll({ left: scrollElement.scrollWidth, behavior: 'smooth' })
+      })
     }
   }
 }
@@ -264,11 +288,17 @@ export default {
       max-height: inherit;
       width: 300px;
     }
-    
+
+    &__add-column {
+      width: 250px;
+      height: fit-content;
+      background-color: $grey;
+    }
 
     &__box-grey {
       background-color: $grey;
     }
+
 
     &__box {
       max-height: 100%;
