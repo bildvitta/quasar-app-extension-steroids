@@ -1,11 +1,7 @@
-import axios from 'axios'
 import humps from 'humps'
 
 export default async ({ Vue }) => {
-  const environment = Vue.prototype.$environment
-
-  // URL
-  axios.defaults.baseURL = process.env.SERVER_BASE_URL || (environment ? environment.serverBaseURL : '')
+  const axios = Vue.prototype.$axios
 
   // Transformers
   axios.defaults.transformResponse = [
@@ -17,6 +13,4 @@ export default async ({ Vue }) => {
     data => humps.decamelizeKeys(data),
     ...axios.defaults.transformRequest
   ]
-
-  Vue.prototype.$axios = axios
 }

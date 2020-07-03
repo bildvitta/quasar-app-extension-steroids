@@ -5,7 +5,7 @@
     <q-btn dense flat icon="o_menu" round @click="toggleMenuDrawer" />
 
     <q-toolbar-title class="cursor-pointer" @click="goToRoot">
-      <img :src="getBrandURL(theme)" alt="" class="qs-toolbar__brand">
+      <img :src="brand" alt="" class="qs-toolbar__brand">
       {{ title }} <q-badge v-if="hasDevelopmentBadge" align="middle" color="negative" :label="developmentBadgeLabel" />
     </q-toolbar-title>
 
@@ -61,13 +61,28 @@
 <script>
 import { colors } from 'quasar'
 import { asset } from 'steroids'
-import { mapActions, mapGetters } from 'vuex'
 
 export default {
   props: {
     title: {
       required: true,
       type: String
+    },
+
+    user: {
+      require: true,
+      type: Object,
+      default: () => ({})
+    },
+
+    isAuth: {
+      type: Boolean
+    },
+
+    brand: {
+      required: true,
+      type: String,
+      default: ''
     }
   },
 
@@ -78,12 +93,6 @@ export default {
   },
 
   computed: {
-    ...mapGetters('auth', {
-      isAuth: 'isAuth',
-      user: 'user',
-      theme: 'theme'
-    }),
-  
     fullscreenIcon () {
       return this.isFullscreen ? 'o_fullscreen_exit' : 'o_fullscreen'
     },
@@ -115,24 +124,11 @@ export default {
     }
   },
 
-  created () {
-    colors.setBrand('primary', this.$brandColors[this.theme])
-    this.getUser()
-  },
-
   methods: {
-    ...mapActions('auth', {
-      getUser: 'getUser'
-    }),
-
     asset,
 
     fullscreen () {
       this.$q.fullscreen.toggle()
-    },
-
-    getBrandURL (brand) {
-      return require(`../assets/brands/${brand}.svg`)
     },
 
     goToRoot () {
@@ -144,7 +140,7 @@ export default {
     },
 
     signOut () {
-      this.$router.replace({ name: 'AuthSignOut' })
+      this.$emit('sign-out')
     }
   }
 }
