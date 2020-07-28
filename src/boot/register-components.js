@@ -1,4 +1,4 @@
-import AddCard from '../components/AddCard.vue'
+import AddCardColumn from '../components/AddCardColumn.vue'
 import AppBar from '../components/AppBar.vue'
 import AppMenu from '../components/AppMenu.vue'
 import Autocomplete from '../components/Autocomplete.vue'
@@ -31,7 +31,7 @@ import TabsGenerator from '../components/TabsGenerator.vue'
 import Uploader from '../components/Uploader.vue'
 
 export default async ({ Vue }) => {
-  Vue.component('qs-add-card', AddCard)
+  Vue.component('qs-add-card-column', AddCardColumn)
   Vue.component('qs-app-bar', AppBar)
   Vue.component('qs-app-menu', AppMenu)
   Vue.component('qs-autocomplete', Autocomplete)

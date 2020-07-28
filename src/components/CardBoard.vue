@@ -1,39 +1,42 @@
 <template>
-  <div v-bind="$attrs">
-    <q-card class="card shadow-1 relative-position" bordered @mouseover="mouseOver" @mouseout="mouseOut">
-      <q-card-section class="flex no-wrap justify-between">
-        Titulo que aparecerá no card. Porém está um pouco mais longo para testes
-        <q-btn flat round dense icon="edit" @click="showDialog" />
+  <div v-bind="$attrs" class="card-board" :class="sortingClass" v-on="$listeners" @mouseup="mouseDown">
+    <q-card class="card shadow-1" bordered @mouseover="mouseOver" @mouseout="mouseOut" @click="showDialog">
+      <q-card-section class="position-relative">
+        <div>{{ value.title }}</div>
+        <q-icon v-if="showEdit" class="card-board__icon absolute" flat round dense name="edit" />
+        <q-icon v-if="value.description" flat round dense name="subject" />
       </q-card-section>
     </q-card>
 
-    <q-dialog v-model="dialog">
-      <q-card class="full-width" style="max-width: 400px; with: 100%;">
-        <q-form>
-          <q-toolbar>
-            <q-toolbar-title>
-              <span class="text-weight-bold text-subtitle1">{{ teste }}</span>
-              <q-popup-edit v-model="teste" auto-save>
-                <q-input v-model="teste" dense autofocus counter>
-                  <template v-slot:append>
-                    <q-icon name="edit" />
-                  </template>
-                </q-input>
-              </q-popup-edit>
-            </q-toolbar-title>
-            <q-btn flat round dense icon="delete" size="sm" v-close-popup />
-            <q-btn flat round dense icon="close" size="sm" v-close-popup />
-          </q-toolbar>
+    <q-dialog v-model="dialog" persistent>
+      <slot name="dialog">
+        <q-card class="full-width" style="max-width: 500px; with: 100%;">
+          <q-form @submit.prevent="submit">
+            <q-toolbar class="q-pa-md">
+              <q-toolbar-title class="text-wrap">
+                <span class="text-weight-bold text-subtitle1">{{ model.title }}</span>
+                <q-popup-edit v-model="model.title" auto-save :validate="titleValidation" @hide="titleValidation">
+                  <q-input v-model="model.title" dense autofocus counter>
+                    <template v-slot:append>
+                      <q-icon name="edit" />
+                    </template>
+                  </q-input>
+                </q-popup-edit>
+              </q-toolbar-title>
+              <q-btn class="self-start" flat round dense icon="close" size="sm" v-close-popup />
+            </q-toolbar>
 
-          <q-card-section>
-            <q-input v-model="content" type="textarea" autogrow autofocus label="Descrição" filled :bg-color="isFocused ? '' : 'white'" :borderless="!isFocused" @focus="focus" @blur="blur" />
+            <q-card-section>
+              <q-input v-model="model.description" type="textarea" autogrow autofocus label="Descrição" filled :bg-color="descriptionColor" :borderless="!isFocused" @focus="focus" @blur="blur" />
 
-            <div class="text-right q-pt-sm">
-              <q-btn label="salvar" type="submit" color="primary" unelevated />
-            </div>
-          </q-card-section>
-        </q-form>
-      </q-card>
+              <div class="text-right q-pt-md justify-between flex q-gutter-x-md">
+                <q-btn class="self-start" flat round dense icon="delete" size="sm" v-close-popup @click="onDelete" />
+                <q-btn label="salvar" type="submit" color="primary" unelevated v-close-popup />
+              </div>
+            </q-card-section>
+          </q-form>
+        </q-card>
+      </slot>
     </q-dialog>
   </div>
 </template>
@@ -44,29 +47,43 @@ export default {
     value: {
       type: Object,
       default: () => ({})
+    },
+
+    isSorting: {
+      type: Boolean
     }
   },
 
   data () {
     return {
-      showEdit: true,
+      showEdit: false,
       dialog: false,
-      teste: 'titulo do card',
       isFocused: false,
-      content: ''
-      // content: 'ipsum dolor sit amet consectetur adipisicing elit. Rerum repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis perferendis totam, ea at omnis vel numquam exercitationem aut, natus minima, porro labore.'
+      model: {
+        title: '',
+        description: ''
+      }
     }
   },
 
-  computed: {
-    currentValue: {
-      get () {
-        return this.value
-      },
+  watch: {
+    value (value) {
+      this.setModel(value)
+    }
+  },
 
-      set (value) {
-        this.$emit('input', value)
-      }
+  created () {
+    this.setModel(this.value)
+  },
+
+  computed: {
+    descriptionColor () {
+      return this.isFocused ? '' : 'white'
+    },
+
+    sortingClass () {
+      console.log(this.isSorting, '>> created')
+      return { 'card-board--sorting': this.isSorting }
     }
   },
 
@@ -89,10 +106,43 @@ export default {
 
     blur () {
       this.isFocused = false
+    },
+
+    onDelete () {
+      this.$emit('on-delete')
+    },
+
+    setModel (value) {
+      this.model = { ...value }
+    },
+
+    submit () {
+      this.$emit('input', this.model)
+      this.$emit('submit')
+    },
+
+    titleValidation (value) {
+      return !!value
+    },
+
+    mouseDown (event) {
+      console.log('opa opaaaaa', event)
     }
   }
 }
 </script>
 
 <style lang="scss">
+  .card-board {
+
+    &--sorting {
+      // transform: rotateX(95deg);
+    }
+
+    &__icon {
+      right: 4px;
+      top: calc(50% - 7px);
+      z-index: 9;
+    }
+  }
 </style>

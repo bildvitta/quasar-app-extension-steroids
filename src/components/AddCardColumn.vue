@@ -5,6 +5,7 @@
       <div class="q-mb-sm">
         <q-input outlined type="textarea" autogrow autofocus v-model="text" :label="inputLabel" />
       </div>
+
       <div class="flex q-gutter-sm">
         <q-btn class="col" label="Cancelar" outline color="grey-6" no-caps unelevated @click="cancel" />
         <q-btn class="col" label="Adicionar" :disabled="!text" color="primary" no-caps unelevated @click="add" />

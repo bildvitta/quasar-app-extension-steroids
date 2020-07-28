@@ -1,75 +1,43 @@
 <template>
-  <!-- <qs-slider ref="boardSlider" class="flex" :style="maxHeight" :sorting="isSorting">
-    <slot v-for="(column, index) in 10" :name="`column-${index}`" v-bind="self">
-      <qs-column-board ref="columnBoard" :key="index">
-        <template v-slot:header>
-          <slot :name="`column-header-${index}`" :column="column">
-            {{ title }}
-            <q-popup-edit v-model="title">
-              <q-input v-model="title" dense autofocus counter />
-            </q-popup-edit>
-          </slot>
-        </template>
-        <slot v-for="(card, cardIndex) in 3" :name="`card-${index}-${cardIndex}`">
-          <qs-card-board v-model="card1" :key="cardIndex" />
-        </slot>
-        <template v-slot:footer>
-          <slot :name="`column-header-${index}`" :column="column">
-            <qs-add-card v-model="card1.nome" @add="addCard($event, 'eae')"/>
-          </slot>
-        </template>
-      </qs-column-board>
-    </slot>
-    <template v-slot:slider-side>
-      <slot name="slider-side">
-        <qs-column-board>
-          <template v-slot:actions>
-            <q-btn label="Adicionar nova coluna"/>
-          </template >
-        </qs-column-board>
-      </slot>
-    </template>
-  </qs-slider> -->
-  <qs-slider ref="boardSlider" class="board-view flex" :style="maxHeight" :sorting="isSorting" @mouseover="mouseOver">
-    <slot v-for="(column, index) in mock" :name="`column-${index}`" v-bind="self">
-      <div ref="columnBoard" :key="index" class="board-view__column no-wrap column">
+  <qs-slider ref="boardSlider" class="board-view flex" :style="maxHeight" cancel-mouse-down-target="board-view__box">
+    <slot v-for="(column, index) in mock" :name="`column`" v-bind="self">
+      <div v-if="!column.deleted" ref="columnBoard" :key="index" class="board-view__column no-wrap column">
         <div class="board-view__box q-pa-sm rounded-borders">
           <slot name="column-header" :column="column">
-            <header class="q-mb-sm q-mt-xs q-mx-sm text-weight-bold text-grey-9 flex justify-between">
-              <div>
-                {{ column.name }}
-                <q-tooltip :offset="[10, 10]">
-                  Clique para editar
-                </q-tooltip>
+            <header class="q-mb-sm no-wrap items-start q-mt-xs q-mx-sm text-weight-bold text-grey-9 flex justify-between">
+              <div class="full-width text-wrap">
+                {{ column.title }}
+                <q-popup-edit v-model="column.title" auto-save :validate="columnTitleValidation" @hide="columnTitleValidation">
+                  <q-input v-model="column.title" dense autofocus counter>
+                    <template v-slot:append>
+                      <q-icon name="edit" />
+                    </template>
+                  </q-input>
+                </q-popup-edit>
               </div>
-              <q-icon name="edit" />
-              <q-popup-edit v-model="column.name" auto-save>
-                <q-input v-model="column.name" dense autofocus counter>
-                  <template v-slot:append>
-                    <q-icon name="edit" />
-                  </template>
-                </q-input>
-              </q-popup-edit>
+
+              <q-btn flat round size="sm" dense unelevated icon="delete" @click="deleteDialog(index)" />
             </header>
           </slot>
-          <div ref="columnBoardContent" class="board-view__content q-px-sm q-py-xs overflow-auto qs-scroll qs-scroll--y">
-            <slot v-for="(card, cardIndex) in 6" :name="`card-${index}-${cardIndex}`">
-              <qs-card-board v-model="card1" :class="cardSpacing(cardIndex)" :key="cardIndex" />
+
+          <div ref="columnBoardContent" class="board-view__content q-px-sm q-py-xs qs-scroll qs-scroll--y">
+            <slot v-for="(card, cardIndex) in column.cards" name="card">
+              <qs-card-board v-if="!card.deleted" v-model="column.cards[cardIndex]" :is-sorting="isSortingCard" class="board-view__card" :key="cardIndex" @on-delete="deleteCard(index, cardIndex)"/>
             </slot>
           </div>
+
           <slot name="column-footer" :column="column">
             <footer class="q-mt-sm q-px-sm">
-              <transition name="fade">
-                <qs-add-card label="Adicionar novo cartão" input-label="Insira um título para este card" @add="addCard('eae', $event)" card/>
-              </transition>
+              <qs-add-card-column label="Adicionar novo cartão" input-label="Insira um título para este cartão" @add="addCard($event, index)" card/>
             </footer>
           </slot>
         </div>
       </div>
     </slot>
+
     <slot name="add-column">
       <div class="board-view__add-column q-pa-sm rounded-borders">
-        <qs-add-card @add="addColumn($event, 'eae')" />
+        <qs-add-card-column @add="addColumn($event)" />
       </div>
     </slot>
   </qs-slider>
@@ -78,9 +46,10 @@
 <script>
 import Sortable from 'sortablejs'
 import findParent from '../helpers/findParent'
+import { extend } from 'quasar'
 
 let sortableColumn = null
-const sortableCard = []
+let sortableCard = []
 
 const defaultSortableOptions = {
   animation: 350,
@@ -104,6 +73,16 @@ export default {
     sortableOptions: {
       type: Object,
       default: () => ({})
+    },
+
+    deleteDialogOptions: {
+      type: Object,
+      default: () => ({})
+    },
+
+    fullHeight: {
+      type: Boolean,
+      default: true
     }
   },
 
@@ -111,44 +90,63 @@ export default {
     return {
       windowHeight: window.innerHeight,
       boardTopPosition: null,
-      isSorting: false,
-      title: 'Titulo da coluna',
-      currentElement: false,
-      // card
-      card1: {
-        nome: 'douglas',
-        idade: 22
-      },
+      isSortingCard: false,
       // mock de datos API
       mock: [
         {
-          name: 'coluna 1',
+          title: 'Titulo de uma coluna grande para testes 1',
           id: 1,
+          deleted: false,
           order: 1,
           cards: [
             {
               id: 1,
               order: 1,
-              title: 'Monica card',
+              title: 'Este é um titulo mais longo para testar',
+              deleted: false,
               text: 'Text card'
             }
           ]
         },
         {
-          name: 'coluna 2',
+          title: 'Titulo de uma coluna grande para testes 2',
           id: 2,
+          deleted: false,
           order: 1,
           cards: [
             {
               id: 2,
               order: 1,
-              title: 'Monica card',
+              deleted: false,
+              title: 'Este é um titulo mais longo para testar. Este é um titulo mais longo para testar',
               text: 'Text card'
             },
             {
               id: 3,
               order: 2,
-              title: 'Monica card',
+              deleted: false,
+              title: 'Este é um titulo mais longo para testar',
+              text: 'Text card'
+            },
+            {
+              id: 3,
+              order: 2,
+              deleted: false,
+              title: 'Este é um titulo mais longo para testar',
+              text: 'Text card'
+            },
+            {
+              id: 3,
+              order: 2,
+              deleted: false,
+              title: 'Este é um titulo mais longo para testar',
+              text: 'Text card'
+            },
+            {
+              id: 3,
+              order: 2,
+              deleted: false,
+              title: 'Este é um titulo mais longo para testar',
               text: 'Text card'
             }
           ]
@@ -164,8 +162,6 @@ export default {
     })
 
     this.setSortable()
-
-    console.log(this.hasCardSlot, '>>> slot')
   },
 
   destroyed () {
@@ -175,12 +171,8 @@ export default {
 
   computed: {
     maxHeight () {
-      const maxHeight = `${this.windowHeight - this.boardTopPosition - 20}px`
-      return this.boardTopPosition && { maxHeight }
-    },
-
-    hasCardSlot () {
-      return this.$scopedSlots
+      const maxHeight = `${this.windowHeight - this.boardTopPosition - 5}px`
+      return this.boardTopPosition && { maxHeight, height: this.fullHeight && maxHeight }
     },
 
     self () {
@@ -190,7 +182,7 @@ export default {
 
   methods: {
     getBoardTopPosition () {
-      this.boardTopPosition = this.$el.offsetTop
+      this.boardTopPosition = this.$el.getBoundingClientRect().y
     },
 
     controlHeight () {
@@ -212,21 +204,42 @@ export default {
       })
     },
 
-    setSortableCard () {
-      this.$refs.columnBoard.forEach((boardElement, index) => {
-        // adiciona uma lista instâncias do sortable dos cards
+    updateSortableColumn () {
+      return sortableColumn.sort(sortableColumn.toArray())
+    },
+
+    setSortableCard (addSingle) {
+      const boardContent = this.$refs.columnBoardContent
+
+      const add = element => {
         sortableCard.push(
-          new Sortable(this.$refs.columnBoardContent[index], {
+          new Sortable(element, {
             group: 'card',
             ...this.sortableCardOptions,
             ...this.sortableOptions,
+            onStart: () => {
+              this.isSortingCard = true
+            },
 
-            onStart: event => {
-              this.isSorting = true
+            onUnchoose: () => this.isSortingCard = false,
+
+            onClone: ({ clone, item }) => {
+              // console.log(event.clone)
+              item.style.transform = 'rotateX(180deg) !important'
+              // item.style.display = 'none'
+              console.log(item)
             }
           })
         )
-      })
+      }
+
+      return addSingle
+        ? add(boardContent[this.$refs.columnBoard.length - 1])
+        : boardContent.forEach((boardElement, index) => add(this.$refs.columnBoardContent[index]))
+    },
+
+    updateSortableCard () {
+      return sortableCard.forEach(card => card.sort(card.toArray()))
     },
 
     setSortable () {
@@ -247,34 +260,58 @@ export default {
       sortableCard.forEach(card => card.destroy())
     },
 
-    addCard (value, value2) {
-      console.log(value, value2)
-    },
+    addCard (title, index, customObject) {
+      customObject = extend(true, {}, customObject)
 
-    mouseOver (event) {
-      // if (findParent(event.target), '.test') {
-      //   return sortableColumn.option('disabled', true)
-      // }
-      // console.log(!!findParent(event.target, '.test'))
-
-      this.currentElement = !!findParent(event.target, '.test')
-      // console.log(sortableColumn.disabled)
-    },
-
-    cardSpacing (index) {
-      return index ? 'q-mt-sm' : ''
-    },
-
-    addColumn (name) {
-      this.$set(this.mock, this.mock.length, {
-        name: name
+      this.$set(this.mock[index].cards, this.mock[index].cards.length, {
+        title,
+        deleted: false,
+        ...customObject
       })
+    },
 
+    addColumn (title, customObject) {
+      customObject = extend(true, {}, customObject)
       const scrollElement = this.$refs.boardSlider.element
+
+      this.$set(this.mock, this.mock.length, {
+        title,
+        deleted: false,
+        cards: [],
+        ...customObject
+      })
 
       this.$nextTick(() => {
         scrollElement.scroll({ left: scrollElement.scrollWidth, behavior: 'smooth' })
+        this.$q.platform.is.desktop && this.setSortableCard(true)
       })
+    },
+
+    deleteCard (columnIndex, cardIndex) {
+      this.$set(this.mock[columnIndex].cards[cardIndex], 'deleted', true)
+      this.$emit('delete-card')
+    },
+
+    deleteColumn (index) {
+      this.$emit('delete-column')
+      this.$set(this.mock[index], 'deleted', true)
+      // TODO bater metodo para atualizar
+    },
+
+    deleteDialog (index) {
+      this.$q.dialog({
+        title: 'Remover coluna',
+        message: 'Ao remover esta coluna todos os <strong>cartões</strong> serão excluídos, deseja continuar?',
+        html: true,
+        cancel: { label: 'Não', flat: true, unelevated: true },
+        ok: { label: 'Sim', unelevated: true },
+        persistent: true,
+        ...this.deleteDialogOptions
+      }).onOk(() => this.deleteColumn(index))
+    },
+
+    columnTitleValidation (value) {
+      return !!value
     }
   }
 }
@@ -289,6 +326,10 @@ export default {
       width: 300px;
     }
 
+    &__card:not(:first-child) {
+      margin-top: map-get($space-sm, y);
+    }
+
     &__add-column {
       width: 250px;
       height: fit-content;
@@ -299,7 +340,6 @@ export default {
       background-color: $grey;
     }
 
-
     &__box {
       max-height: 100%;
       display: flex;
@@ -308,8 +348,10 @@ export default {
     }
 
     &__content {
-       * {
-        // width: 250px;
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      * {
         white-space: initial;
         background: white;
       }

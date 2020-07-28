@@ -11,6 +11,7 @@
 
 <script>
 import smoothscroll from 'smoothscroll-polyfill'
+import { findParent } from '../helpers'
 
 export default {
   props: {
@@ -21,6 +22,12 @@ export default {
 
     sorting: {
       type: Boolean
+    },
+
+    // Passar a classe do elemento onde vai cancelar o evento de mousedown.
+    cancelMouseDownTarget: {
+      type: String,
+      default: ''
     }
   },
 
@@ -37,7 +44,6 @@ export default {
   },
 
   mounted () {
-    console.log('mouted')
     this.element = this.$refs.slider
   },
 
@@ -55,23 +61,7 @@ export default {
 
   methods: {
     mouseDown (event) {
-      // this.handleScroll(event)
-
-      const findParent = (element, selector) => {
-        while (element.parentElement) {
-          if (!element) {
-            continue
-          }
-
-          if (element && element.matches(selector)) {
-            return element
-          }
-
-          element = element.parentElement
-        }
-      }
-
-      if (findParent(event.target, '.board-view__box')) {
+      if (this.cancelMouseDownTarget && findParent(event.target, `.${this.cancelMouseDownTarget}`)) {
         return null
        }
 
@@ -104,10 +94,6 @@ export default {
     mouseUp (event) {
       let tick = 1
 
-      // if (this.sorting) { return null }
-
-      // console.log(this.sorting, '>> up')
-
       if (!event) {
         event = window.event
       }
@@ -124,7 +110,6 @@ export default {
         } else {
           this.element.scrollLeft += this.difference * step
           tick -= 0.02
-          // tick -= 1
 
           window.requestAnimationFrame(animate)
         }
