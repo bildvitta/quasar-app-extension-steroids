@@ -5,10 +5,8 @@ const extendQuasar = quasar => {
   // Boot
   quasar.boot.push(...resolve(
     'boot/axios.js',
-    'boot/brand-colors.js',
     'boot/environment.js',
     'boot/force-https.js',
-    'boot/register-auth.js',
     'boot/register-components.js',
     'boot/register-directives.js',
     'boot/register-error-pages.js',
