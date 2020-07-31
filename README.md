@@ -35,7 +35,6 @@ Este repositório contém métodos, componentes e estilos que auxiliarão na con
 - **Library:**
   - company
   - greatestCommonDivisor
-  - storeModule
 - **Styles**
   - Colors
   - Container

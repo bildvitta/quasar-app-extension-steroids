@@ -12,7 +12,8 @@ const extendQuasar = quasar => {
     'boot/register-error-pages.js',
     'boot/register-permissions.js',
     'boot/register-plugins.js',
-    'boot/router.js'
+    'boot/resolve-router.js',
+    'boot/router.js',
   ))
 
   // Transpile
@@ -20,7 +21,6 @@ const extendQuasar = quasar => {
 
   // Styles
   quasar.css.push(...resolve(
-    'css/colors.scss',
     'css/container.scss',
     'css/line-height.scss',
     'css/opacity.scss',
