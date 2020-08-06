@@ -5,7 +5,8 @@
   "author": "",
   "main": "src/index.js",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@bildvitta"
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
   },
   "scripts": {
     "test": "echo \"No test specified\" && exit 0"
