@@ -51,8 +51,6 @@
 <script>
 import { camelize, camelizeKeys } from 'humps'
 import { humanize, parseValue } from '../helpers/filters'
-import store from 'store'
-
 import contextMixin from '../mixins/context'
 
 export default {
@@ -128,7 +126,7 @@ export default {
     },
 
     fields () {
-      return store.getters[`${this.entity}/filters`]
+      return this.$store.getters[`${this.entity}/filters`]
     },
 
     filterButtonColor () {
@@ -225,7 +223,7 @@ export default {
       this.isFetching = true
 
       try {
-        const response = await store.dispatch(`${this.entity}/fetchFilters`, { url: this.url })
+        const response = await this.$store.dispatch(`${this.entity}/fetchFilters`, { url: this.url })
         this.$emit('fetch-success', response)
       } catch (error) {
         this.hasFetchError = true

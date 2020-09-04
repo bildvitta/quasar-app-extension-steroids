@@ -38,8 +38,6 @@
 </template>
 
 <script>
-import store from 'store'
-
 import contextMixin from '../mixins/context'
 import viewMixin from '../mixins/view'
 
@@ -82,11 +80,11 @@ export default {
     },
 
     results () {
-      return store.getters[`${this.entity}/list`]
+      return this.$store.getters[`${this.entity}/list`]
     },
 
     totalPages () {
-      return store.getters[`${this.entity}/totalPages`]
+      return this.$store.getters[`${this.entity}/totalPages`]
     }
   },
 
@@ -112,7 +110,7 @@ export default {
       this.isFetching = true
 
       try {
-        const response = await store.dispatch(`${this.entity}/fetchList`, { ...this.context, url: this.url })
+        const response = await this.$store.dispatch(`${this.entity}/fetchList`, { ...this.context, url: this.url })
         const { errors, fields, metadata } = response.data
 
         this.setErrors(errors)

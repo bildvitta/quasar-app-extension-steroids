@@ -26,7 +26,6 @@
 </template>
 
 <script>
-import store from 'store'
 import { get } from 'lodash'
 
 import viewMixin from '../mixins/view'
@@ -124,7 +123,7 @@ export default {
       this.isFetching = true
 
       try {
-        const response = await store.dispatch(
+        const response = await this.$store.dispatch(
           `${this.entity}/fetchSingle`, { form: true, id: this.id, params, url: this.fetchURL }
         )
 
@@ -169,7 +168,7 @@ export default {
       this.isSubmiting = true
 
       try {
-        const response = await store.dispatch(
+        const response = await this.$store.dispatch(
           `${this.entity}/${this.mode}`,
           { id: this.id, payload: this.value, url: this.url }
         )

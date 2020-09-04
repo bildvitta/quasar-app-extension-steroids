@@ -14,6 +14,7 @@ const extendQuasar = quasar => {
     'boot/register-plugins.js',
     'boot/resolve-router.js',
     'boot/router.js',
+    'boot/handle-store.js'
   ))
 
   // Transpile
@@ -40,9 +41,9 @@ const extendQuasar = quasar => {
 
 module.exports = function (api) {
   api.compatibleWith('quasar', '^1.0.0')
-  api.compatibleWith('@quasar/app', '^1.0.0')
+  api.compatibleWith('@quasar/app', '^1.0.0 || ^2.0.0')
 
-  api.compatibleWith('axios', '^0.19.2')
+  api.compatibleWith('axios', '^0.19.2 || ^0.20.0')
   api.compatibleWith('date-fns', '^2.9.0')
   api.compatibleWith('fuse.js', '^3.4.6')
   api.compatibleWith('humps', '^2.0.1')
