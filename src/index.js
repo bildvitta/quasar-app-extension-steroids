@@ -34,6 +34,15 @@ const extendQuasar = quasar => {
     'material-icons-outlined'
   )
 
+  const plugins = [
+    'Notify',
+    'Dialog',
+    'Loading'
+  ]
+
+  // Add all required quasar plugins
+  plugins.forEach(plugin => quasar.framework.plugins.push(plugin))
+
   // Framework
   quasar.framework.iconSet = 'material-icons-outlined'
   quasar.framework.lang = 'pt-br'
