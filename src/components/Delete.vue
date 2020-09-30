@@ -5,8 +5,6 @@
 </template>
 
 <script>
-import store from 'store'
-
 export default {
   props: {
     customId: {
@@ -46,7 +44,7 @@ export default {
       this.$q.loading.show()
 
       try {
-        await store.dispatch(`${this.entity}/destroy`, { id: this.id })
+        await this.$store.dispatch(`${this.entity}/destroy`, { id: this.id })
         this.$qs.success('Item deletado com sucesso!')
         this.$emit('success')
       } catch (error) {

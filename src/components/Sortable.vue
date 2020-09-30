@@ -7,7 +7,6 @@
 <script>
 import { cloneDeep, get } from 'lodash'
 import Sortable from 'sortablejs'
-import store from 'store'
 
 let sortable = null
 
@@ -93,7 +92,7 @@ export default {
       this.$q.loading.show()
 
       try {
-        const response = await store.dispatch(`${this.entity}/replace`, {
+        const response = await this.$store.dispatch(`${this.entity}/replace`, {
           payload: { order: this.identifiers },
           url: this.url || `${this.entity}/sort`
         })

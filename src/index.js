@@ -14,6 +14,7 @@ const extendQuasar = quasar => {
     'boot/register-plugins.js',
     'boot/resolve-router.js',
     'boot/router.js',
+    'boot/store.js'
   ))
 
   // Transpile
@@ -33,6 +34,15 @@ const extendQuasar = quasar => {
     'material-icons-outlined'
   )
 
+  const plugins = [
+    'Notify',
+    'Dialog',
+    'Loading'
+  ]
+
+  // Add all required quasar plugins
+  plugins.forEach(plugin => quasar.framework.plugins.push(plugin))
+
   // Framework
   quasar.framework.iconSet = 'material-icons-outlined'
   quasar.framework.lang = 'pt-br'
@@ -40,9 +50,9 @@ const extendQuasar = quasar => {
 
 module.exports = function (api) {
   api.compatibleWith('quasar', '^1.0.0')
-  api.compatibleWith('@quasar/app', '^1.0.0')
+  api.compatibleWith('@quasar/app', '>1.0.0')
 
-  api.compatibleWith('axios', '^0.19.2')
+  api.compatibleWith('axios', '>0.19.1')
   api.compatibleWith('date-fns', '^2.9.0')
   api.compatibleWith('fuse.js', '^3.4.6')
   api.compatibleWith('humps', '^2.0.1')

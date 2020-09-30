@@ -25,7 +25,6 @@
 
 <script>
 import viewMixin from '../mixins/view'
-import store from 'store'
 
 export default {
   mixins: [viewMixin],
@@ -47,7 +46,7 @@ export default {
     },
 
     result () {
-      return store.getters[`${this.entity}/byId`](this.id) || {}
+      return this.$store.getters[`${this.entity}/byId`](this.id) || {}
     }
   },
 
@@ -66,7 +65,7 @@ export default {
       this.isFetching = true
 
       try {
-        const response = await store.dispatch(`${this.entity}/fetchSingle`, { id: this.id, url: this.url })
+        const response = await this.$store.dispatch(`${this.entity}/fetchSingle`, { id: this.id, url: this.url })
         const { errors, fields, metadata } = response.data
 
         this.setErrors(errors)
