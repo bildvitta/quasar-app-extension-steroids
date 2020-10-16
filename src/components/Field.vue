@@ -111,6 +111,9 @@ export default {
         default: { is: 'qs-input', ...input, mask },
         textarea: { is: 'q-input', type, ...input },
         hidden: { is: 'input', name, type },
+        email: { is: 'qs-password-input', type, ...input },
+        // email: { is: 'qs-input', type, mask, ...input },
+        password: { is: 'qs-input', type, mask, ...input },
 
         decimal: { ...decimalInput },
         money: { ...decimalInput, prefix: 'R$' },

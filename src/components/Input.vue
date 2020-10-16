@@ -1,5 +1,5 @@
 <template>
-  <q-input ref="mask" :value="value" v-bind="$attrs" unmasked-value v-on="$listeners" :mask="mask">
+  <q-input ref="mask" :value="value" v-bind="$attrs" unmasked-value v-on="$listeners" :mask="mask" bottom-slots>
     <slot v-for="(slot, key) in $slots" :name="key" :slot="key" />
     <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
       <slot :name="key" v-bind="scope"/>
