@@ -20,34 +20,28 @@ export default {
     }
   },
 
-  created () {
-    if (this.veryWeak >= this.weak) {
-      throw new Error ('Prop "weak" must be greater than prop "veryWeak".')
-    }
-  },
-
   computed: {
-    formattedValue () {
-      return this.value.length
+    length () {
+      return (this.value || '').length
     },
 
-    isSucess () {
+    isSuccess () {
       return !!this.value.match(this.pattern)
     },
 
     isWeak () {
-      return this.formattedValue && (this.formattedValue >= this.weak)
+      return this.length && (this.length >= this.weak)
     },
 
     isVeryWeak () {
-      return this.formattedValue && (this.formattedValue <= this.veryWeak || this.formattedValue < this.weak)
+      return this.length && (this.length <= this.veryWeak || this.length < this.weak)
     },
 
     option () {
-      return this.formattedValue && [
+      return this.length && [
         {
           label: 'Forte',
-          value: this.isSucess,
+          value: this.isSuccess,
           width: 'password-strenght-checker__percent--lg',
           color: 'bg-positive',
           text: 'text-positive'
@@ -79,9 +73,9 @@ export default {
 <style lang="scss">
 .password-strenght-checker {
   &__percent {
+    height: 3px;
     transition: width 300ms, color 300ms;
     width: 0;
-    height: 3px;
 
     &--sm {
       width: 25%;

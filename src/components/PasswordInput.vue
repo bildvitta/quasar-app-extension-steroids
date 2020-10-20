@@ -4,7 +4,7 @@
       <qs-password-strength-checker v-bind="$props" />
     </template>
     <template v-slot:append>
-      <q-icon :name="icon" class="cursor-pointer" @click="toggleType" />
+      <q-icon :name="icon" class="cursor-pointer" @click="toggle" />
     </template>
 
     <slot v-for="(slot, key) in $slots" :name="key" :slot="key" />
@@ -29,7 +29,7 @@ export default {
 
   data () {
     return {
-      toggle: true
+      toggleType: true
     }
   },
 
@@ -69,8 +69,8 @@ export default {
   },
 
   methods: {
-    toggleType () {
-      this.toggle = !this.toggle
+    toggle () {
+      this.toggleType = !this.toggleType
     }
   }
 }
