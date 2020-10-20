@@ -17,6 +17,8 @@ import FormView from '../components/FormView.vue'
 import Input from '../components/Input.vue'
 import ListView from '../components/ListView.vue'
 import PageHeader from '../components/PageHeader.vue'
+import PasswordInput from '../components/PasswordInput.vue'
+import PasswordStrengthChecker from '../components/PasswordStrengthChecker.vue'
 import Profile from '../components/Profile.vue'
 import Resizer from '../components/Resizer.vue'
 import SingleView from '../components/SingleView.vue'
@@ -45,6 +47,8 @@ export default async ({ Vue }) => {
   Vue.component('qs-input', Input)
   Vue.component('qs-list-view', ListView)
   Vue.component('qs-page-header', PageHeader)
+  Vue.component('qs-password-input', PasswordInput)
+  Vue.component('qs-password-strength-checker', PasswordStrengthChecker)
   Vue.component('qs-profile', Profile)
   Vue.component('qs-resizer', Resizer)
   Vue.component('qs-single-view', SingleView)

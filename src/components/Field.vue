@@ -78,7 +78,8 @@ export default {
         suffix,
         prefix,
         type,
-        mask
+        mask,
+        pattern
         } = this.formatedField
 
       // Default error attributes for Quasar.
@@ -111,6 +112,8 @@ export default {
         default: { is: 'qs-input', ...input, mask },
         textarea: { is: 'q-input', type, ...input },
         hidden: { is: 'input', name, type },
+        email: { is: 'q-input', type, ...input },
+        password: { is: 'qs-password-input', type, pattern, ...input },
 
         decimal: { ...decimalInput },
         money: { ...decimalInput, prefix: 'R$' },
