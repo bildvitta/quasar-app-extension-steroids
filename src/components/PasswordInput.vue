@@ -1,7 +1,7 @@
 <template>
   <q-input ref="mask" v-model="model" v-bind="$attrs" v-on="events" :type="type" bottom-slots>
     <template v-slot:hint>
-      <qs-password-strength-checker v-bind="$props" />
+      <qs-password-strength-checker v-bind="$props" @password-success="onSuccess" />
     </template>
     <template v-slot:append>
       <q-icon :name="icon" class="cursor-pointer" @click="toggle" />

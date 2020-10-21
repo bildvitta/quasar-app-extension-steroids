@@ -26,7 +26,7 @@ export default {
     },
 
     isSuccess () {
-      return !!this.value.match(this.pattern)
+      return this.value && !!this.value.match(this.pattern)
     },
 
     isWeak () {
@@ -65,6 +65,12 @@ export default {
 
     contentClass () {
       return this.value && 'bg-blue-grey-1'
+    }
+  },
+
+  watch: {
+    isSuccess (value) {
+      value && this.onSuccess()
     }
   }
 }
