@@ -60,11 +60,11 @@ export default {
     },
 
     icon () {
-      return this.toggle ? 'visibility_off' : 'visibility'
+      return this.toggleType ? 'visibility_off' : 'visibility'
     },
 
     type () {
-      return this.toggle ? 'password' : 'text'
+      return this.toggleType ? 'password' : 'text'
     }
   },
 
