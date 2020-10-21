@@ -1,5 +1,5 @@
 <template>
-  <q-input ref="mask" v-model="model" v-bind="$attrs" v-on="events" :type="type" bottom-slots>
+  <q-input ref="mask" v-model="model" v-bind="$attrs" v-on="events" :type="type" :bottom-slots="hasBottomSlot">
     <template v-slot:hint>
       <qs-password-strength-checker v-bind="$props" @password-success="onSuccess" />
     </template>
@@ -65,6 +65,10 @@ export default {
 
     type () {
       return this.toggleType ? 'password' : 'text'
+    },
+
+    hasBottomSlot () {
+      return this.$attrs['bottom-slots'] || this.$attrs['bottom-slots'] === undefined
     }
   },
 
