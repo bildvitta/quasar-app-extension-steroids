@@ -9,6 +9,12 @@
       {{ title }} <q-badge v-if="hasDevelopmentBadge" align="middle" color="negative" :label="developmentBadgeLabel" />
     </q-toolbar-title>
 
+    <q-btn icon="notifications_none" unelevated dense round>
+      <q-badge color="red" floating>4</q-badge>
+    </q-btn>
+
+    <qs-apps-menu v-if="hasApps" :apps="apps" />
+
     <div class="items-center no-wrap q-gutter-md row">
       <slot name="tools" />
 
@@ -83,6 +89,11 @@ export default {
       required: true,
       type: String,
       default: ''
+    },
+
+    apps: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -121,6 +132,10 @@ export default {
 
     hasDevelopmentBadge () {
       return !!this.developmentBadgeLabel
+    },
+
+    hasApps () {
+      return !!this.apps.length
     }
   },
 
