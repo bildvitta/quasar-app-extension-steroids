@@ -20,5 +20,11 @@ export default {
     if (this.veryWeak >= this.weak) {
       throw new Error ('Prop "weak" must be greater than prop "veryWeak".')
     }
+  },
+
+  methods: {
+    onSuccess () {
+      this.$emit('password-success')
+    }
   }
 }
