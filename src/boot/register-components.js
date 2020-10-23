@@ -1,5 +1,6 @@
 import AppBar from '../components/AppBar.vue'
 import AppMenu from '../components/AppMenu.vue'
+import AppsMenu from '../components/AppsMenu.vue'
 import Autocomplete from '../components/Autocomplete.vue'
 import Avatar from '../components/Avatar.vue'
 import BreakLine from '../components/BreakLine.vue'
@@ -26,11 +27,11 @@ import Sortable from '../components/Sortable.vue'
 import TableGenerator from '../components/TableGenerator.vue'
 import TabsGenerator from '../components/TabsGenerator.vue'
 import Uploader from '../components/Uploader.vue'
-import CompanyMenu from '../components/CompanyMenu.vue'
 
 export default async ({ Vue }) => {
   Vue.component('qs-app-bar', AppBar)
   Vue.component('qs-app-menu', AppMenu)
+  Vue.component('qs-apps-menu', AppsMenu)
   Vue.component('qs-autocomplete', Autocomplete)
   Vue.component('qs-avatar', Avatar)
   Vue.component('qs-break-line', BreakLine)
@@ -57,5 +58,4 @@ export default async ({ Vue }) => {
   Vue.component('qs-table-generator', TableGenerator)
   Vue.component('qs-tabs-generator', TabsGenerator)
   Vue.component('qs-uploader', Uploader)
-  Vue.component('qs-company-menu', CompanyMenu)
 }

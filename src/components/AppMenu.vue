@@ -56,7 +56,7 @@ export default {
 
   methods: {
     hasChildren ({ children }) {
-      return (children || []).length
+      return !!(children || []).length
     }
   }
 }

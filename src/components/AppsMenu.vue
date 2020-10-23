@@ -2,13 +2,13 @@
   <q-btn class="q-mx-md" v-bind="$attrs" round dense icon="apps" unelevated>
     <q-menu max-width="400px" anchor="bottom middle" self="top middle">
       <div class="row q-col-gutter-md q-pa-md">
-        <a v-for="(company, index) in companies" class="col-sm-4 col-6 flex text-undecoration justify-center" :key="index" :href="company.href">
+        <a v-for="(app, index) in apps" class="col-sm-4 col-6 flex text-undecoration justify-center" :key="index" :href="app.href">
           <div class="">
             <q-avatar class="q-m-x-auto" :size="avatarSize">
-              <img :src="company.image" :alt="company.label" class="rounded-borders">
+              <img :src="app.image" :alt="app.label" class="rounded-borders">
             </q-avatar>
           </div>
-          <div class="text-center q-mt-xs text-black full-width">{{ company.label }}</div>
+          <div class="text-center q-mt-xs text-black full-width">{{ app.label }}</div>
         </a>
       </div>
     </q-menu>
@@ -18,7 +18,7 @@
 <script>
 export default {
   props: {
-    companies: {
+    apps: {
       type: Array,
       default: () => []
     }

@@ -12,7 +12,8 @@
     <q-btn icon="notifications_none" unelevated dense round>
       <q-badge color="red" floating>4</q-badge>
     </q-btn>
-    <qs-company-menu v-if="hasCompanies" :companies="companies" />
+
+    <qs-apps-menu v-if="hasApps" :apps="apps" />
 
     <div class="items-center no-wrap q-gutter-md row">
       <slot name="tools" />
@@ -90,7 +91,7 @@ export default {
       default: ''
     },
 
-    companies: {
+    apps: {
       type: Array,
       default: () => []
     }
@@ -133,8 +134,8 @@ export default {
       return !!this.developmentBadgeLabel
     },
 
-    hasCompanies () {
-      return this.companies.length
+    hasApps () {
+      return !!this.apps.length
     }
   },
 
