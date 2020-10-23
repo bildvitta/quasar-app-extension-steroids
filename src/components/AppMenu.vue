@@ -3,15 +3,23 @@
     <q-scroll-area class="fit">
       <q-list class="text-grey-8" padding>
         <div v-for="(header, index) in items" :key="index">
-          <q-separator v-if="index" inset spaced />
-          <q-item-label class="q-pb-xs" header>{{ header.label }}</q-item-label>
+          <q-expansion-item v-if="hasChildren(header)" expand-separator :icon="header.icon" :label="header.label">
+            <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple clickable :to="item.to">
+              <q-item-section v-if="item.icon" avatar>
+                <q-icon :name="item.icon" />
+              </q-item-section>
+              <q-item-section>
+                <q-item-label>{{ item.label }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </q-expansion-item>
 
-          <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple clickable :to="item.to">
-            <q-item-section avatar>
-              <q-icon :name="item.icon" />
+          <q-item v-else v-ripple clickable :to="header.to" :key="index">
+            <q-item-section v-if="header.icon" avatar>
+              <q-icon :name="header.icon" />
             </q-item-section>
             <q-item-section>
-              <q-item-label>{{ item.label }}</q-item-label>
+              <q-item-label>{{ header.label }}</q-item-label>
             </q-item-section>
           </q-item>
         </div>
@@ -43,6 +51,12 @@ export default {
       set(value) {
         return this.$emit('input', value)
       }
+    }
+  },
+
+  methods: {
+    hasChildren ({ children }) {
+      return (children || []).length
     }
   }
 }

@@ -9,6 +9,9 @@
       {{ title }} <q-badge v-if="hasDevelopmentBadge" align="middle" color="negative" :label="developmentBadgeLabel" />
     </q-toolbar-title>
 
+    <q-btn icon="notifications_none" unelevated dense round>
+      <q-badge color="red" floating>4</q-badge>
+    </q-btn>
     <qs-company-menu v-if="hasCompanies" :companies="companies" />
 
     <div class="items-center no-wrap q-gutter-md row">

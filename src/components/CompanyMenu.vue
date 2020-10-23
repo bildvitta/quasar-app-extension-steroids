@@ -1,5 +1,5 @@
 <template>
-  <q-btn class="company-menu" icon="apps" unelevated>
+  <q-btn class="q-mx-md" v-bind="$attrs" round dense icon="apps" unelevated>
     <q-menu max-width="400px" anchor="bottom middle" self="top middle">
       <div class="row q-col-gutter-md q-pa-md">
         <a v-for="(company, index) in companies" class="col-sm-4 col-6 flex text-undecoration justify-center" :key="index" :href="company.href">
