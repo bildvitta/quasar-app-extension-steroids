@@ -2,6 +2,9 @@
 
 ## 2.0.1 (10-28-2020)
 
+- features:
+  - new prop `scrollAreaClass` for qs-app-menu
+
 - changed:
   - qs-table-generate fixed bug in body-cell-[name] template
   - qs-input fixed mask for company document and document
