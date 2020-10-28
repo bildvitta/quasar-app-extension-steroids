@@ -3,7 +3,7 @@
 ## 2.0.2 (10-28-2020)
 
 - changed:
-  - qs-passwrod-input removed prop `bottomsSlots` and added `hideStrengthChecker`
+  - qs-password-input removed prop `bottomsSlots` and added `hideStrengthChecker`
 
 ## 2.0.1 (10-28-2020)
 
