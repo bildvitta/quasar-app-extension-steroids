@@ -2,6 +2,9 @@
 
 ## 2.0.2 (10-28-2020)
 
+- feature:
+  - qs-app-menu added new prop `itemClass`
+
 - changed:
   - qs-password-input removed prop `bottomsSlots` and added `hideStrengthChecker`
 
