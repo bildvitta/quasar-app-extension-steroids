@@ -1,4 +1,4 @@
-# Changelo
+# Changelog
 
 ## 1.0.5 (10-28-2020)
 
