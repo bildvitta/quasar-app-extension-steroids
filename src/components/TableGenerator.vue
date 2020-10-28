@@ -2,7 +2,7 @@
   <q-table class="bg-transparent" v-bind="attributes">
     <template v-for="(slot, key) in $scopedSlots" v-slot:[key]="context">
       <slot v-if="hasBodySlot" name="body" :props="context"/>
-      <q-td v-else :key="key" :props="context">
+      <q-td v-else :key="key">
         <slot :name="key" v-bind="context" />
       </q-td>
     </template>

@@ -1,7 +1,7 @@
 <template>
   <q-drawer bordered v-model="model">
-    <q-scroll-area class="fit">
-      <q-list class="text-grey-8" padding>
+    <q-scroll-area class="fit" :class="scrollAreaClass">
+      <q-list padding>
         <div v-for="(header, index) in items" :key="index">
           <q-expansion-item v-if="hasChildren(header)" expand-separator :icon="header.icon" :label="header.label">
             <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple clickable :to="item.to">
@@ -39,6 +39,11 @@ export default {
     value: {
       default: true,
       type: Boolean
+    },
+
+    scrollAreaClass: {
+      default: '',
+      type: String
     }
   },
 

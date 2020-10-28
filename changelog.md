@@ -1,10 +1,16 @@
 # Changelog
 
+## 2.0.1 (10-28-2020)
+
+- changed:
+  - qs-table-generate fixed bug in body-cell-[name] template
+  - qs-input fixed mask for company document and document
+
 ## 2.0.0 (10-23-2020)
 
-features:
-- qs-apps-menu
+- features:
+  - qs-apps-menu
 
-Changed:
-- notify icon in qs-app-bar
-- qs-apps-menu in qs-app-bar
+- changed:
+  - notify icon in qs-app-bar
+  - qs-apps-menu in qs-app-bar
