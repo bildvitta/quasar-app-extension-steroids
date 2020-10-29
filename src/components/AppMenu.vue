@@ -4,7 +4,7 @@
       <q-list padding>
         <div v-for="(header, index) in items" :key="index">
           <q-expansion-item v-if="hasChildren(header)" expand-separator :icon="header.icon" :label="header.label">
-            <q-item v-for="(item, itemIndex) in header.children" :key="itemIndex" v-ripple clickable :to="item.to">
+            <q-item v-for="(item, itemIndex) in header.children" :class="itemClass" :key="itemIndex" v-ripple clickable :to="item.to">
               <q-item-section v-if="item.icon" avatar>
                 <q-icon :name="item.icon" />
               </q-item-section>
@@ -14,7 +14,7 @@
             </q-item>
           </q-expansion-item>
 
-          <q-item v-else v-ripple clickable :to="header.to" :key="index">
+          <q-item v-else v-ripple clickable :to="header.to" :class="itemClass" :key="index">
             <q-item-section v-if="header.icon" avatar>
               <q-icon :name="header.icon" />
             </q-item-section>
@@ -42,6 +42,11 @@ export default {
     },
 
     scrollAreaClass: {
+      default: '',
+      type: String
+    },
+
+    itemClass: {
       default: '',
       type: String
     }
