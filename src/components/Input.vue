@@ -33,8 +33,8 @@ export default {
       return {
         'phone': () => this.maskLenght(10, '(##) ####-#####', '(##) #####-####'),
         'personal-document': () => '###.###.###-##',
-        'company-document': () => '##.###.###/###-##',
-        'document': () => this.maskLenght(11, '###.###.###-###', '##.###.###/###-##'),
+        'company-document': () => '##.###.###/####-##',
+        'document': () => this.maskLenght(11, '###.###.###-###', '##.###.###/####-##'),
         'postal-code': () => '#####-###'
       }
     }
