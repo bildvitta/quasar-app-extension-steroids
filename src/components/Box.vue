@@ -1,5 +1,5 @@
 <template>
-  <div v-bind="$attrs" v-on="$listeners" class="box rounded-borders shadow-1">
+  <div v-bind="$attrs" v-on="$listeners" class="box rounded-borders">
     <slot />
   </div>
 </template>
