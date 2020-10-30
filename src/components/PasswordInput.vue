@@ -1,5 +1,5 @@
 <template>
-  <q-input ref="mask" v-model="model" v-bind="$attrs" v-on="events" :type="type">
+  <q-input ref="mask" v-model="model" v-bind="$attrs" v-on="events" :type="type" bottom-slots>
     <template v-if="!hideStrengthChecker" v-slot:hint>
       <qs-password-strength-checker v-bind="$props" @password-success="onSuccess" />
     </template>
@@ -51,6 +51,10 @@ export default {
         this.$attrs.errorMessage = ''
       }
     }
+  },
+
+  created () {
+    console.log('fui chamado krl,')
   },
 
   computed: {
