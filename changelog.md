@@ -6,6 +6,7 @@
   - qs-box
   - added new prop `fieldsProps` to qs-form-generator
   - added new prop `fieldProps` to qs-field
+  - added new prop `iconColor` to qs-password-input
 
 ## 2.0.2 (10-28-2020)
 
