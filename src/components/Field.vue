@@ -20,6 +20,11 @@ export default {
       default: () => ({}),
       type: Object,
       required: true
+    },
+
+    fieldProps: {
+      default: () => ({}),
+      type: Object
     }
   },
 
@@ -132,7 +137,7 @@ export default {
         editor: { is: 'q-editor', toolbar, ...error }
       }
 
-      return { ...(profiles[type] || profiles.default), ...this.$attrs }
+      return { ...(profiles[type] || profiles.default), ...this.$attrs, ...this.fieldProps }
     },
 
     errorMessage () {
