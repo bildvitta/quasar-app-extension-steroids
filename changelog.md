@@ -1,8 +1,13 @@
 # Changelog
 
+## 2.0.3 (xx-xx-xxxx)
+
+- fetures:
+  - qs-box
+
 ## 2.0.2 (10-28-2020)
 
-- feature:
+- features:
   - qs-app-menu added new prop `itemClass`
 
 - changed:
