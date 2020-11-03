@@ -3,6 +3,7 @@
 ## 2.0.3 (xx-xx-xxxx)
 
 - fetures:
+  - qs-search-box
   - qs-box
   - added new prop `fieldsProps` to qs-form-generator
   - added new prop `fieldProps` to qs-field
