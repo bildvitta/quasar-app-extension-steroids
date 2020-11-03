@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0.3 (xx-xx-xxxx)
+## 2.0.3 (11-03-2020)
 
 - fetures:
   - qs-search-box
