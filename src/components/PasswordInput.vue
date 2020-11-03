@@ -53,10 +53,6 @@ export default {
     }
   },
 
-  created () {
-    console.log('fui chamado krl,')
-  },
-
   computed: {
     model: {
       get () {
