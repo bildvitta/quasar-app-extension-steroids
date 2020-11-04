@@ -39,12 +39,7 @@ export default {
       default: () => ({})
     },
 
-    maxHeight: {
-      type: String,
-      default: '300px'
-    },
-
-    minHeight: {
+    height: {
       type: String,
       default: '300px'
     },
@@ -109,7 +104,7 @@ export default {
     },
 
     contentStyle () {
-      return { maxHeight: this.maxHeight, minHeight: this.minHeight }
+      return { height: this.height }
     }
   }
 }
