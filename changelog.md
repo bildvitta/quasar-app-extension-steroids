@@ -6,7 +6,6 @@
   - qs-search-box
   - qs-box
   - added new prop `fieldsProps` to qs-form-generator
-  - added new prop `fieldProps` to qs-field
   - added new prop `iconColor` to qs-password-input
   - added new prop `bottomSlots` to qs-password-input
 
