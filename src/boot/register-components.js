@@ -27,6 +27,8 @@ import Sortable from '../components/Sortable.vue'
 import TableGenerator from '../components/TableGenerator.vue'
 import TabsGenerator from '../components/TabsGenerator.vue'
 import Uploader from '../components/Uploader.vue'
+import Box from '../components/Box.vue'
+import SearchBox from '../components/SearchBox.vue'
 
 export default async ({ Vue }) => {
   Vue.component('qs-app-bar', AppBar)
@@ -34,6 +36,7 @@ export default async ({ Vue }) => {
   Vue.component('qs-apps-menu', AppsMenu)
   Vue.component('qs-autocomplete', Autocomplete)
   Vue.component('qs-avatar', Avatar)
+  Vue.component('qs-box', Box)
   Vue.component('qs-break-line', BreakLine)
   Vue.component('qs-checkbox-group', CheckboxGroup)
   Vue.component('qs-copy', Copy)
@@ -53,6 +56,7 @@ export default async ({ Vue }) => {
   Vue.component('qs-password-strength-checker', PasswordStrengthChecker)
   Vue.component('qs-profile', Profile)
   Vue.component('qs-resizer', Resizer)
+  Vue.component('qs-search-box', SearchBox)
   Vue.component('qs-single-view', SingleView)
   Vue.component('qs-sortable', Sortable)
   Vue.component('qs-table-generator', TableGenerator)

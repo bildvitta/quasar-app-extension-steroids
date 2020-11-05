@@ -1,13 +1,15 @@
 <template>
-  <q-input ref="mask" v-model="model" v-bind="$attrs" v-on="events" :type="type">
+  <q-input ref="mask" v-model="model" v-bind="$attrs" v-on="events" :type="type" bottom-slots>
     <template v-if="!hideStrengthChecker" v-slot:hint>
       <qs-password-strength-checker v-bind="$props" @password-success="onSuccess" />
     </template>
+
     <template v-slot:append>
-      <q-icon :name="icon" class="cursor-pointer" @click="toggle" />
+      <q-icon :name="icon" :color="iconColor" class="cursor-pointer" @click="toggle" />
     </template>
 
     <slot v-for="(slot, key) in $slots" :name="key" :slot="key" />
+
     <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
       <slot :name="key" v-bind="scope"/>
     </template>
@@ -28,6 +30,11 @@ export default {
 
     hideStrengthChecker: {
       type: Boolean
+    },
+
+    iconColor: {
+      type: String,
+      default: 'primary'
     }
   },
 

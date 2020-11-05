@@ -1,8 +1,17 @@
 # Changelog
 
+## 2.0.3 (11-03-2020)
+
+- fetures:
+  - qs-search-box
+  - qs-box
+  - added new prop `fieldsProps` to qs-form-generator
+  - added new prop `iconColor` to qs-password-input
+  - added new prop `bottomSlots` to qs-password-input
+
 ## 2.0.2 (10-28-2020)
 
-- feature:
+- features:
   - qs-app-menu added new prop `itemClass`
 
 - changed:
