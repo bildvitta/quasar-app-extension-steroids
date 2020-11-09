@@ -70,7 +70,7 @@ function multipleOptionsLabel (options, value) {
   return value.map(itemValue => optionLabel(options, itemValue)).join('\n')
 }
 
-function optionLabel (options, value) {
+function optionLabel (options = [], value) {
   return (options.find(option => String(option.value) === String(value)) || {}).label || ''
 }
 
