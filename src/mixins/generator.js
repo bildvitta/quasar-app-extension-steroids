@@ -57,7 +57,7 @@ export default {
       const length = this.columns.length
 
       if (!length) {
-        return isGridGenerator ? 'col-6 col-sm-4' : 'col-6'
+        return isGridGenerator ? 'col-6 col-sm-12 col-md-4' : 'col-6'
       }
 
       return this.breakpoint(this.columns[index])
