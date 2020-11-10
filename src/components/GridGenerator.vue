@@ -3,7 +3,7 @@
     <div v-for="(field, key) in fields" :key="key" :class="getFieldClass(key, true)">
       <slot :name="`field-${field.name}`" :field="slotValue[key]">
         <slot name="header" :field="slotValue[key]">
-          <div v-if="!hideEmptyResults || resultsByFields[key]" :class="headerClass">{{ field.label }}</div>
+          <div v-if="!hideEmptyResult || resultsByFields[key]" :class="headerClass">{{ field.label }}</div>
         </slot>
 
         <slot name="content" :field="slotValue[key]">
@@ -23,7 +23,7 @@ export default {
   mixins: [generator],
 
   props: {
-    results: {
+    result: {
       type: Object,
       default: () => ({})
     },
@@ -38,7 +38,7 @@ export default {
       default: ''
     },
 
-    hideEmptyResults: {
+    hideEmptyResult: {
       type: Boolean,
       default: false
     }
@@ -52,17 +52,17 @@ export default {
 
   computed: {
     resultsByFields () {
-      const results = extend(true, {}, this.results)
-      const result = {}
+      const result = extend(true, {}, this.result)
+      const formattedResult = {}
 
-      for (const key in results) {
+      for (const key in result) {
         if (this.fields[key]?.type) {
-          result[key] = humanize(this.fields[key], results[key])
-          this.slotValue[key] = { ...this.fields[key], result: result[key] }
+          formattedResult[key] = humanize(this.fields[key], result[key])
+          this.slotValue[key] = { ...this.fields[key], formattedResult: formattedResult[key] }
         }
       }
 
-      return result
+      return formattedResult
     }
   }
 }
