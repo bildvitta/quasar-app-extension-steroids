@@ -3,11 +3,11 @@
     <div v-for="(field, key) in fields" :key="key" :class="getFieldClass(key, true)">
       <slot :name="`field-${field.name}`" :field="slotValue[key]">
         <slot name="header" :field="slotValue[key]">
-          <div :class="headerClass">{{ field.label }}</div>
+          <div v-if="!hideEmptyResults || resultsByFields[key]" :class="headerClass">{{ field.label }}</div>
         </slot>
 
         <slot name="content" :field="slotValue[key]">
-          <div :class="contentClass">{{ resultsByFields[key] }}</div>
+          <div v-if="resultsByFields[key]" :class="contentClass">{{ resultsByFields[key] }}</div>
         </slot>
       </slot>
     </div>
@@ -36,6 +36,11 @@ export default {
     contentClass: {
       type: String,
       default: ''
+    },
+
+    hideEmptyResults: {
+      type: Boolean,
+      default: false
     }
   },
 
