@@ -77,6 +77,7 @@ export default {
     },
 
     list (value) {
+      this.results = value
       fuse.list = value
     },
 
