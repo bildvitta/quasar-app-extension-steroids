@@ -1,13 +1,13 @@
 <template>
   <div class="items-center" :class="classes">
-    <div v-for="(field, key) in fields" :key="key" :class="getFieldClass(key, true)">
+    <div v-for="(field, key) in formattedFields" :key="key" :class="getFieldClass(key, true)">
       <slot :name="`field-${field.name}`" :field="slotValue[key]">
         <slot name="header" :field="slotValue[key]">
-          <div v-if="!hideEmptyResult || resultsByFields[key]" :class="headerClass">{{ field.label }}</div>
+          <div :class="headerClass">{{ field.label }}</div>
         </slot>
 
         <slot name="content" :field="slotValue[key]">
-          <div v-if="resultsByFields[key]" :class="contentClass">{{ resultsByFields[key] }}</div>
+          <div :class="contentClass">{{ resultsByFields[key] }}</div>
         </slot>
       </slot>
     </div>
@@ -39,8 +39,7 @@ export default {
     },
 
     hideEmptyResult: {
-      type: Boolean,
-      default: false
+      type: Boolean
     }
   },
 
@@ -56,13 +55,29 @@ export default {
       const formattedResult = {}
 
       for (const key in result) {
-        if (this.fields[key]?.type) {
-          formattedResult[key] = humanize(this.fields[key], result[key])
-          this.slotValue[key] = { ...this.fields[key], formattedResult: formattedResult[key] }
+        if (this.formattedFields[key]?.type) {
+          formattedResult[key] = humanize(this.formattedFields[key], result[key])
+          this.slotValue[key] = { ...this.formattedFields[key], formattedResult: formattedResult[key] }
         }
       }
 
       return formattedResult
+    },
+
+    formattedFields () {
+      if (!this.hideEmptyResult) {
+        return this.fields
+      }
+
+      const fields = {}
+
+      for (const key in this.fields) {
+        if (this.result[key]) {
+          fields[key] = this.fields[key]
+        }
+      }
+
+      return fields
     }
   }
 }
