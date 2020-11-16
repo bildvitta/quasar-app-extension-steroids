@@ -1,5 +1,9 @@
 # Changelog
 
+## 2.0.4 (11-05-2020)
+
+- fetures:
+  - change header click area to return to home
 ## 2.0.3 (11-05-2020)
 
 - fetures:
