@@ -6,8 +6,9 @@
 
     <q-toolbar-title class="flex">
       <div @click="goToRoot" class="cursor-pointer">
-        <img :src="brand" alt="" class="qs-toolbar__brand">  
-        {{ title }} <q-badge v-if="hasDevelopmentBadge" align="middle" color="negative" :label="developmentBadgeLabel" />
+        <img :src="brand" :alt="title" class="qs-toolbar__brand">
+        {{ title }}
+        <q-badge v-if="hasDevelopmentBadge" align="middle" color="negative" :label="developmentBadgeLabel" />
       </div>
     </q-toolbar-title>
 
