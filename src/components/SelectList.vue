@@ -6,13 +6,13 @@
           <slot name="item" v-bind="self">
             <slot name="item-section" :result="result">
               <q-item-section>{{ result.label }}</q-item-section>
-
-              <q-item-section avatar>
-                <slot name="item-action" v-bind="self">
-                  <q-btn @click="handleClick(result)" :label="setButtonProps(result).label" color="primary" :outline="setButtonProps(result).outline" no-caps />
-                </slot>
-              </q-item-section>
             </slot>
+
+            <q-item-section avatar>
+              <slot name="item-action" v-bind="self">
+                <q-btn @click="handleClick(result)" :label="setButtonProps(result).label" color="primary" :outline="setButtonProps(result).outline" no-caps />
+              </slot>
+            </q-item-section>
           </slot>
         </q-item>
       </q-list>
@@ -103,7 +103,7 @@ export default {
       return this.value.includes(item.value) ? this.remove(item) : this.add(item)
     },
 
-    add (item, index) {
+    add (item) {
       this.value.push(item.value)
     },
 
