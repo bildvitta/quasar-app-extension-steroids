@@ -4,9 +4,12 @@
 
     <q-btn dense flat icon="o_menu" round @click="toggleMenuDrawer" />
 
-    <q-toolbar-title class="cursor-pointer" @click="goToRoot">
-      <img :src="brand" alt="" class="qs-toolbar__brand">
-      {{ title }} <q-badge v-if="hasDevelopmentBadge" align="middle" color="negative" :label="developmentBadgeLabel" />
+    <q-toolbar-title class="flex">
+      <div @click="goToRoot" class="cursor-pointer">
+        <img :src="brand" :alt="title" class="qs-toolbar__brand">
+        {{ title }}
+        <q-badge v-if="hasDevelopmentBadge" align="middle" color="negative" :label="developmentBadgeLabel" />
+      </div>
     </q-toolbar-title>
 
     <div class="items-center no-wrap q-gutter-md row">
