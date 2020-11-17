@@ -3,6 +3,7 @@
 
 - changed:
   - change header click area to return to home
+
 ## 1.0.5 (10-28-2020)
 
 - changed:
