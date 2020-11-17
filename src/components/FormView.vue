@@ -4,7 +4,7 @@
       <slot name="header" :errors="errors" :fields="fields" :metadata="metadata" />
     </header>
 
-    <q-form @submit="submit">
+    <q-form @submit="submit" class="my-before-leave-component">
       <slot :errors="errors" :fields="fields" :metadata="metadata" />
 
       <slot v-if="!readOnly" name="actions" :errors="errors" :fields="fields" :metadata="metadata">
@@ -26,7 +26,8 @@
 </template>
 
 <script>
-import { get } from 'lodash'
+import { get, isEqual } from 'lodash'
+import { extend } from 'quasar'
 
 import viewMixin from '../mixins/view'
 
@@ -70,12 +71,18 @@ export default {
     value: {
       default: () => ({}),
       type: Object
+    },
+
+    showDialogOnUnsavedChanges: {
+      default: true,
+      type: Boolean
     }
   },
 
   data () {
     return {
-      isSubmiting: false
+      isSubmiting: false,
+      cachedResult: {}
     }
   },
 
@@ -134,6 +141,7 @@ export default {
         this.setMetadata(metadata)
 
         if (result) {
+          this.cachedResult = this.showDialogOnUnsavedChanges && extend(true, {}, result)
           this.$emit('input', { ...this.value, ...result })
         }
 
@@ -176,6 +184,8 @@ export default {
         this.setErrors()
         this.$qs.success(response.data.status.text || 'Item salvo com sucesso!')
         this.$emit('submit-success', response, this.value)
+
+        return Promise.resolve(response)
       } catch (error) {
         const errors = get(error, 'response.data.errors')
         const message = get(error, 'response.data.status.text')
@@ -188,9 +198,38 @@ export default {
         this.$qs.error(message || 'Ops! Erro ao salvar item.', exception)
 
         this.$emit('submit-error', error)
+
+        return Promise.reject()
       } finally {
         this.isSubmiting = false
       }
+    },
+
+    beforeRouteLeave (to, from, next) {
+      if (!this.showDialogOnUnsavedChanges) {
+        return null
+      }
+
+      if (isEqual(this.value, this.cachedResult)) {
+        return next()
+      }
+
+      this.$q.dialog({
+        title: 'Atenção',
+        message: 'Você está deixando a página e suas alterações serão perdidas. Tem certeza que deseja sair sem salvar?',
+        persistent: true,
+        cancel: {
+          label: 'Sair',
+          noCaps: true,
+          outline: true
+        },
+        ok: {
+          noCaps: true,
+          label: 'Continuar editando'
+        }
+      }).onCancel(() => {
+        next()
+      }).onOk(() => next(false))
     }
   }
 }

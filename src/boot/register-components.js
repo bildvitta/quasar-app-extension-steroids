@@ -30,6 +30,7 @@ import Sortable from '../components/Sortable.vue'
 import TableGenerator from '../components/TableGenerator.vue'
 import TabsGenerator from '../components/TabsGenerator.vue'
 import Uploader from '../components/Uploader.vue'
+import SelectList from '../components/SelectList.vue'
 
 export default async ({ Vue }) => {
   Vue.component('qs-app-bar', AppBar)
@@ -64,4 +65,5 @@ export default async ({ Vue }) => {
   Vue.component('qs-table-generator', TableGenerator)
   Vue.component('qs-tabs-generator', TabsGenerator)
   Vue.component('qs-uploader', Uploader)
+  Vue.component('qs-select-list', SelectList)
 }
