@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.0.4 (11-17-2020)
+
+- features:
+  - qs-select-list
+  - modal in form-view when leave page with unsaved changes
+
 ## 2.0.3 (11-05-2020)
 
 - fetures:
