@@ -51,12 +51,13 @@ export default {
     return {
       cachedValue: [],
       triggedClick: false,
-      cachedOptions: []
+      cachedOptions: [],
+      values: []
     }
   },
 
   watch: {
-    value: {
+    values: {
       handler (value) {
         this.$emit('input', value)
       },
@@ -65,22 +66,26 @@ export default {
     }
   },
 
+  created () {
+    this.values = [...this.value]
+  },
+
   computed: {
     self () {
       return this
     },
 
     isEnabledCachedOptions () {
-      return this.value.length && this.options.length && !this.triggedClick
+      return this.values.length && this.options.length && !this.triggedClick
     },
 
     formattedOptions () {
       if (this.deleteOnly) {
-        return this.options.filter(option => this.value.includes(option.value))
+        return this.options.filter(option => this.values.includes(option.value))
       }
 
       if (this.isEnabledCachedOptions) {
-        this.cachedValue = [...this.value]
+        this.cachedValue = [...this.values]
         this.cachedOptions = sortBy(this.options, option => !this.cachedValue.includes(option.value))
       }
 
@@ -90,7 +95,7 @@ export default {
 
   methods: {
     setButtonProps ({ value }) {
-      const isSelected = this.value.includes(value)
+      const isSelected = this.values.includes(value)
 
       return {
         label: isSelected ? 'Remover' : 'Adicionar',
@@ -100,17 +105,17 @@ export default {
 
     handleClick (item) {
       this.triggedClick = true
-      return this.value.includes(item.value) ? this.remove(item) : this.add(item)
+      return this.values.includes(item.value) ? this.remove(item) : this.add(item)
     },
 
     add (item) {
-      this.value.push(item.value)
+      this.values.push(item.value)
     },
 
     remove (item) {
-      const index = this.value.findIndex(value => value === item.value)
+      const index = this.values.findIndex(value => value === item.value)
 
-      this.value.splice(index, 1)
+      this.values.splice(index, 1)
     }
   }
 }
