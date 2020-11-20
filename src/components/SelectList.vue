@@ -1,5 +1,5 @@
 <template>
-  <qs-search-box :list="formattedOptions" v-bind="$attrs" class="q-pa-md" :fuse-options="fuseOptions">
+  <qs-search-box :list="sortedOptions" v-bind="$attrs" class="q-pa-md" :fuse-options="fuseOptions">
     <template v-slot="{ results }">
       <q-list separator>
         <q-item v-for="(result, index) in results" :key="index">
@@ -49,47 +49,26 @@ export default {
 
   data () {
     return {
-      cachedValue: [],
-      triggedClick: false,
-      cachedOptions: [],
+      sortedOptions: [],
       values: []
     }
   },
 
   watch: {
-    values: {
-      handler (value) {
-        this.$emit('input', value)
-      },
-
-      immediate: true
+    value (value) {
+      this.values = [...value]
     }
   },
 
   created () {
     this.values = [...this.value]
+
+    this.handleOptions()
   },
 
   computed: {
     self () {
       return this
-    },
-
-    isEnabledCachedOptions () {
-      return this.values.length && this.options.length && !this.triggedClick
-    },
-
-    formattedOptions () {
-      if (this.deleteOnly) {
-        return this.options.filter(option => this.values.includes(option.value))
-      }
-
-      if (this.isEnabledCachedOptions) {
-        this.cachedValue = [...this.values]
-        this.cachedOptions = sortBy(this.options, option => !this.cachedValue.includes(option.value))
-      }
-
-      return this.cachedOptions.length ? this.cachedOptions : this.options
     }
   },
 
@@ -103,19 +82,41 @@ export default {
       }
     },
 
+    handleOptions () {
+      if (this.value.length) {
+        return this.sortOptions()
+      }
+
+      const unwatch = this.$watch('value', (value => {
+        this.sortOptions()
+        unwatch()
+      }))
+    },
+
+    sortOptions () {
+      this.sortedOptions = this.deleteOnly
+        ? this.options.filter(option => this.value.includes(option.value))
+        : sortBy(this.options, option => !this.value.includes(option.value))
+    },
+
     handleClick (item) {
-      this.triggedClick = true
       return this.values.includes(item.value) ? this.remove(item) : this.add(item)
     },
 
     add (item) {
       this.values.push(item.value)
+      this.updateModel()
     },
 
     remove (item) {
       const index = this.values.findIndex(value => value === item.value)
 
       this.values.splice(index, 1)
+      this.updateModel()
+    },
+
+    updateModel () {
+      this.$emit('input', this.values)
     }
   }
 }

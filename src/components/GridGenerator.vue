@@ -52,6 +52,7 @@ export default {
   computed: {
     resultsByFields () {
       const result = extend(true, {}, this.result)
+
       const formattedResult = {}
 
       for (const key in result) {
