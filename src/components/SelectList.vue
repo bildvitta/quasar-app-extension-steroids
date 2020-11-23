@@ -10,7 +10,7 @@
 
             <q-item-section avatar>
               <slot name="item-action" v-bind="self">
-                <q-btn @click="handleClick(result)" :label="setButtonProps(result).label" color="primary" :outline="setButtonProps(result).outline" no-caps />
+                <q-btn @click="handleClick(result)" :label="setButtonProps(result).label" :dense="setButtonProps(result).dense" :round="setButtonProps(result).round" :icon="setButtonProps(result).icon" color="primary" :outline="setButtonProps(result).outline" no-caps />
               </slot>
             </q-item-section>
           </slot>
@@ -69,6 +69,10 @@ export default {
   computed: {
     self () {
       return this
+    },
+
+    isMobile () {
+      return this.$q.screen.xs
     }
   },
 
@@ -77,7 +81,10 @@ export default {
       const isSelected = this.values.includes(value)
 
       return {
-        label: isSelected ? 'Remover' : 'Adicionar',
+        label: this.isMobile ? undefined : isSelected ? 'Remover' : 'Adicionar',
+        icon: !this.isMobile ? undefined : isSelected ? 'o_close' : 'o_add',
+        dense: this.isMobile,
+        round: this.isMobile,
         outline: isSelected
       }
     },
