@@ -32,6 +32,7 @@ import TabsGenerator from '../components/TabsGenerator.vue'
 import Uploader from '../components/Uploader.vue'
 import SelectList from '../components/SelectList.vue'
 import SettingsMenu from '../components/SettingsMenu.vue'
+import Btn from '../components/Btn.vue'
 
 export default async ({ Vue }) => {
   Vue.component('qs-app-bar', AppBar)
@@ -68,4 +69,5 @@ export default async ({ Vue }) => {
   Vue.component('qs-uploader', Uploader)
   Vue.component('qs-select-list', SelectList)
   Vue.component('qs-settings-menu', SettingsMenu)
+  Vue.component('qs-btn', Btn)
 }
