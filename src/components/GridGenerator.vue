@@ -1,5 +1,5 @@
 <template>
-  <div class="items-center" :class="classes">
+  <div :class="classes">
     <div v-for="(field, key) in formattedFields" :key="key" :class="getFieldClass(key, true)">
       <slot :name="`field-${field.name}`" :field="slotValue[key]">
         <slot name="header" :field="slotValue[key]">
