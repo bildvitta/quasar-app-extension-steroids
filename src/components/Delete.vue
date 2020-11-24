@@ -5,28 +5,10 @@
 </template>
 
 <script>
+import deleteComponent from '../mixins/delete-component'
+
 export default {
-  props: {
-    customId: {
-      default: '',
-      type: [Number, String]
-    },
-
-    dialog: {
-      default: () => ({}),
-      type: Object
-    },
-
-    entity: {
-      required: true,
-      type: String
-    },
-
-    tag: {
-      default: 'q-btn',
-      type: String
-    }
-  },
+  mixins: [deleteComponent],
 
   computed: {
     events () {

@@ -11,7 +11,7 @@ export default {
     },
 
     entity: {
-      default: true,
+      required: true,
       type: String
     },
 
