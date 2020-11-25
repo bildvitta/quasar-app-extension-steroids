@@ -5,10 +5,28 @@
 </template>
 
 <script>
-import deleteComponent from '../mixins/delete-component'
-
 export default {
-  mixins: [deleteComponent],
+  props: {
+    customId: {
+      default: '',
+      type: [Number, String]
+    },
+
+    dialog: {
+      default: () => ({}),
+      type: Object
+    },
+
+    entity: {
+      required: true,
+      type: String
+    },
+
+    tag: {
+      default: 'q-btn',
+      type: String
+    }
+  },
 
   computed: {
     events () {
@@ -39,7 +57,7 @@ export default {
 
     confirm () {
       this.$q.dialog({
-        message: 'Tem certeza que deseja deletar este item?',
+        message: 'Tem certeza que deseja excluir este item?',
         persistent: true,
         title: 'Confirmar',
         ok: {

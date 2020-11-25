@@ -1,74 +1,43 @@
 <template>
-  <q-btn class="settings-menu" color="primary" icon="o_settings" :label="label" outline no-caps>
+  <qs-btn class="settings-menu" color="primary" v-bind="$attrs" v-on="$listeners" icon="o_settings" hide-mobile-label :label="label" outline>
     <q-menu class="settings-menu__menu">
       <q-list separator class="settings-menu__list">
-        <q-item v-for="(item, index) in list" :key="index" clickable class="text-primary text-bold" v-close-popup @click="onClick(item)">
-          <q-item-section class="flex">
-            <div class="flex justify-center items-center q-gutter-x-md">
-              <q-icon :name="item.icon" />
-              <div>{{ item.label }}</div>
-            </div>
-          </q-item-section>
-        </q-item>
-        <qs-delete v-if="!noDeleteButton" tag="q-item" v-bind="deleteProps" class="text-negative text-bold" clickable v-close-popup :custom-id="customId" @success="onDeleteSuccess">
-          <q-item-section>
-            <div class="flex justify-center items-center q-gutter-x-md">
-              <q-icon name="o_delete" />
-              <div>{{ deleteLabel }}</div>
-            </div>
-          </q-item-section>
-        </qs-delete>
+        <slot v-for="(item, key) in list" :name="key" :item="item">
+          <q-item clickable class="text-primary text-bold" :key="key" v-bind="item.props" v-close-popup @click="onClick(item)">
+            <q-item-section>
+              <div class="flex justify-center items-center q-gutter-x-md">
+                <q-icon :name="item.icon" />
+                <div>{{ item.label }}</div>
+              </div>
+            </q-item-section>
+          </q-item>
+        </slot>
       </q-list>
     </q-menu>
-  </q-btn>
+  </qs-btn>
 </template>
 
 <script>
-import deleteComponent from '../mixins/delete-component'
-
 export default {
   props: {
-    deleteLabel: {
-      type: String,
-      default: ''
-    },
-
-    blockLabel: {
-      type: String,
-      default: 'Bloquear acesso'
-    },
-
     list: {
-      type: Array,
-      default: () => []
+      type: Object,
+      default: () => ({})
     },
 
-    noDeleteButton: {
-      type: Boolean
-    }
-  },
-
-  mixins: [deleteComponent],
-
-  computed: {
-    label () {
-      return this.$q.screen.gt.xs ? 'Configurações' : undefined
-    },
-
-    deleteProps () {
-      const { deleteLabel, blockLabel, ...deleteProps } = this.$props
-
-      return deleteProps
+    label: {
+      type: String,
+      default: 'Configurações'
     }
   },
 
   methods: {
-    onDeleteSuccess () {
-      return this.$emit('delete-success')
-    },
+    onClick (item) {
+      if (typeof item.handle === 'function') {
+        const { handle, ...filtered } = item
 
-    onClick ({ value }) {
-      this.$emit(`item-${value}`, value)
+        item.handle(filtered)
+      }
     }
   }
 }

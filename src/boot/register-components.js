@@ -5,6 +5,7 @@ import Autocomplete from '../components/Autocomplete.vue'
 import Avatar from '../components/Avatar.vue'
 import Box from '../components/Box.vue'
 import BreakLine from '../components/BreakLine.vue'
+import Btn from '../components/Btn.vue'
 import CheckboxGroup from '../components/CheckboxGroup.vue'
 import Copy from '../components/Copy.vue'
 import DatetimeInput from '../components/DatetimeInput.vue'
@@ -25,14 +26,13 @@ import PasswordStrengthChecker from '../components/PasswordStrengthChecker.vue'
 import Profile from '../components/Profile.vue'
 import Resizer from '../components/Resizer.vue'
 import SearchBox from '../components/SearchBox.vue'
+import SelectList from '../components/SelectList.vue'
+import SettingsMenu from '../components/SettingsMenu.vue'
 import SingleView from '../components/SingleView.vue'
 import Sortable from '../components/Sortable.vue'
 import TableGenerator from '../components/TableGenerator.vue'
 import TabsGenerator from '../components/TabsGenerator.vue'
 import Uploader from '../components/Uploader.vue'
-import SelectList from '../components/SelectList.vue'
-import SettingsMenu from '../components/SettingsMenu.vue'
-import Btn from '../components/Btn.vue'
 
 export default async ({ Vue }) => {
   Vue.component('qs-app-bar', AppBar)
@@ -42,6 +42,7 @@ export default async ({ Vue }) => {
   Vue.component('qs-avatar', Avatar)
   Vue.component('qs-box', Box)
   Vue.component('qs-break-line', BreakLine)
+  Vue.component('qs-btn', Btn)
   Vue.component('qs-checkbox-group', CheckboxGroup)
   Vue.component('qs-copy', Copy)
   Vue.component('qs-datetime-input', DatetimeInput)
@@ -62,12 +63,11 @@ export default async ({ Vue }) => {
   Vue.component('qs-profile', Profile)
   Vue.component('qs-resizer', Resizer)
   Vue.component('qs-search-box', SearchBox)
+  Vue.component('qs-select-list', SelectList)
+  Vue.component('qs-settings-menu', SettingsMenu)
   Vue.component('qs-single-view', SingleView)
   Vue.component('qs-sortable', Sortable)
   Vue.component('qs-table-generator', TableGenerator)
   Vue.component('qs-tabs-generator', TabsGenerator)
   Vue.component('qs-uploader', Uploader)
-  Vue.component('qs-select-list', SelectList)
-  Vue.component('qs-settings-menu', SettingsMenu)
-  Vue.component('qs-btn', Btn)
 }
