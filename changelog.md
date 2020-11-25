@@ -5,6 +5,14 @@
 - features:
   - qs-select-list
   - modal in form-view when leave page with unsaved changes
+  - qs-grid-generator
+  - qs-btn
+  - qs-settings-menub
+
+- changed:
+  - template actions in qs-form-view
+  - change header click area to return to home
+  - text-weight in breadccrumbs
 
 ## 2.0.3 (11-05-2020)
 

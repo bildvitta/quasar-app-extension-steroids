@@ -32,7 +32,6 @@
 <script>
 import { get, isEqual } from 'lodash'
 import { extend } from 'quasar'
-import routes from 'src/router'
 
 import viewMixin from '../mixins/view'
 
@@ -210,8 +209,6 @@ export default {
         this.setErrors()
         this.$qs.success(response.data.status.text || 'Item salvo com sucesso!')
         this.$emit('submit-success', response, this.value)
-
-        return Promise.resolve(response)
       } catch (error) {
         const errors = get(error, 'response.data.errors')
         const message = get(error, 'response.data.status.text')
@@ -224,8 +221,6 @@ export default {
         this.$qs.error(message || 'Ops! Erro ao salvar item.', exception)
 
         this.$emit('submit-error', error)
-
-        return Promise.reject()
       } finally {
         this.isSubmiting = false
       }
