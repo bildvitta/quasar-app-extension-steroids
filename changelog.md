@@ -7,7 +7,7 @@
   - modal in form-view when leave page with unsaved changes
   - qs-grid-generator
   - qs-btn
-  - qs-settings-menub
+  - qs-settings-menu
 
 - changed:
   - template actions in qs-form-view
