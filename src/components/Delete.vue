@@ -57,10 +57,18 @@ export default {
 
     confirm () {
       this.$q.dialog({
-        cancel: true,
-        message: 'Tem certeza que deseja deletar este item?',
+        message: 'Tem certeza que deseja excluir este item?',
         persistent: true,
         title: 'Confirmar',
+        ok: {
+          label: 'Excluir',
+          noCaps: true
+        },
+        cancel: {
+          label: 'Cancelar',
+          noCaps: true,
+          outline: true
+        },
         ...this.dialog
       }).onOk(this.destroy)
     }

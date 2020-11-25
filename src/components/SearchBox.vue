@@ -65,7 +65,7 @@ export default {
   watch: {
     search: {
       handler (value) {
-        this.results = value ? fuse.search(value) : this.list
+        this.setResults(value)
         this.$emit('input', value)
       },
 
@@ -78,6 +78,7 @@ export default {
 
     list (value) {
       fuse.list = value
+      this.setResults(this.search)
     },
 
     hasResults (value) {
@@ -105,6 +106,12 @@ export default {
 
     contentStyle () {
       return { height: this.height }
+    }
+  },
+
+  methods: {
+    setResults (value) {
+      this.results = value ? fuse.search(value) : this.list
     }
   }
 }

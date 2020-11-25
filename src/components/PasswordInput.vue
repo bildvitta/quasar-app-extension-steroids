@@ -71,7 +71,7 @@ export default {
     },
 
     icon () {
-      return this.toggleType ? 'visibility_off' : 'visibility'
+      return this.toggleType ? 'o_visibility_off' : 'o_visibility'
     },
 
     type () {

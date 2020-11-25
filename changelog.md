@@ -1,9 +1,19 @@
 # Changelog
 
-## 2.0.4 (16-11-2020)
+## 2.0.4 (11-25-2020)
+
+- features:
+  - qs-select-list
+  - modal in form-view when leave page with unsaved changes
+  - qs-grid-generator
+  - qs-btn
+  - qs-settings-menu
 
 - changed:
+  - template actions in qs-form-view
   - change header click area to return to home
+  - text-weight in breadccrumbs
+
 ## 2.0.3 (11-05-2020)
 
 - fetures:

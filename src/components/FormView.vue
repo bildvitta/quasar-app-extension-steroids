@@ -4,13 +4,17 @@
       <slot name="header" :errors="errors" :fields="fields" :metadata="metadata" />
     </header>
 
-    <q-form @submit="submit">
+    <q-form @submit="submit" class="my-before-leave-component">
       <slot :errors="errors" :fields="fields" :metadata="metadata" />
 
       <slot v-if="!readOnly" name="actions" :errors="errors" :fields="fields" :metadata="metadata">
-        <div class="q-my-lg text-right">
-          <q-btn v-close-popup="dialog" class="q-mr-md" color="grey-8" :disable="disable || isSubmiting" :label="cancelButton" outline type="button" @click="cancel" />
-          <q-btn color="primary" :disable="disable" :label="submitButton" :loading="isSubmiting" type="submit" unelevated />
+        <div class="row q-my-lg q-col-gutter-md justify-end">
+          <div v-if="hasCancelButton" class="col-12 col-sm-2" :class="cancelButtonClass">
+            <q-btn v-close-popup="dialog" color="primary" class="full-width" no-caps :disable="disable || isSubmiting" :label="cancelButton" outline type="button" @click="cancel" />
+          </div>
+          <div class="col-12 col-sm-2" :class="saveButtonClass">
+            <q-btn color="primary" class="full-width" :disable="disable" :label="submitButton" no-caps :loading="isSubmiting" type="submit" unelevated />
+          </div>
         </div>
       </slot>
     </q-form>
@@ -26,7 +30,8 @@
 </template>
 
 <script>
-import { get } from 'lodash'
+import { get, isEqual } from 'lodash'
+import { extend } from 'quasar'
 
 import viewMixin from '../mixins/view'
 
@@ -70,12 +75,23 @@ export default {
     value: {
       default: () => ({}),
       type: Object
+    },
+
+    showDialogOnUnsavedChanges: {
+      default: true,
+      type: Boolean
+    },
+
+    cancelRoute: {
+      default: '',
+      type: [Boolean, String, Object]
     }
   },
 
   data () {
     return {
-      isSubmiting: false
+      isSubmiting: false,
+      cachedResult: {}
     }
   },
 
@@ -98,6 +114,22 @@ export default {
       }
 
       return this.$route
+    },
+
+    hasCancelButton () {
+      return !(typeof this.cancelRoute === 'boolean' && !this.cancelRoute)
+    },
+
+    isMobile () {
+      return this.$q.screen.xs
+    },
+
+    saveButtonClass () {
+      return this.isMobile && 'order-first'
+    },
+
+    cancelButtonClass () {
+      return this.isMobile && 'order-last'
     }
   },
 
@@ -115,7 +147,7 @@ export default {
   methods: {
     cancel () {
       if (!this.dialog) {
-        history.back()
+        this.handleCancelRoute()
       }
     },
 
@@ -134,6 +166,7 @@ export default {
         this.setMetadata(metadata)
 
         if (result) {
+          this.cachedResult = this.showDialogOnUnsavedChanges && extend(true, {}, result)
           this.$emit('input', { ...this.value, ...result })
         }
 
@@ -191,6 +224,44 @@ export default {
       } finally {
         this.isSubmiting = false
       }
+    },
+
+    beforeRouteLeave (to, from, next) {
+      if (!this.showDialogOnUnsavedChanges) {
+        return null
+      }
+
+      if (isEqual(this.value, this.cachedResult)) {
+        return next()
+      }
+
+      this.$q.dialog({
+        title: 'Atenção',
+        message: 'Você está deixando a página e suas alterações serão perdidas. Tem certeza que deseja sair sem salvar?',
+        persistent: true,
+        cancel: {
+          label: 'Sair',
+          noCaps: true,
+          outline: true
+        },
+        ok: {
+          noCaps: true,
+          label: 'Continuar editando'
+        }
+      }).onCancel(() => {
+        next()
+      }).onOk(() => next(false))
+    },
+
+    handleCancelRoute () {
+      if (this.cancelRoute) {
+        return this.$router.push(this.cancelRoute)
+      }
+
+      const [dash, path] = this.$route.path.split('/')
+      const resolvedPath = this.$router.resolve(`/${path}`).route.path
+
+      this.$router.push(resolvedPath)
     }
   }
 }

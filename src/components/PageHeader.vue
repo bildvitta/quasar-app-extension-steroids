@@ -1,7 +1,7 @@
 <template>
   <q-toolbar class="justify-between q-mb-lg q-px-none">
     <div class="ellipsis">
-      <q-toolbar-title v-if="title" class="text-h5">
+      <q-toolbar-title v-if="title" class="text-h5 text-bold">
         <q-icon v-if="!noBreadcrumbs && previousRoute" class="cursor-pointer vertical-baseline" name="o_arrow_back" size="18px" @click="$router.push(previousRoute)" />
         {{ title }}
       </q-toolbar-title>
