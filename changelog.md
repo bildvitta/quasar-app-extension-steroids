@@ -1,6 +1,6 @@
 # Changelog
 
-## 2.0.4 (11-17-2020)
+## 2.0.4 (11-25-2020)
 
 - features:
   - qs-select-list
