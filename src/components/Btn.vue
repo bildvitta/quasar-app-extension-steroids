@@ -34,7 +34,7 @@ export default {
       return !(this.hideMobileLabel && this.isMobile)
     },
 
-    // computada original do quasar modificada para sumir icone no mobile.
+    // computada original do quasar modificada para sumir label no mobile.
     hasLabel () {
       return !!this.label && this.mobileLabel
     }
