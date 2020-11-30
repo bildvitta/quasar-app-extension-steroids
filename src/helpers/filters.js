@@ -50,8 +50,34 @@ function percent (value = 0, places = 2) {
   return value ? (value / 100).toLocaleString('pt-BR', { style: 'percent', minimumFractionDigits: places }) : ''
 }
 
+function formatPersonalDocument (value) {
+  return value.replace(/^(\d{3})\D*(\d{3})\D*(\d{3})\D*(\d{2})$/g,'$1.$2.$3-$4')
+}
+
+function formatCompanyDocument (value) {
+  return value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5')
+}
+
+function handleDocument (value) {
+  return value.length <= 11 ? formatPersonalDocument(value) : formatCompanyDocument(value)
+}
+
+function handleMasks (value) {
+  return {
+    'personal-document': () => formatPersonalDocument(value),
+    'company-document': () => formatCompanyDocument(value),
+    'document': () => handleDocument(value)
+  }
+}
+
 // Labels
 function humanize (field = {}, value) {
+  const mappedMasks = handleMasks(value)
+
+  if (mappedMasks[field.mask]) {
+    return mappedMasks[field.mask]()
+  }
+
   switch (field.type) {
     case 'boolean': return booleanLabel(value)
     case 'select': return selectLabel(field.options, value, field.multiple)
