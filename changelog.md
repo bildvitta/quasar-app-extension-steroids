@@ -10,7 +10,7 @@
 
 - changed:
   - lodash version to ---> >=4.17.19 (vulnerability changes)
-  - breadcrumbs font-size in mobile and remover default root
+  - breadcrumbs font-size in mobile and removed default root
   - fixed qs-select-list bug
 
 ## 2.0.4 (11-25-2020)
