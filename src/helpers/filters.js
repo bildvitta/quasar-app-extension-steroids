@@ -55,7 +55,7 @@ function formatPersonalDocument (value) {
 }
 
 function formatCompanyDocument (value) {
-  return value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/, '$1.$2.$3/$4-$5')
+  return value.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})(\d{2})/g, '$1.$2.$3/$4-$5')
 }
 
 function handleDocument (value) {
@@ -113,6 +113,10 @@ export {
   booleanLabel,
   date,
   dateTime,
+  formatCompanyDocument,
+  formatPersonalDocument,
+  handleDocument,
+  handleMasks,
   humanDate,
   humanize,
   money,

@@ -116,8 +116,6 @@ export default {
       this.sortedOptions = this.deleteOnly
         ? this.options.filter(option => this.value.includes(option.value))
         : sortBy(this.options, option => !this.value.includes(option.value))
-
-      console.log(this.sortedOptions, '>>>>>>>>')
     },
 
     handleClick (item) {
