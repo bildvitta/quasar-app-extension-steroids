@@ -4,7 +4,7 @@
       <slot name="header" :errors="errors" :fields="fields" :metadata="metadata" />
     </header>
 
-    <q-form @submit="submit" class="my-before-leave-component">
+    <q-form @submit="submit">
       <slot :errors="errors" :fields="fields" :metadata="metadata" />
 
       <slot v-if="!readOnly" name="actions" :errors="errors" :fields="fields" :metadata="metadata">
