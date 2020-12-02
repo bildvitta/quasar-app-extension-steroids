@@ -10,10 +10,10 @@
       <slot v-if="!readOnly" name="actions" :errors="errors" :fields="fields" :metadata="metadata">
         <div class="row q-my-lg q-col-gutter-md justify-end">
           <div v-if="hasCancelButton" class="col-12 col-sm-2" :class="cancelButtonClass">
-            <q-btn v-close-popup="dialog" color="primary" class="full-width" no-caps :disable="disable || isSubmiting" :label="cancelButton" outline type="button" @click="cancel" />
+            <qs-btn v-close-popup="dialog" class="full-width" :disable="disable || isSubmiting" :label="cancelButton" outline type="button" @click="cancel" />
           </div>
           <div class="col-12 col-sm-2" :class="saveButtonClass">
-            <q-btn color="primary" class="full-width" :disable="disable" :label="submitButton" no-caps :loading="isSubmiting" type="submit" unelevated />
+            <qs-btn class="full-width" :disable="disable" :label="submitButton" :loading="isSubmiting" type="submit" />
           </div>
         </div>
       </slot>
