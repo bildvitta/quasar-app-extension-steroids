@@ -47,7 +47,6 @@ export default {
         await this.$store.dispatch(`${this.entity}/destroy`, { id: this.id })
         this.$qs.success('Item deletado com sucesso!')
         this.$emit('success')
-        this.$parent.$emit('success')
         console.log('ué')
       } catch (error) {
         this.$qs.error('Ops! Não foi possível deletar o item.')
