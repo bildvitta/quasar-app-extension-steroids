@@ -4,7 +4,6 @@
 
 - features:
   - add new type number to field
-  - new class text-xs
   - new filters to handle document masks etc
   - new ways to send columns to form-generator and grid-generator
 
