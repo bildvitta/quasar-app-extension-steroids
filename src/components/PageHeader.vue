@@ -6,7 +6,7 @@
         {{ title }}
       </q-toolbar-title>
 
-      <q-breadcrumbs v-if="!noBreadcrumbs" class="text-caption text-grey-6">
+      <q-breadcrumbs v-if="!noBreadcrumbs" class="text-grey-6 text-caption">
         <q-breadcrumbs-el v-for="item in transformedBreadcrumbs" :key="item.label" :label="item.label" :to="item.route" />
       </q-breadcrumbs>
     </div>
@@ -31,7 +31,7 @@ export default {
     },
 
     root: {
-      default: () => ({ label: 'Início', routeName: 'Root' }),
+      default: '',
       type: [Object, String]
     },
 
@@ -58,11 +58,12 @@ export default {
     },
 
     transformedBreadcrumbs () {
-      return [
-        this.root,
-        ...castArray(this.breadcrumbs || this.title)
-      ].map(item => {
-        if (typeof item === 'string') {
+      const list = [...castArray(this.breadcrumbs || this.title)]
+
+      this.root && list.unshift(this.root)
+      
+      return list.map(item => {
+        if (item && typeof item === 'string') {
           return { label: item }
         }
 

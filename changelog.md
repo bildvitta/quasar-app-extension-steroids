@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.0.5 (12-02-2020)
+
+- features:
+  - add new type number to field
+  - new filters to handle document masks etc
+  - new ways to send columns to form-generator and grid-generator
+
+- changed:
+  - lodash version to ---> >=4.17.19 (vulnerability changes)
+  - breadcrumbs font-size in mobile and removed default root
+  - fixed qs-select-list bug
+
 ## 2.0.4 (11-25-2020)
 
 - features:

@@ -57,6 +57,16 @@ export default {
   watch: {
     value (value) {
       this.values = [...value]
+    },
+
+    options: {
+      handler (value) {
+        if (!this.sortedOptions.length) {
+          this.sortedOptions = value
+        }
+      },
+
+      immediate: true
     }
   },
 
@@ -95,8 +105,10 @@ export default {
       }
 
       const unwatch = this.$watch('value', (value => {
-        this.sortOptions()
-        unwatch()
+        if (!this.sortedOptions.length) {
+          this.sortOptions()
+          unwatch()
+        }
       }))
     },
 
