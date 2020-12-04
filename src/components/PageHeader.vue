@@ -6,7 +6,7 @@
         {{ title }}
       </q-toolbar-title>
 
-      <q-breadcrumbs v-if="!noBreadcrumbs" class="text-grey-6" :class="breadcrumbsClass">
+      <q-breadcrumbs v-if="!noBreadcrumbs" class="text-grey-6 text-caption">
         <q-breadcrumbs-el v-for="item in transformedBreadcrumbs" :key="item.label" :label="item.label" :to="item.route" />
       </q-breadcrumbs>
     </div>
@@ -78,10 +78,6 @@ export default {
 
         return item
       })
-    },
-
-    breadcrumbsClass () {
-      return this.$q.screen.xs ? 'text-xs' : 'text-caption'
     }
   },
 

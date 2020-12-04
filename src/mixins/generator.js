@@ -56,7 +56,7 @@ export default {
 
     handleColumnsByField (index, isGridGenerator) {
       if (!this.columns[index]) {
-        return this.setDefaultCol(isGridGenerator)
+        return this.setDefaultColumnClass(isGridGenerator)
       }
 
       return this.breakpoint(this.columns[index])
@@ -72,13 +72,13 @@ export default {
       const length = this.columns.length
 
       if (!length) {
-        return this.setDefaultCol(isGridGenerator)
+        return this.setDefaultColumnClass(isGridGenerator)
       }
 
       return this.breakpoint(this.columns[index])
     },
 
-    setDefaultCol (isGridGenerator) {
+    setDefaultColumnClass (isGridGenerator) {
       return isGridGenerator ? 'col-6 col-xs-12 col-sm-4' : 'col-6'
     }
   }
