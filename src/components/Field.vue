@@ -1,5 +1,5 @@
 <template>
-  <component :is="component.is" v-bind="component" :value="formattedValue" @input="emitValue" />
+  <component :is="component.is" v-bind="component" v-on="events" :value="formattedValue" @input="emitValue" />
 </template>
 
 <script>
@@ -153,6 +153,12 @@ export default {
 
     hasError () {
       return !!(Array.isArray(this.error) ? this.error.length : this.error)
+    },
+
+    events () {
+      const { input, ...events } = this.$listeners
+
+      return events
     }
   },
 
