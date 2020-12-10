@@ -20,29 +20,17 @@
 
 <script>
 import Fuse from 'fuse.js'
+import rename from '../mixins/rename'
 
 let fuse = null
 
 export default {
+  mixins: [rename],
+
   props: {
-    labelKey: {
-      type: String,
-      default: ''
-    },
-
-    valueKey: {
-      type: String,
-      default: ''
-    },
-
     value: {
       type: [String, Object, Array],
       default: ''
-    },
-
-    options: {
-      type: Array,
-      default: () => []
     },
 
     fuseOptions: {
@@ -103,14 +91,6 @@ export default {
       return !!(this.$slots.option || this.$scopedSlots.option)
     },
 
-    formattedResult () {
-      if (!this.labelKey && !this.valueKey) {
-        return this.options
-      }
-
-      return this.options.map(item => this.renameKey(item))
-    },
-
     defaultFuseOptions () {
       return {
         distance: 100,
@@ -127,24 +107,10 @@ export default {
   },
 
   methods: {
-    renameKey (item) {
-      const mapKeys = { label: this.labelKey, value: this.valueKey }
-
-      for (const newKey in mapKeys) {
-        if (!item.hasOwnProperty(newKey)) {
-          item[newKey] = item[mapKeys[newKey]]
-
-          delete item[mapKeys[newKey]]
-        }
-      }
-
-      return item
-    },
-
     filterOptions (value, update) {
       update(() => {
         if (value === '') {
-          this.filteredOptions = this.formattedResult
+          this.filteredOptions = this.formattedOptions
         } else {
           this.filteredOptions = fuse.search(value)
         }
