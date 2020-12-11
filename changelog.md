@@ -1,4 +1,10 @@
 # Changelog
+
+## 1.0.7 (11-12-2020)
+
+- changed:
+  - upload component support multiple files
+
 ## 1.0.6 (16-11-2020)
 
 - changed:
