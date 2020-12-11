@@ -1,6 +1,6 @@
 <template>
   <q-field :error="$attrs.error" :error-message="$attrs.errorMessage" borderless>
-    <q-uploader v-bind="$attrs" auto-upload bordered class="fit" :factory="factory" flat method="PUT" :readonly="readOnly" v-on="$listeners" @removed="removed" @uploaded="uploaded">
+    <q-uploader v-bind="$attrs" auto-upload bordered class="fit" :factory="factory" flat method="PUT" v-on="$listeners" @removed="removed" @uploaded="uploaded" @factory-failed="factoryFailed">
       <template v-slot:header="scope">
         <div class="flex flex-center no-wrap q-gutter-xs q-pa-sm">
           <q-spinner v-if="scope.isUploading" size="24px" />
@@ -10,7 +10,7 @@
             <div class="q-uploader__subtitle">{{ scope.uploadProgressLabel }} ({{ scope.uploadSizeLabel }})</div>
           </div>
 
-          <q-btn v-if="!scope.hideUploadBtn && scope.canAddFiles" dense flat icon="o_add" round>
+          <q-btn v-if="showAddFile" dense flat icon="o_add" round>
             <q-uploader-add-trigger />
           </q-btn>
 
@@ -21,25 +21,26 @@
 
       <template v-slot:list="scope">
         <q-list separator>
-          <q-item v-if="hasAPIValue && !scope.isUploading" class="q-pa-none">
-            <q-item-section avatar top>
-              <q-avatar v-if="value" rounded>
-                <img :src="value">
-              </q-avatar>
+          <div v-if="hasAPIValue && !scope.isUploading">
+            <q-item v-for="(item, index) in pathsLoop" :key="index" class="q-pa-none">
+              <q-item-section avatar top>
+                <q-avatar rounded>
+                  <img :src="item">
+                </q-avatar>
+              </q-item-section>
 
-              <q-avatar v-else color="grey-3" icon="o_attach_file" rounded :text-color="isFileFailed(file) ? 'negative' : 'primary'" />
-            </q-item-section>
+              <q-item-section>
+                <q-item-label class="text-black">{{ imageName(item) }}</q-item-label>
+              </q-item-section>
 
-            <q-item-section>
-              <q-item-label class="text-black">{{ imageName }}</q-item-label>
-            </q-item-section>
+              <q-item-section side v-if="!scope.readonly">
+                <div class="q-gutter-xs text-grey-8">
+                  <q-btn dense flat icon="o_delete" round @click="resetValue" />
+                </div>
+              </q-item-section>
+            </q-item>
+          </div>
 
-            <q-item-section side>
-              <div class="q-gutter-xs text-grey-8">
-                <q-btn dense flat icon="o_delete" round @click="resetValue" />
-              </div>
-            </q-item-section>
-          </q-item>
           <q-item v-for="file in scope.files" :key="file.name" class="q-pa-none">
             <q-item-section avatar top>
               <q-avatar v-if="file.__img" rounded>
@@ -60,11 +61,11 @@
 
                 <q-icon v-if="isFileFailed(file)" color="negative" name="warning" size="20px" />
 
-                <!-- <q-btn v-if="isFileUploaded(file)" dense flat icon="o_cloud_download" round /> -->
                 <q-btn dense flat :icon="isFileUploaded(file) ? 'o_delete' : 'o_clear'" round @click="scope.removeFile(file)" />
               </div>
             </q-item-section>
           </q-item>
+
         </q-list>
       </template>
     </q-uploader>
@@ -72,7 +73,6 @@
 </template>
 
 <script>
-import api from 'axios'
 import { uid } from 'quasar'
 
 export default {
@@ -85,11 +85,6 @@ export default {
     hint: {
       default: '',
       type: String
-    },
-
-    maxFiles: {
-      default: 1,
-      type: Number
     },
 
     value: {
@@ -111,16 +106,19 @@ export default {
       return !!this.error || !!this.errorMessage || !!this.hint
     },
 
-    readOnly () {
-      return this.files.length >= this.maxFiles
-    },
-
     hasAPIValue () {
-      return this.value.startsWith('https://s3.amazonaws.com/')
+      return Array.isArray(this.value) 
+        ? this.value.length && !this.files.length
+        : this.value && !this.files.length
     },
 
-    imageName () {
-      return `${this.value}`.split('/').pop()
+    showAddFile () {
+      const maxFiles = this.$attrs.maxFiles || (!this.$attrs.multiple && 1)
+      return !this.$attrs.readonly && (maxFiles ? this.files.length < maxFiles : true)
+    },
+
+    pathsLoop () {
+      return Array.isArray(this.value) ? this.value : (this.value ? [this.value] : [])
     }
   },
 
@@ -164,7 +162,7 @@ export default {
       this.isFetching = true
 
       try {
-        const { data } = await api.post('/upload-credentials/', {
+        const { data } = await this.$axios.post('/upload-credentials/', {
           entity: this.entity,
           filename
         })
@@ -188,6 +186,10 @@ export default {
 
     resetValue () {
       this.$emit('input', '')
+    },
+
+    imageName (value) {
+      return `${value}`.split('/').pop()
     }
   }
 }
