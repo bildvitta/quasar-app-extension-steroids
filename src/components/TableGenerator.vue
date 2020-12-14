@@ -1,17 +1,13 @@
+ 
 <template>
-  <div>
-    <!-- <pre>{{ attributes }}</pre> -->
-    <q-table class="bg-transparent" v-bind="attributes">
-      <template v-for="(slot, key) in $scopedSlots" v-slot:[key]="context">
-        <!-- <slot v-if="hasBodySlot" name="body" :props="context"/> -->
-        <q-td :key="key" :props="context">
-          <!-- {{ test(key) }} -->
-          <!-- lore -->
-          <!-- <slot name="body-cell-name" v-bind="context" /> -->
-        </q-td>
-      </template>
-    </q-table>
-  </div>
+  <q-table class="bg-transparent" v-bind="attributes">
+    <template v-for="(slot, key) in $scopedSlots" v-slot:[key]="context">
+      <slot v-if="hasBodySlot" name="body" :props="context"/>
+      <q-td v-else :key="key">
+        <slot :name="key" v-bind="context" />
+      </q-td>
+    </template>
+  </q-table>
 </template>
 
 <script>
