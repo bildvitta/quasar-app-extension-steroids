@@ -28,7 +28,7 @@ export default {
         return this.list
       }
 
-      return this.options.map(item => this.renameKey(item))
+      return extend(true, [], this.options).map(item => this.renameKey(item))
     }
   },
 

@@ -1,18 +1,12 @@
 <template>
   <div class="row q-my-xl transfer q-col-gutter-md">
-    <div class="col-12">
-
-    <pre>{{ seletedList2 }}</pre>
-    ------------------
-    <pre>{{ seletedList3 }}</pre>
-    </div>
     <div class="col-12 col-sm">
-      <qs-search-box :list="clonedList" form-mode v-bind="searchBoxProps">
+      <qs-search-box :list="optionsList" form-mode v-bind="searchBoxProps">
         <template v-slot="{ results }">
           <q-list separator>
             <q-item v-for="(item, index) in results" :key="index" clickable :class="itemClass(item, true)" @click="onSelectQueue(item, true)">
               <slot name="item-first-column">
-                <q-item-section>{{ item.label }}</q-item-section>
+                <q-item-section>{{ item[labelKey] }}</q-item-section>
               </slot>
             </q-item>
           </q-list>
@@ -41,7 +35,7 @@
           <q-list separator>
             <q-item v-for="(item, index) in results" :key="index" clickable :class="itemClass(item)" @click="onSelectQueue(item)">
               <slot name="item-second-column">
-                <q-item-section>{{ item.label }}</q-item-section>
+                <q-item-section>{{ item[labelKey] }}</q-item-section>
               </slot>
             </q-item>
           </q-list>
@@ -53,11 +47,8 @@
 
 <script>
 import { extend } from 'quasar'
-import rename from '../mixins/rename'
 
 export default {
-  mixins: [rename],
-
   props: {
     value: {
       type: Array,
@@ -76,6 +67,21 @@ export default {
     hideEmptySlot: {
       type: Boolean,
       default: true
+    },
+
+    labelKey: {
+      type: String,
+      default: 'label'
+    },
+
+    valueKey: {
+      type: String,
+      default: 'value'
+    },
+
+    options: {
+      type: Array,
+      default: () => []
     }
   },
 
@@ -83,45 +89,27 @@ export default {
     return {
       firstQueue: [],
       secondQueue: [],
-      clonedList: [],
       selectedList: [],
-      fromClick: false
+      optionsList: []
     }
   },
 
   watch: {
-    formattedOptions: {
+    options: {
       handler (value) {
-        this.clonedList = extend(true, [], value)
+        this.optionsList = extend(true, [], value)
       },
 
       immediate: true
     },
 
-    // value (value) {
-    //   this.setSelectedFromValue(true)
-    //   // this.fromClick = false
-    // },
+    value: {
+      handler (value, oldValue) {
+        this.setSelectedFromValue(true)
+      },
 
-    selectedList (value) {
-      console.log('fui chamado no selectedlist', value)
+      immediate: true
     }
-  },
-
-  created () {
-    // if (this.value.length) {
-    //   this.setSelectedFromValue(true)
-    //   this.$emit('input', this.handleEmit())
-    //   return 
-    // }
-
-    // const unwatch = this.$watch('value', (value => {
-    //   if (!this.value.length) {
-    //     console.log('deu ruim')
-    //     this.setSelectedFromValue(true)
-    //     unwatch()
-    //   }
-    // }))
   },
 
   computed: {
@@ -139,58 +127,17 @@ export default {
 
     searchBoxProps () {
       return {
-        list: this.formattedOptions,
+        list: this.options,
         fuseOptions: this.fuseOptions,
         hideEmptySlot: this.hideEmptySlot
       }
-    },
-
-    formattedSelecList () {
-      const test = extend(true, [], this.selectedList)
-      return test.map(item => this.renameKey(item, true))
-    },
-
-    formattedValue () {
-      if (!this.hasModifierKey || this.emitValue) {
-        return this.value
-      }
-
-      const test = extend(true, [], this.value)
-
-      return test.map(item => this.renameKey(item))
-    },
-
-    seletedList2 () {
-      // [{ label: 'test', value: 1 }]
-      // [1]
-      // [{{ label: 'test', value: 1 }}]
-      return extend(true, [], this.formattedOptions).filter(item => {
-        if (this.emitValue) {
-          return this.formattedValue.includes(item.value)
-        }
-
-        return this.formattedValue.find(value => value.value === item.value)
-      })
-    },
-
-    seletedList3 () {
-      // [{ label: 'test', value: 1 }]
-      // [1]
-      // [{{ label: 'test', value: 1 }}]
-      return extend(true, [], this.formattedOptions).filter(item => {
-        if (this.emitValue) {
-          return !this.formattedValue.includes(item.value)
-        }
-
-        return !this.formattedValue.find(value => value.value === item.value)
-      })
     }
   },
 
   methods: {
     onSelectQueue (item, isFirst) {
       const model = isFirst ? 'firstQueue' : 'secondQueue'
-      const index = this[model].findIndex(selected => selected.value === item.value)
+      const index = this[model].findIndex(selected => selected[this.valueKey] === item[this.valueKey])
 
       if (~index) {
         return this[model].splice(index, 1)
@@ -199,37 +146,36 @@ export default {
       return this[model].push(item)
     },
 
-    async setSelectedFromValue (isFirst) {
-      const first = []
-      console.log(this.formattedOptions, '>>>> depois')
-      // console.log(this.firstQueue, '.>>>>>> aqui é')
-      this.formattedValue.forEach(item => {
-        first.push(this.formattedOptions.find(option => option.value === (this.emitValue ? item : item.value)))
+    setSelectedFromValue (isFirst) {
+      this.value.forEach(item => {
+        const selected = this.optionsList.find(option => {
+          return option[this.valueKey] === (this.emitValue ? item : item[this.valueKey])
+        })
+
+        if (selected) {
+          this.firstQueue.push(extend(true, {}, selected))
+        }
       })
-
-      this.firstQueue = extend(true, [], first)
-
-      // console.log(this.firstQueue, '>>>>>>>>> first')
 
       this.handleSelectedList(isFirst)
     },
 
     setSelectedFromClick (isFirst) {
       this.handleSelectedList(isFirst)
-      this.$emit('input', this.handleEmit())
-      this.fromClick = true
-      console.log('setSelectedFromClick')
+      this.updateValue()
     },
 
-    itemClass ({ value }, isFirst) {
-      return this[isFirst ? 'firstQueue' : 'secondQueue'].some(item => item.value === value) && 'bg-secondary'
+    itemClass (object, isFirst) {
+      return this[isFirst
+        ? 'firstQueue'
+        : 'secondQueue'
+      ].some(item => item[this.valueKey] === object[this.valueKey]) && 'bg-secondary'
     },
 
     handleSelectedList (isFirst) {
       const model = isFirst ? 'firstQueue' : 'secondQueue'
 
-      this[isFirst ? 'selectedList' : 'clonedList'].push(...this[model])
-      console.log("handleSelectedList -> this[model]", this[model])
+      this[isFirst ? 'selectedList' : 'optionsList'].push(...this[model])
 
       this.deleteItemsFromList(isFirst)
 
@@ -237,7 +183,9 @@ export default {
     },
 
     handleEmit () {
-      return this.emitValue ? this.selectedList.map(item => item.value) : this.formattedSelecList
+      const selectedList = extend(true, [], this.selectedList)
+
+      return this.emitValue ? selectedList.map(item => item[this.valueKey]) : selectedList
     },
 
     updateValue () {
@@ -245,9 +193,11 @@ export default {
     },
 
     deleteItemsFromList (isFirst) {
-      this[isFirst ? 'firstQueue' : 'secondQueue'].forEach(({ value }) => {
-        const model = isFirst ? 'clonedList' : 'selectedList'
-        const index = this[model].findIndex(item => item.value === value)
+      this[isFirst ? 'firstQueue' : 'secondQueue'].forEach((item) => {
+        const model = isFirst ? 'optionsList' : 'selectedList'
+        const index = this[model].findIndex(itemValue => {
+          return (itemValue[this.valueKey] || itemValue) === item[this.valueKey]
+        })
 
         if (~index) {
           this[model].splice(index, 1)
