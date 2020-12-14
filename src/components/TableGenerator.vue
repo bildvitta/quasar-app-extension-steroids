@@ -114,12 +114,6 @@ export default {
     hasBodySlot () {
       return !!(this.$slots.body || this.$scopedSlots.body)
     }
-  },
-
-  methods: {
-    test (log) {
-      console.log(log)
-    }
   }
 }
 </script>
