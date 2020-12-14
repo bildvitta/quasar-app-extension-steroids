@@ -72,10 +72,6 @@ export default {
         ...this.dialog
       }).onOk(this.destroy)
     }
-  },
-
-  destroyed () {
-    console.log('fui chamado no destroyed tururu')
   }
 }
 </script>
