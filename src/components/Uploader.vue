@@ -126,7 +126,7 @@ export default {
 
   watch: {
     files (files) {
-      this.$emit('input', files.length > 1 ? files : files[0] || '')
+      this.$emit('input', this.$attrs.multiple ? files : files[0] || '')
     }
   },
 
