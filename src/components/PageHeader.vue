@@ -2,7 +2,9 @@
   <q-toolbar class="justify-between q-mb-lg q-px-none">
     <div class="ellipsis">
       <q-toolbar-title v-if="title" class="text-h5 text-bold">
-        <q-icon v-if="!noBreadcrumbs && previousRoute" class="cursor-pointer vertical-baseline" name="o_arrow_back" size="18px" @click="$router.push(previousRoute)" />
+        <!-- {{ previousRoute }} -->
+        <!-- <q-icon v-if="!noBreadcrumbs && previousRoute" class="cursor-pointer vertical-baseline" name="o_arrow_back" size="18px" @click="$router.push(previousRoute)" /> -->
+        <q-icon v-if="!noBreadcrumbs" class="cursor-pointer vertical-baseline" name="o_arrow_back" size="18px" @click="routerHandler" />
         {{ title }}
       </q-toolbar-title>
 
@@ -49,8 +51,10 @@ export default {
 
       const size = this.transformedBreadcrumbs.length
       const last = this.transformedBreadcrumbs[size - 2]
+      // console.log("previousRoute -> history", this.$history)
 
       const history = this.$history[0]
+      // console.log("previousRoute -> history", history)
 
       return history && get(last, 'route.name')
         ? (history.name === last.route.name ? history : null)
@@ -78,6 +82,14 @@ export default {
 
         return item
       })
+    }
+  },
+
+  methods: {
+    routerHandler () {
+      const size = this.transformedBreadcrumbs.length
+
+      return this.$router.push(this.transformedBreadcrumbs[size - 2].route)
     }
   },
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="row q-my-xl transfer q-col-gutter-md">
+  <div class="row transfer q-col-gutter-md">
     <div class="col-12 col-sm">
       <qs-search-box :list="optionsList" form-mode v-bind="searchBoxProps">
         <template v-slot="{ results }">
