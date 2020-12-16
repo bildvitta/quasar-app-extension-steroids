@@ -1,5 +1,5 @@
 <template>
-  <div class="row transfer q-col-gutter-md">
+  <div class="row transfer" :class="gutterClass">
     <div class="col-12 col-sm">
       <qs-label :label="label" :quantity="optionsList.length" />
 
@@ -16,16 +16,16 @@
       </qs-search-box>
     </div>
 
-    <div class="col-sm-1 col-12 row justify-center items-center q-col-gutter-md" :class="actionsClass">
+    <div class="col-sm-auto col-12 row justify-center items-center q-col-gutter-md" :class="actionsClass">
       <div>
         <div>
-          <qs-btn :class="iconClass" icon="o_arrow_circle_down" rounded flat :disabled="!firstQueue.length" @click="setSelectedFromClick(true)" />
+          <qs-btn :class="iconClass" icon="o_arrow_circle_down" dense rounded flat :disabled="!firstQueue.length" @click="setSelectedFromClick(true)" />
           <q-tooltip anchor="top middle" self="center middle">Transferir</q-tooltip>
         </div>
       </div>
       <div>
         <div>
-          <qs-btn :class="iconClass" icon="o_arrow_circle_up" rounded flat :disabled="!secondQueue.length" @click="setSelectedFromClick()" />
+          <qs-btn :class="iconClass" icon="o_arrow_circle_up" dense rounded flat :disabled="!secondQueue.length" @click="setSelectedFromClick()" />
           <q-tooltip anchor="bottom middle" self="center middle">Transferir</q-tooltip>
         </div>
       </div>
@@ -141,6 +141,14 @@ export default {
         fuseOptions: this.fuseOptions,
         hideEmptySlot: this.hideEmptySlot
       }
+    },
+
+    isMedium () {
+      return this.$q.screen.lt.md
+    },
+
+    gutterClass () {
+      return `q-col-gutter-${this.isMedium ? 'md' : 'xl'}`
     }
   },
 
