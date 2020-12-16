@@ -1,6 +1,8 @@
 <template>
   <div class="row transfer q-col-gutter-md">
     <div class="col-12 col-sm">
+      <qs-label :label="label" :quantity="optionsList.length" />
+
       <qs-search-box :list="optionsList" form-mode v-bind="searchBoxProps">
         <template v-slot="{ results }">
           <q-list separator>
@@ -30,7 +32,9 @@
     </div>
 
     <div class="col-12 col-sm">
-      <qs-search-box :list="selectedList" form-mode v-bind="searchBoxProps">
+      <qs-label label="Selecionadas" :quantity="selectedList.length" />
+
+      <qs-search-box :list="selectedList" form-mode v-bind="searchBoxProps" label="Selecionadas" :quantity="selectedList.length">
         <template v-slot="{ results }">
           <q-list separator>
             <q-item v-for="(item, index) in results" :key="index" clickable :class="itemClass(item)" @click="onSelectQueue(item)">
@@ -82,6 +86,12 @@ export default {
     options: {
       type: Array,
       default: () => []
+    },
+
+    label: {
+      type: String,
+      required: true,
+      default: ''
     }
   },
 
