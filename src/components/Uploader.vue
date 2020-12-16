@@ -24,8 +24,8 @@
           <div v-if="hasAPIValue && !scope.isUploading">
             <q-item v-for="(item, index) in pathsLoop" :key="index" class="q-pa-none">
               <q-item-section avatar top>
-                <q-avatar v-if="isImage(item)" rounded>
-                  <img :src="item">
+                <q-avatar v-if="isImage" rounded>
+                  <img :src="item" @error="onImageLoadedError">
                 </q-avatar>
 
                  <q-avatar v-else color="grey-3" icon="o_attach_file" rounded text-color="primary"/>
@@ -99,7 +99,8 @@ export default {
     return {
       files: [],
       paths: {},
-      isFetching: false
+      isFetching: false,
+      isImage: true
     }
   },
 
@@ -194,11 +195,8 @@ export default {
       return `${value}`.split('/').pop()
     },
 
-    isImage (value) {
-      const imageTypes = ['jpg', 'png', 'jpeg']
-      const typeValue = value.split('.').pop()
-
-      return value && typeValue && imageTypes.includes(typeValue)
+    onImageLoadedError () {
+      this.isImage = false
     }
   }
 }
