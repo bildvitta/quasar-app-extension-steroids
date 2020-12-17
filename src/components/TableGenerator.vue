@@ -1,4 +1,3 @@
- 
 <template>
   <q-table class="bg-transparent" v-bind="attributes">
     <template v-for="(slot, key) in $scopedSlots" v-slot:[key]="context">
