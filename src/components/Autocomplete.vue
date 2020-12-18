@@ -20,7 +20,6 @@
 
 <script>
 import Fuse from 'fuse.js'
-
 let fuse = null
 
 export default {
@@ -133,7 +132,6 @@ export default {
       for (const newKey in mapKeys) {
         if (!item.hasOwnProperty(newKey)) {
           item[newKey] = item[mapKeys[newKey]]
-
           delete item[mapKeys[newKey]]
         }
       }
