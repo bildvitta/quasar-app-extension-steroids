@@ -1,5 +1,17 @@
 # Changelog
 
+## 2.0.6 (16-02-2020)
+
+- features:
+  - qs-label
+  - qs-transfer
+  - added event as props
+
+- changed:
+  - qs-box
+  - qs-tabs-generator
+
+
 ## 2.0.5 (12-02-2020)
 
 - features:

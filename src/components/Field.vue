@@ -1,5 +1,5 @@
 <template>
-  <component :is="component.is" v-bind="component" :value="formattedValue" @input="emitValue" />
+  <component :is="component.is" v-bind="component" v-on="events" :value="formattedValue" @input="emitValue" />
 </template>
 
 <script>
@@ -89,7 +89,18 @@ export default {
       }
 
       // Compact default fields attributes.
-      const input = { label, outlined: true, ...error, readonly, filled, maxlength, minlength, suffix, prefix }
+      const input = {
+        label,
+        hideBottomSpace: !error.error,
+        outlined: true,
+        ...error,
+        readonly,
+        filled,
+        maxlength,
+        minlength,
+        suffix,
+        prefix
+      }
 
       const datetimeInput = { is: 'qs-datetime-input', ...input }
       const decimalInput = { is: 'qs-decimal-input', comma: true, fillMask: '0', reverseFillMask: true, ...input }
@@ -142,6 +153,12 @@ export default {
 
     hasError () {
       return !!(Array.isArray(this.error) ? this.error.length : this.error)
+    },
+
+    events () {
+      const { input, ...events } = this.$listeners
+
+      return events
     }
   },
 

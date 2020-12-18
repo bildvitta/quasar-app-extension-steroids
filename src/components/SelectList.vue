@@ -5,12 +5,12 @@
         <q-item v-for="(result, index) in results" :key="index">
           <slot name="item" v-bind="self">
             <slot name="item-section" :result="result">
-              <q-item-section>{{ result.label }}</q-item-section>
+              <q-item-section class="text-bold">{{ result.label }}</q-item-section>
             </slot>
 
             <q-item-section avatar>
               <slot name="item-action" v-bind="self">
-                <q-btn @click="handleClick(result)" :label="setButtonProps(result).label" :dense="setButtonProps(result).dense" :round="setButtonProps(result).round" :icon="setButtonProps(result).icon" color="primary" :outline="setButtonProps(result).outline" no-caps />
+                <qs-btn @click="handleClick(result)" hide-mobile-label :label="setButtonProps(result).label" size="sm" :dense="setButtonProps(result).dense" :round="setButtonProps(result).round" :icon="setButtonProps(result).icon" :outline="setButtonProps(result).outline" />
               </slot>
             </q-item-section>
           </slot>
@@ -91,7 +91,7 @@ export default {
       const isSelected = this.values.includes(value)
 
       return {
-        label: this.isMobile ? undefined : isSelected ? 'Remover' : 'Adicionar',
+        label: isSelected ? 'Remover' : 'Adicionar',
         icon: !this.isMobile ? undefined : isSelected ? 'o_close' : 'o_add',
         dense: this.isMobile,
         round: this.isMobile,
