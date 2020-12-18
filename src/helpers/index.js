@@ -1,5 +1,6 @@
 import greatestCommonDivisor from './greatestCommonDivisor.js'
 import hasPermissions from './hasPermissions.js'
+import { history, handleHistory } from './historyHandler.js'
 
 import {
   asset,
@@ -25,8 +26,10 @@ export {
   formatPersonalDocument,
   greatestCommonDivisor,
   handleDocument,
+  handleHistory,
   handleMasks,
   hasPermissions,
+  history,
   humanDate,
   money,
   optionLabel,
