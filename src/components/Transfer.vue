@@ -123,16 +123,16 @@ export default {
   },
 
   computed: {
-    isMobile () {
+    isSmall () {
       return this.$q.screen.xs
     },
 
     iconClass () {
-      return !this.isMobile && 'transfer__icon'
+      return !this.isSmall && 'transfer__icon'
     },
 
     actionsClass () {
-      return !this.isMobile && 'column'
+      return !this.isSmall && 'column'
     },
 
     searchBoxProps () {
@@ -157,11 +157,7 @@ export default {
       const model = isFirst ? 'firstQueue' : 'secondQueue'
       const index = this[model].findIndex(selected => selected[this.valueKey] === item[this.valueKey])
 
-      if (~index) {
-        return this[model].splice(index, 1)
-      }
-
-      return this[model].push(item)
+      return ~index ? this[model].splice(index, 1) : this[model].push(item)
     },
 
     setSelectedFromValue (isFirst) {
