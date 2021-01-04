@@ -1,5 +1,5 @@
 <template>
-  <q-table class="bg-transparent" v-bind="attributes">
+  <q-table class="bg-transparent qs-table" v-bind="attributes" table-header-class="text-weight-bolder">
     <template v-for="(slot, key) in $scopedSlots" v-slot:[key]="context">
       <slot v-if="hasBodySlot" name="body" :props="context"/>
       <q-td v-else :key="key">
@@ -78,7 +78,15 @@ export default {
 
       function columnByField (field) {
         const { align, label, name } = field
-        columns.push({ align: align || 'left', field: name, label, name })
+
+        columns.push({
+          align: align || 'left',
+          field: name,
+          label,
+          name,
+          headerClasses: 'text-primary',
+          classes: 'text-red'
+        })
       }
 
       // Automatic columns.
@@ -116,3 +124,11 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.qs-table {
+  .q-table th {
+    font-weight: bold;
+  }
+}
+</style>

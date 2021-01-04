@@ -2,7 +2,7 @@
   <qs-box>
     <q-input v-model="search" outlined :placeholder="placeholder" clearable>
       <template v-slot:append>
-        <q-icon name="o_search" />
+        <q-icon name="o_search" color="primary" />
       </template>
     </q-input>
     <div class="overflow-auto q-mt-xs relative-position" :style="contentStyle">
