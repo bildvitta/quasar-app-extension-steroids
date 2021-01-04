@@ -84,8 +84,7 @@ export default {
           field: name,
           label,
           name,
-          headerClasses: 'text-primary',
-          classes: 'text-red'
+          headerClasses: 'text-primary'
         })
       }
 
