@@ -1,5 +1,5 @@
 <template>
-  <qs-box>
+  <qs-box v-bind="$attrs">
     <q-input v-model="search" outlined :placeholder="placeholder" clearable>
       <template v-slot:append>
         <q-icon name="o_search" color="primary" />
@@ -7,7 +7,7 @@
     </q-input>
     <div class="overflow-auto q-mt-xs relative-position" :style="contentStyle">
       <slot v-if="hasResults" :results="results" />
-      <slot v-else name="empty">
+      <slot v-else-if="!hideEmptySlot" name="empty">
         <div class="absolute-center text-center">
           <q-icon class="text-center q-mb-sm" color="grey-6" name="o_search" size="38px" />
           <div class="text-grey-6">Nenhum resultado encontrado.</div>
@@ -19,8 +19,6 @@
 
 <script>
 import Fuse from 'fuse.js'
-
-let fuse = null
 
 export default {
   props: {
@@ -47,19 +45,24 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+
+    hideEmptySlot: {
+      type: Boolean
     }
   },
 
   data () {
     return {
       search: '',
-      results: this.list
+      results: this.list,
+      fuse: null
     }
   },
 
   created () {
     this.search = this.value
-    fuse = new Fuse(this.list, this.defaultFuseOptions)
+    this.fuse = new Fuse(this.list, this.defaultFuseOptions)
   },
 
   watch: {
@@ -73,11 +76,11 @@ export default {
     },
 
     defaultFuseOptions (value) {
-      fuse.options = { ...fuse.options, ...value }
+      this.fuse.options = { ...this.fuse.options, ...value }
     },
 
     list (value) {
-      fuse.list = value
+      this.fuse.list = value
       this.setResults(this.search)
     },
 
@@ -111,7 +114,7 @@ export default {
 
   methods: {
     setResults (value) {
-      this.results = value ? fuse.search(value) : this.list
+      this.results = value ? this.fuse.search(value) : this.list
     }
   }
 }

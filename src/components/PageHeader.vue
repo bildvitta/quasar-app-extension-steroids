@@ -49,9 +49,8 @@ export default {
 
     transformedBreadcrumbs () {
       const list = [...castArray(this.breadcrumbs || this.title)]
-
       this.root && list.unshift(this.root)
-      
+
       return list.map(item => {
         if (item && typeof item === 'string') {
           return { label: item }
