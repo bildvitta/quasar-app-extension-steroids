@@ -30,8 +30,9 @@
 </template>
 
 <script>
-import { get, isEqual } from 'lodash'
+import { get, isEqual, cloneDeep } from 'lodash'
 import { extend } from 'quasar'
+import { handleHistory } from '../helpers/historyHandler'
 
 import viewMixin from '../mixins/view'
 
@@ -91,7 +92,8 @@ export default {
   data () {
     return {
       isSubmiting: false,
-      cachedResult: {}
+      cachedResult: {},
+      hasResult: false
     }
   },
 
@@ -135,8 +137,12 @@ export default {
 
   watch: {
     fields (fields) {
-      const models = this.getModelsByFields(fields)
-      this.$emit('input', { ...models, ...this.value })
+      const models = { ...this.getModelsByFields(fields), ...this.value }
+      this.$emit('input', models)
+
+      if (!this.hasResult && this.showDialogOnUnsavedChanges) {
+        this.cachedResult = cloneDeep(models)
+      }
     }
   },
 
@@ -166,8 +172,9 @@ export default {
         this.setMetadata(metadata)
 
         if (result) {
-          this.cachedResult = this.showDialogOnUnsavedChanges && extend(true, {}, result)
+          this.hasResult = true
           this.$emit('input', { ...this.value, ...result })
+          this.cachedResult = this.showDialogOnUnsavedChanges && extend(true, {}, result)
         }
 
         this.$emit('fetch-success', response, this.value)
@@ -206,6 +213,10 @@ export default {
           { id: this.id, payload: this.value, url: this.url }
         )
 
+        if (this.showDialogOnUnsavedChanges) {
+          this.cachedResult = cloneDeep(this.value)
+        }
+
         this.setErrors()
         this.$qs.success(response.data.status.text || 'Item salvo com sucesso!')
         this.$emit('submit-success', response, this.value)
@@ -238,6 +249,7 @@ export default {
       this.$q.dialog({
         title: 'Atenção',
         message: 'Você está deixando a página e suas alterações serão perdidas. Tem certeza que deseja sair sem salvar?',
+        class: 'q-pb-sm q-p-md',
         persistent: true,
         cancel: {
           label: 'Sair',
@@ -248,9 +260,7 @@ export default {
           noCaps: true,
           label: 'Continuar editando'
         }
-      }).onCancel(() => {
-        next()
-      }).onOk(() => next(false))
+      }).onCancel(() => next()).onOk(() => handleHistory().add(this.$route))
     },
 
     handleCancelRoute () {
