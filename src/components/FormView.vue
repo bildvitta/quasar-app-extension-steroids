@@ -23,6 +23,8 @@
       <slot name="footer" :errors="errors" :fields="fields" :metadata="metadata"/>
     </footer>
 
+    <qs-dialog v-model="showDialog" v-bind="dialogConfig" />
+
     <q-inner-loading :showing="isFetching">
       <q-spinner color="grey" size="3em" />
     </q-inner-loading>
@@ -93,7 +95,22 @@ export default {
     return {
       isSubmiting: false,
       cachedResult: {},
-      hasResult: false
+      hasResult: false,
+      showDialog: false,
+      dialogConfig: {
+        card: {
+          title: 'Atenção!',
+          description: 'Você está deixando a página e suas alterações serão perdidas. Tem certeza que deseja sair sem salvar?'
+        },
+        ok: {
+          props: { label: 'Continuar editando' },
+          events: null
+        },
+        cancel: {
+          props: { label: 'Sair' },
+          events: null
+        }
+      }
     }
   },
 
@@ -237,6 +254,17 @@ export default {
       }
     },
 
+    openDialog () {
+      this.showDialog = true
+    },
+
+    handleDialog (fn) {
+      this.openDialog()
+
+      this.dialogConfig.ok.events = { click: () => handleHistory().add(this.$route) }
+      this.dialogConfig.cancel.events = { click: fn }
+    },
+
     beforeRouteLeave (to, from, next) {
       if (!this.showDialogOnUnsavedChanges) {
         return null
@@ -246,21 +274,7 @@ export default {
         return next()
       }
 
-      this.$q.dialog({
-        title: 'Atenção',
-        message: 'Você está deixando a página e suas alterações serão perdidas. Tem certeza que deseja sair sem salvar?',
-        class: 'q-pb-sm q-p-md',
-        persistent: true,
-        cancel: {
-          label: 'Sair',
-          noCaps: true,
-          outline: true
-        },
-        ok: {
-          noCaps: true,
-          label: 'Continuar editando'
-        }
-      }).onCancel(() => next()).onOk(() => handleHistory().add(this.$route))
+      this.handleDialog(next)
     },
 
     handleCancelRoute () {

@@ -35,6 +35,8 @@ import TableGenerator from '../components/TableGenerator.vue'
 import TabsGenerator from '../components/TabsGenerator.vue'
 import Transfer from '../components/Transfer.vue'
 import Uploader from '../components/Uploader.vue'
+import Dialog from '../components/Dialog.vue'
+import BtnActions from '../components/BtnActions.vue'
 
 export default async ({ Vue }) => {
   Vue.component('qs-app-bar', AppBar)
@@ -74,4 +76,6 @@ export default async ({ Vue }) => {
   Vue.component('qs-tabs-generator', TabsGenerator)
   Vue.component('qs-transfer', Transfer)
   Vue.component('qs-uploader', Uploader)
+  Vue.component('qs-dialog', Dialog)
+  Vue.component('qs-btn-actions', BtnActions)
 }

@@ -21,45 +21,31 @@
     <div class="items-center no-wrap q-gutter-md row">
       <slot name="tools" />
 
-      <div v-if="isAuth" class="qs-toolbar__user row items-center q-mr-sm" :title="user.name || user.givenName">
-        <qs-avatar color="white" :image="asset(user.photo)" size="36px" :title="user.name || user.givenName" />
+      <div v-if="isAuth" class="qs-toolbar__user row items-center q-mr-sm cursor-pointer" :title="user.name || user.givenName">
+        <qs-avatar color="white" rounded :image="asset(user.photo)" size="36px" :title="user.name || user.givenName" />
 
         <div class="qs-toolbar__user-data cursor-pointer q-pl-xs q-pr-sm qs-lh-sm">
           <div class="ellipsis">{{ user.name || user.givenName }}</div>
           <div class="text-caption ellipsis opacity-60 qs-lh-sm">{{ user.email }}</div>
         </div>
 
-        <q-menu>
+        <q-menu max-height="400px" anchor="bottom middle" self="top middle">
           <div class="qs-toolbar__user-menu">
-            <div class="text-center q-pa-md">
-              <qs-avatar color="white" :image="asset(user.photo)" size="75px" :title="user.name || user.givenName" />
-              <div class="q-mt-md qs-lh-sm text-subtitle1 ellipsis">{{ user.name || user.givenName }}</div>
-              <div class="text-caption text-grey-6 ellipsis">{{ user.email }}</div>
+            <div class="text-center q-pa-lg">
+              <qs-avatar class="cursor-pointer" rounded :image="asset(user.photo)" size="145px" :title="user.name || user.givenName" @click="goToProfile" />
+              <div class="q-mt-lg qs-lh-sm text-subtitle1 ellipsis text-bold">{{ user.name || user.givenName }}</div>
+              <div class="text-caption q-mt-xs ellipsis">{{ user.email }}</div>
+
+              <div class="q-mb-lg q-mt-xs">
+                <qs-btn :to="user.to" icon="o_edit" flat label="Editar" />
+              </div>
+
+              <div>
+                <qs-btn icon="o_exit_to_app" class="q-px-lg q-py-xs" outline label="Sair" v-close-popup @click="signOut" />
+              </div>
 
               <slot name="user" :user="user" />
             </div>
-
-            <q-separator />
-
-            <q-list>
-              <q-item clickable @click="fullscreen">
-                <q-item-section side>
-                  <q-icon color="grey-6" :name="fullscreenIcon" size="20px" />
-                </q-item-section>
-
-                <q-item-section>Tela cheia</q-item-section>
-              </q-item>
-
-              <q-separator />
-
-              <q-item v-close-popup clickable @click="signOut">
-                <q-item-section side>
-                  <q-icon color="grey-6" name="o_exit_to_app" size="20px" />
-                </q-item-section>
-
-                <q-item-section>Sair</q-item-section>
-              </q-item>
-            </q-list>
           </div>
         </q-menu>
       </div>
@@ -145,6 +131,10 @@ export default {
   methods: {
     asset,
 
+    goToProfile () {
+      return this.$router.push(this.user.to)
+    },
+
     fullscreen () {
       this.$q.fullscreen.toggle()
     },
@@ -178,7 +168,7 @@ export default {
 
   &__user {
     background-color: rgba(white, 0.1);
-    border-radius: 500rem;
+    border-radius: $generic-border-radius;
     transition: background-color $generic-hover-transition;
 
     &:focus,
@@ -188,11 +178,11 @@ export default {
   }
 
   &__user-data {
-    max-width: 100px;
+    max-width: 150px;
   }
 
   &__user-menu {
-    max-width: 150px;
+    width: 300px;
   }
 
   @media (max-width: $breakpoint-xs) {

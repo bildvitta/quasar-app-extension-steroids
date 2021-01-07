@@ -42,6 +42,11 @@ export default {
       default: '300px'
     },
 
+    emptyListHeight: {
+      type: String,
+      default: '100px'
+    },
+
     value: {
       type: String,
       default: ''
@@ -108,7 +113,7 @@ export default {
     },
 
     contentStyle () {
-      return { height: this.list.length ? this.height : '100px' }
+      return { height: this.list.length ? this.height : this.emptyListHeight }
     }
   },
 

@@ -34,7 +34,7 @@
     <div class="col-12 col-sm">
       <qs-label label="Selecionadas" :quantity="selectedList.length" />
 
-      <qs-search-box :list="selectedList" form-mode v-bind="searchBoxProps" label="Selecionadas" :quantity="selectedList.length">
+      <qs-search-box :list="selectedList" form-mode v-bind="searchBoxProps" label="Selecionadas" :quantity="selectedList.length" empty-list-height="300px">
         <template v-slot="{ results }">
           <q-list separator>
             <q-item v-for="(item, index) in results" :key="index" clickable :class="itemClass(item)" @click="onSelectQueue(item)">
