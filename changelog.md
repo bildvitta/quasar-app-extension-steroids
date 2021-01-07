@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.0.7 (07-01-2021)
+
+- features:
+  - qs-dialog
+  - qs-btn-actions
+
+- changed:
+  - qs-page-header
+  - qs-app-bar
+  - qs-delete
+  - qs-form-view
+  - qs-search-box
+  - qs-select-list
+  - qs-table-generator
+  - qs-tabs-generator
+
 ## 2.0.6 (16-02-2020)
 
 - features:
@@ -10,7 +26,6 @@
 - changed:
   - qs-box
   - qs-tabs-generator
-
 
 ## 2.0.5 (12-02-2020)
 
