@@ -6,7 +6,7 @@ export default async ({ Vue, router }) => {
 
   router.beforeEach(async (to, from, next) => {
     Vue.prototype.$history.unshift(from)
-    history.add(to)
+    history.push(to)
     next()
   })
 }

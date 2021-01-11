@@ -7,14 +7,14 @@
   - qs-btn-actions
 
 - changed:
-  - qs-page-header
-  - qs-app-bar
-  - qs-delete
-  - qs-form-view
-  - qs-search-box
-  - qs-select-list
-  - qs-table-generator
-  - qs-tabs-generator
+  - qs-page-header (changed breadcrumbs history)
+  - qs-app-bar (layout changes in q-menu)
+  - qs-delete (removed this.$dialog and added `qs-dialog`)
+  - qs-form-view (removed this.$dialog and added `qs-dialog`)
+  - qs-search-box (changed icon color in q-input and label when has no results)
+  - qs-select-list (added link with new props: `to` and `toIdentifier`)
+  - qs-table-generator (layout changes, `headerClasses` now has `text-primary` as default)
+  - qs-tabs-generator (layout changes and new prop `icons` added)
 
 ## 2.0.6 (16-02-2020)
 

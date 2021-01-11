@@ -6,12 +6,14 @@ import Avatar from '../components/Avatar.vue'
 import Box from '../components/Box.vue'
 import BreakLine from '../components/BreakLine.vue'
 import Btn from '../components/Btn.vue'
+import BtnActions from '../components/BtnActions.vue'
 import CheckboxGroup from '../components/CheckboxGroup.vue'
 import Copy from '../components/Copy.vue'
 import DatetimeInput from '../components/DatetimeInput.vue'
 import Debugger from '../components/Debugger.vue'
 import DecimalInput from '../components/DecimalInput.vue'
 import Delete from '../components/Delete.vue'
+import Dialog from '../components/Dialog.vue'
 import DialogRouter from '../components/DialogRouter.vue'
 import Field from '../components/Field.vue'
 import Filters from '../components/Filters.vue'
@@ -35,8 +37,6 @@ import TableGenerator from '../components/TableGenerator.vue'
 import TabsGenerator from '../components/TabsGenerator.vue'
 import Transfer from '../components/Transfer.vue'
 import Uploader from '../components/Uploader.vue'
-import Dialog from '../components/Dialog.vue'
-import BtnActions from '../components/BtnActions.vue'
 
 export default async ({ Vue }) => {
   Vue.component('qs-app-bar', AppBar)
@@ -47,12 +47,14 @@ export default async ({ Vue }) => {
   Vue.component('qs-box', Box)
   Vue.component('qs-break-line', BreakLine)
   Vue.component('qs-btn', Btn)
+  Vue.component('qs-btn-actions', BtnActions)
   Vue.component('qs-checkbox-group', CheckboxGroup)
   Vue.component('qs-copy', Copy)
   Vue.component('qs-datetime-input', DatetimeInput)
   Vue.component('qs-debugger', Debugger)
   Vue.component('qs-decimal-input', DecimalInput)
   Vue.component('qs-delete', Delete)
+  Vue.component('qs-dialog', Dialog)
   Vue.component('qs-dialog-router', DialogRouter)
   Vue.component('qs-field', Field)
   Vue.component('qs-filters', Filters)
@@ -76,6 +78,4 @@ export default async ({ Vue }) => {
   Vue.component('qs-tabs-generator', TabsGenerator)
   Vue.component('qs-transfer', Transfer)
   Vue.component('qs-uploader', Uploader)
-  Vue.component('qs-dialog', Dialog)
-  Vue.component('qs-btn-actions', BtnActions)
 }

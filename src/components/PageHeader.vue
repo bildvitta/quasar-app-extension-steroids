@@ -72,7 +72,7 @@ export default {
 
   methods: {
     back () {
-      this.$router.push(handleHistory().back(this.$route))
+      this.$router.push(handleHistory().getPreviousRoute(this.$route))
     }
   },
 

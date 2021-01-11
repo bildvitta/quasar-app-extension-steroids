@@ -261,7 +261,7 @@ export default {
     handleDialog (fn) {
       this.openDialog()
 
-      this.dialogConfig.ok.events = { click: () => handleHistory().add(this.$route) }
+      this.dialogConfig.ok.events = { click: () => handleHistory().push(this.$route) }
       this.dialogConfig.cancel.events = { click: fn }
     },
 

@@ -11,12 +11,43 @@
 </template>
 
 <script>
-import btnActions from '../mixins/btnActions'
-
 export default {
-  mixins: [btnActions],
+  props: {
+    btnCol: {
+      type: String,
+      default: ''
+    },
+
+    align: {
+      type: String,
+      default: 'end',
+      validator: value => [
+        'end',
+        'start',
+        'center',
+        'between',
+        'around'
+      ].includes(value)
+    },
+
+    gutter: {
+      type: String,
+      default: 'md',
+      validator: value => [
+        'xs',
+        'sm',
+        'md',
+        'lg',
+        'xl'
+      ].includes(value)
+    }
+  },
 
   computed: {
+    isSmallScreen () {
+      return this.$q.screen.xs
+    },
+
     btnActionsClass () {
       return `q-col-gutter-${this.gutter} justify-${this.align}`
     },

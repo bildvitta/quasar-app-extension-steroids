@@ -1,5 +1,5 @@
 <template>
-  <q-table class="bg-transparent qs-table" v-bind="attributes" table-header-class="text-weight-bolder">
+  <q-table class="bg-transparent qs-table"  v-bind="attributes">
     <template v-for="(slot, key) in $scopedSlots" v-slot:[key]="context">
       <slot v-if="hasBodySlot" name="body" :props="context"/>
       <q-td v-else :key="key">

@@ -15,7 +15,7 @@
 
       <q-card-section>
         <slot name="actions">
-          <qs-btn-actions v-bind="btnActionsProps">
+          <qs-btn-actions v-bind="btnActions">
             <template v-slot:primary>
               <qs-btn v-if="ok" class="full-width" v-close-popup v-bind="defaultOk.props" v-on="defaultOk.events" />
             </template>
@@ -30,11 +30,7 @@
 </template>
 
 <script>
-import btnActions from '../mixins/btnActions'
-
 export default {
-  mixins: [btnActions],
-
   props: {
     value: {
       type: Boolean
@@ -71,6 +67,11 @@ export default {
     },
 
     cardProps: {
+      type: Object,
+      default: () => ({})
+    },
+
+    btnActions: {
       type: Object,
       default: () => ({})
     }
@@ -130,13 +131,8 @@ export default {
       return this.dialogMethods
     },
 
-    btnActionsProps () {
-      return {
-        side: this.side,
-        align: this.align,
-        gutter: this.gutter,
-        btnCol: this.btnCol
-      }
+    isSmallScreen () {
+      return this.$q.screen.xs
     },
 
     style () {
