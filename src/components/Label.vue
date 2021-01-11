@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import formatLabel from '../helpers/label'
+
 export default {
   props: {
     label: {
@@ -23,7 +25,7 @@ export default {
 
   computed: {
     formattedLabel () {
-      return this.quantity ? `${this.label} (${this.quantity})` : this.label
+      return formatLabel(this.quantity, this.label)
     }
   }
 }

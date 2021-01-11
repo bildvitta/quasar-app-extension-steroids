@@ -1,5 +1,21 @@
 # Changelog
 
+## 2.0.7 (07-01-2021)
+
+- features:
+  - qs-dialog
+  - qs-btn-actions
+
+- changed:
+  - qs-page-header (changed breadcrumbs history)
+  - qs-app-bar (layout changes in q-menu)
+  - qs-delete (removed this.$dialog and added `qs-dialog`)
+  - qs-form-view (removed this.$dialog and added `qs-dialog`)
+  - qs-search-box (changed icon color in q-input and label when has no results)
+  - qs-select-list (added link with new props: `to` and `toIdentifier`)
+  - qs-table-generator (layout changes, `headerClasses` now has `text-primary` as default)
+  - qs-tabs-generator (layout changes and new prop `icons` added)
+
 ## 2.0.6 (16-02-2020)
 
 - features:
@@ -10,7 +26,6 @@
 - changed:
   - qs-box
   - qs-tabs-generator
-
 
 ## 2.0.5 (12-02-2020)
 

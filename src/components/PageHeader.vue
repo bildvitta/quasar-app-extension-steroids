@@ -2,7 +2,7 @@
   <q-toolbar class="justify-between q-mb-lg q-px-none">
     <div class="ellipsis">
       <q-toolbar-title v-if="title" class="text-h5 text-bold">
-        <q-icon v-if="!noBreadcrumbs && previousRoute" class="cursor-pointer vertical-baseline" name="o_arrow_back" size="18px" @click="$router.push(previousRoute)" />
+        <q-icon v-if="hasPreviousRoute" class="cursor-pointer vertical-baseline" name="o_arrow_back" size="18px" @click="back" />
         {{ title }}
       </q-toolbar-title>
 
@@ -17,6 +17,7 @@
 
 <script>
 import { castArray, get } from 'lodash'
+import { history, handleHistory } from '../helpers/historyHandler'
 
 export default {
   props: {
@@ -42,18 +43,8 @@ export default {
   },
 
   computed: {
-    previousRoute () {
-      if (!this.$history) {
-        return false
-      }
-
-      const size = this.transformedBreadcrumbs.length
-      const last = this.transformedBreadcrumbs[size - 2]
-      const history = this.$history[0]
-
-      return history && get(last, 'route.name')
-        ? (history.name === last.route.name ? history : null)
-        : null
+    hasPreviousRoute () {
+      return history.hasPreviousRoute
     },
 
     transformedBreadcrumbs () {
@@ -76,6 +67,12 @@ export default {
 
         return item
       })
+    }
+  },
+
+  methods: {
+    back () {
+      this.$router.push(handleHistory().getPreviousRoute(this.$route))
     }
   },
 

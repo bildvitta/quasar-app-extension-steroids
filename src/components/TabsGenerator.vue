@@ -1,10 +1,9 @@
 <template>
-  <q-tabs v-model="currentTab" class="tabs-generator" v-bind="$attrs" v-on="$listeners">
+  <q-tabs v-model="currentTab" class="tabs-generator" inline-label v-bind="$attrs" v-on="$listeners">
     <slot v-for="(tab, key) in formattedTabs" :name="`tab-${tab.label}`" class="text-weight-light" :item="tab">
-      <q-tab class="tabs-generator__tab text-primary" :name="key" :label="tab.label" :key="key" v-bind="tab">
-        <slot :name="`tab-slot-${tab.label}`" :item="tab">
-          <q-badge v-if="counters[key]" color="negative" floating :label="counters[key]" />
-        </slot>
+      <q-tab class="tabs-generator__tab text-primary" :name="key" :key="key">
+        <q-icon v-if="icons[key]" class="text-bold q-mr-xs" :name="icons[key].name" :color="icons[key].color" />
+        <div class="tabs-generator__label">{{ formatLabel(counters[key], tab.label) }}</div>
       </q-tab>
     </slot>
   </q-tabs>
@@ -12,6 +11,7 @@
 
 <script>
 import { extend } from 'quasar'
+import formatLabel from '../helpers/label'
 
 export default {
   props: {
@@ -22,6 +22,11 @@ export default {
     },
 
     counters: {
+      default: () => ({}),
+      type: Object
+    },
+
+    icons: {
       default: () => ({}),
       type: Object
     },
@@ -54,19 +59,19 @@ export default {
 
       return tabs
     }
+  },
+
+  methods: {
+    formatLabel
   }
 }
 </script>
 
 <style lang="scss">
 .tabs-generator {
-  .q-tab--active .q-tab__label {
-    font-weight: bold;
-  }
-
-  .q-tab {
-    &__label {
-      font-weight: normal;
+  &__label {
+    .q-tab--active & {
+      font-weight: bold;
     }
   }
 }

@@ -1,6 +1,7 @@
 <template>
   <component :is="tag" v-bind="$attrs" v-on="events">
     <slot />
+    <qs-dialog v-model="showDialog" v-bind="dialogConfig" />
   </component>
 </template>
 
@@ -28,6 +29,12 @@ export default {
     }
   },
 
+  data () {
+    return {
+      showDialog: false
+    }
+  },
+
   computed: {
     events () {
       const { click, ...events } = this.$listeners
@@ -36,6 +43,20 @@ export default {
 
     id () {
       return this.customId || this.$route.params.id
+    },
+
+    dialogConfig () {
+      return {
+        card: {
+          title: 'Confirmar',
+          description: 'Tem certeza que deseja excluir este item?',
+        },
+        ok: {
+          props: { label: 'Excluir' },
+          events: { click: this.destroy }
+        },
+        ...this.dialog
+      }
     }
   },
 
@@ -56,21 +77,7 @@ export default {
     },
 
     confirm () {
-      this.$q.dialog({
-        message: 'Tem certeza que deseja excluir este item?',
-        persistent: true,
-        title: 'Confirmar',
-        ok: {
-          label: 'Excluir',
-          noCaps: true
-        },
-        cancel: {
-          label: 'Cancelar',
-          noCaps: true,
-          outline: true
-        },
-        ...this.dialog
-      }).onOk(this.destroy)
+      this.showDialog = true
     }
   }
 }

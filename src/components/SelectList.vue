@@ -5,12 +5,14 @@
         <q-item v-for="(result, index) in results" :key="index">
           <slot name="item" v-bind="self">
             <slot name="item-section" :result="result">
-              <q-item-section class="text-bold">{{ result.label }}</q-item-section>
+              <q-item-section class="text-bold items-start">
+                <div :class="labelClass" @click="redirectRoute(result)">{{ result.label }}</div>
+              </q-item-section>
             </slot>
 
             <q-item-section avatar>
               <slot name="item-action" v-bind="self">
-                <qs-btn @click="handleClick(result)" hide-mobile-label :label="setButtonProps(result).label" size="sm" :dense="setButtonProps(result).dense" :round="setButtonProps(result).round" :icon="setButtonProps(result).icon" :outline="setButtonProps(result).outline" />
+                <qs-btn @click="handleClick(result)" hide-mobile-label v-bind="setButtonProps(result)" size="sm" />
               </slot>
             </q-item-section>
           </slot>
@@ -37,6 +39,16 @@ export default {
 
     deleteOnly: {
       type: Boolean
+    },
+
+    to: {
+      type: Object,
+      default: () => ({})
+    },
+
+    toIdentifier: {
+      type: String,
+      default: 'value'
     },
 
     fuseOptions: {
@@ -83,6 +95,14 @@ export default {
 
     isMobile () {
       return this.$q.screen.xs
+    },
+
+    isRedirectEnabled () {
+      return Object.keys(this.to).length
+    },
+
+    labelClass () {
+      return this.isRedirectEnabled ? 'cursor-pointer' : ''
     }
   },
 
@@ -94,7 +114,6 @@ export default {
         label: isSelected ? 'Remover' : 'Adicionar',
         icon: !this.isMobile ? undefined : isSelected ? 'o_close' : 'o_add',
         dense: this.isMobile,
-        round: this.isMobile,
         outline: isSelected
       }
     },
@@ -136,6 +155,13 @@ export default {
 
     updateModel () {
       this.$emit('input', this.values)
+    },
+
+    redirectRoute (item) {
+      return this.isRedirectEnabled && this.$router.push({
+        params: { id: item[this.toIdentifier] },
+        ...this.to
+      })
     }
   }
 }

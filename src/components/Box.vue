@@ -14,7 +14,7 @@ export default {
 
   computed: {
     boxClass () {
-      return this.formMode ? 'box__border' : 'box__shadow'
+      return this.formMode ? 'box__border bg-white' : 'box__shadow'
     }
   }
 }

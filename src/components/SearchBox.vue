@@ -1,16 +1,16 @@
 <template>
   <qs-box v-bind="$attrs">
-    <q-input v-model="search" outlined :placeholder="placeholder" clearable>
+    <q-input v-model="search" outlined :placeholder="placeholder" clearable :disable="!list.length">
       <template v-slot:append>
-        <q-icon name="o_search" />
+        <q-icon name="o_search" color="primary" />
       </template>
     </q-input>
     <div class="overflow-auto q-mt-xs relative-position" :style="contentStyle">
       <slot v-if="hasResults" :results="results" />
       <slot v-else-if="!hideEmptySlot" name="empty">
         <div class="absolute-center text-center">
-          <q-icon class="text-center q-mb-sm" color="grey-6" name="o_search" size="38px" />
-          <div class="text-grey-6">Nenhum resultado encontrado.</div>
+          <q-icon class="text-center q-mb-sm" color="primary" name="o_search" size="38px" />
+          <div>Não há resultados disponíveis.</div>
         </div>
       </slot>
     </div>
@@ -40,6 +40,11 @@ export default {
     height: {
       type: String,
       default: '300px'
+    },
+
+    emptyListHeight: {
+      type: String,
+      default: '100px'
     },
 
     value: {
@@ -108,7 +113,7 @@ export default {
     },
 
     contentStyle () {
-      return { height: this.height }
+      return { height: this.list.length ? this.height : this.emptyListHeight }
     }
   },
 
