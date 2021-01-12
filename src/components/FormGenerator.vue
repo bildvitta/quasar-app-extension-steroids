@@ -3,14 +3,14 @@
     <div :class="classes">
       <div v-for="(field, key) in groupedFields.visible" :key="key" :class="getFieldClass(key)">
         <slot :name="`field-${field.name}`" :field="field">
-          <qs-field :value="value[field.name]" :error="errors[key]" :field="field" @input="emitValue(field.name, $event)" />
+          <qs-field :value="value[field.name]" v-bind="fieldsProps[field.name]" :error="errors[key]" :field="field" @input="emitValue(field.name, $event)"  v-on="fieldsEvents[field.name]"/>
         </slot>
       </div>
     </div>
 
     <div v-for="(field, key) in groupedFields.hidden" :key="key">
       <slot :name="`field-${field.name}`" :field="field">
-        <qs-field :value="value[field.name]" :field="field" @input="emitValue(field.name, $event)" />
+        <qs-field :value="value[field.name]" v-bind="fieldsProps[field.name]" :field="field" @input="emitValue(field.name, $event)" v-on="fieldsEvents[field.name]" />
       </slot>
     </div>
   </div>
@@ -50,6 +50,16 @@ export default {
       default: () => ({}),
       type: Object,
       required: true
+    },
+
+    fieldsProps: {
+      default: () => ({}),
+      type: Object
+    },
+
+    fieldsEvents: {
+      default: () => ({}),
+      type: Object
     }
   },
 
