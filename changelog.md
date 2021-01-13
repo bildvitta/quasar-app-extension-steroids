@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.0.8 (12-01-2020)
+
+- changed:
+  - adding properties to dynamically receive attributes and events
+
 ## 1.0.7 (11-12-2020)
 
 - changed:
