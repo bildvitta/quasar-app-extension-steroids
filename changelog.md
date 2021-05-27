@@ -3,7 +3,7 @@
 ## 1.0.9 (27-05-2021)
 
 - changed:
-  - change in the value of the headers sent on `QsUploader`.
+  - updated headers value on `QsUploader`.
 
 ## 1.0.8 (12-01-2021)
 
