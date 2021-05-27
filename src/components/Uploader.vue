@@ -139,7 +139,9 @@ export default {
       this.paths[file.name] = path
 
       return {
-        headers: [{ name: 'Content-Type', value: file.type || 'image/jpeg' }],
+        headers: [
+          { name: 'Content-Disposition', value: 'Attachment' }
+        ],
         sendRaw: true,
         url: endpoint
       }

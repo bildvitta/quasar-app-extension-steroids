@@ -1,6 +1,11 @@
 # Changelog
 
-## 1.0.8 (12-01-2020)
+## 1.0.9 (27-05-2021)
+
+- changed:
+  - change in the value of the headers sent on `QsUploader`.
+
+## 1.0.8 (12-01-2021)
 
 - changed:
   - adding properties to dynamically receive attributes and events
