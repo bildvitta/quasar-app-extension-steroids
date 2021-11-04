@@ -5,7 +5,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## 2.0.7 - 2021-01-07
-### Features:
+### Added:
 - `qs-dialog`
 - `qs-btn-actions`
 
@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - qs-tabs-generator (layout changes and new prop `icons` added)
 
 ## 2.0.6 - 2020-02-16
-### Features:
+### Added:
 - qs-label
 - qs-transfer
 - added event as props
@@ -30,7 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - qs-tabs-generator
 
 ## 2.0.5 - 2020-02-12
-### Features:
+### Added:
 - add new type number to field
 - new filters to handle document masks etc
 - new ways to send columns to form-generator and grid-generator
@@ -41,7 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - fixed qs-select-list bug
 
 ## 2.0.4 - 2020-11-25
-### Features:
+### Added:
 - qs-select-list
 - modal in form-view when leave page with unsaved changes
 - qs-grid-generator
@@ -63,14 +63,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - added new prop bottomSlots to qs-password-input
 
 ## 2.0.2 - 2020-10-28
-### Features:
+### Added:
 - qs-app-menu added new prop `itemClass`
 
 ### Changed:
 - qs-password-input removed prop `bottomsSlots` and added `hideStrengthChecker`
 
 ## 2.0.1 - 2020-10-28
-### Features:
+### Added:
 - new prop `scrollAreaClass` for qs-app-menu
 
 ### Changed:
@@ -78,7 +78,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - qs-input fixed mask for company document and document
 
 ## 2.0.0 - 2020-10-23
-### Features:
+### Added:
 - qs-apps-menu
 
 ### Changed:
