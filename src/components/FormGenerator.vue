@@ -113,6 +113,7 @@ export default {
       const models = { ...this.value }
       models[key] = value
 
+      this.$emit('change', { key })
       this.$emit('input', models)
     },
 
