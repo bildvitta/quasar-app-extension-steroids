@@ -113,7 +113,7 @@ export default {
       const models = { ...this.value }
       models[key] = value
 
-      this.$emit('fieldChanged', key)
+      this.$emit('change', { key })
       this.$emit('input', models)
     },
 
