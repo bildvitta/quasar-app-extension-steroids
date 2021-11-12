@@ -1,6 +1,6 @@
 {
   "name": "@bildvitta/quasar-app-extension-steroids",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "A Quasar App Extension",
   "author": "",
   "main": "src/index.js",
