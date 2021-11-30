@@ -8,6 +8,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Changelog update
 
+### Added
+- Added a props for position reversal of `QsFilters` search.
+- Added props to `QsDatetimeInput` to set column sizes.
+
 ## 1.0.10 - 2021-11-03
 ### Added
 - Adding an emit to get the selected field in the `FormGenerator`.
@@ -29,6 +33,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Change header click area to return to home.
 
 ## 1.0.5 - 2020-10-28
-
 ### Changed
 - `QsInput` fixed mask for company document and document.

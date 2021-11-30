@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <q-input ref="input" v-bind="attributes" v-on="events">
+  <div class="row">
+    <q-input ref="input" :class="fieldClass" v-bind="attributes" v-on="events">
       <template v-slot:append>
         <q-icon v-if="!timeOnly" class="cursor-pointer" name="o_event">
           <q-popup-proxy ref="dateProxy" transition-show="scale" transition-hide="scale">
@@ -23,6 +23,11 @@ import { date } from 'quasar'
 
 export default {
   props: {
+    fieldClass: {
+      default: 'col-12',
+      type: String
+    },
+
     dateMask: {
       default: 'DD/MM/YYYY',
       type: String
