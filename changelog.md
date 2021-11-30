@@ -10,7 +10,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Added a props for position reversal of `QsFilters` search.
-- Added props to `QsDatetimeInput` to set column sizes.
 
 ## 1.0.10 - 2021-11-03
 ### Added
