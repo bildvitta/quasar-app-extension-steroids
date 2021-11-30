@@ -4,7 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 2.0.8
+## 2.0.9 - 2021-11-30
+### Added
+- Added a props for position reversal of `QsFilters` search.
+
+## 2.0.8 - 2021-11-12
 ### Added
 - Adding an emit to get the selected field in the `FormGenerator`.
 - Changelog update
