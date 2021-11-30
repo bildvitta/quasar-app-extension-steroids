@@ -22,7 +22,7 @@ import { date } from 'quasar'
 export default {
   props: {
     fieldClass: {
-      default: 'col-12',
+      default: '',
       type: String
     },
 
