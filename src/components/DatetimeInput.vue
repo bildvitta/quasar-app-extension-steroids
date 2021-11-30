@@ -1,21 +1,19 @@
 <template>
-  <div class="row">
-    <q-input ref="input" :class="fieldClass" v-bind="attributes" v-on="events">
-      <template v-slot:append>
-        <q-icon v-if="!timeOnly" class="cursor-pointer" name="o_event">
-          <q-popup-proxy ref="dateProxy" transition-show="scale" transition-hide="scale">
-            <q-date v-model="currentValue" v-bind="dateOptions" :mask="maskDate" @input="input" />
-          </q-popup-proxy>
-        </q-icon>
+  <q-input ref="input" :class="fieldClass" v-bind="attributes" v-on="events">
+    <template v-slot:append>
+      <q-icon v-if="!timeOnly" class="cursor-pointer" name="o_event">
+        <q-popup-proxy ref="dateProxy" transition-show="scale" transition-hide="scale">
+          <q-date v-model="currentValue" v-bind="dateOptions" :mask="maskDate" @input="input" />
+        </q-popup-proxy>
+      </q-icon>
 
-        <q-icon v-if="!dateOnly" class="cursor-pointer q-ml-md" name="o_access_time">
-          <q-popup-proxy ref="timeProxy" transition-show="scale" transition-hide="scale">
-            <q-time v-model="currentValue" v-bind="timeOptions" format24h :mask="maskDate" @input="input" />
-          </q-popup-proxy>
-        </q-icon>
-      </template>
-    </q-input>
-  </div>
+      <q-icon v-if="!dateOnly" class="cursor-pointer q-ml-md" name="o_access_time">
+        <q-popup-proxy ref="timeProxy" transition-show="scale" transition-hide="scale">
+          <q-time v-model="currentValue" v-bind="timeOptions" format24h :mask="maskDate" @input="input" />
+        </q-popup-proxy>
+      </q-icon>
+    </template>
+  </q-input>
 </template>
 
 <script>
