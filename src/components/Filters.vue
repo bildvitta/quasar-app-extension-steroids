@@ -45,6 +45,19 @@
     </div>
 
     <slot :context="context" :filter="filter" :filters="activeFilters" :removeFilter="removeFilter" />
+
+    <div v-if="invertSearch" class="col">
+      <slot name="search" :filter="filter">
+        <q-form v-if="!noSearch" @submit.prevent="filter()">
+          <q-input v-model="search" :debounce="debounce" dense :placeholder="searchPlaceholder" type="search">
+            <template v-slot:append>
+              <q-btn v-if="hasSearch" icon="o_clear" unelevated @click="clearSearch" />
+              <q-btn v-if="!debounce" icon="o_search" type="submit" unelevated @click="filter()" />
+            </template>
+          </q-input>
+        </q-form>
+      </slot>
+    </div>
   </section>
 </template>
 
@@ -54,6 +67,8 @@ import { humanize, parseValue } from '../helpers/filters'
 import contextMixin from '../mixins/context'
 
 export default {
+  mixins: [contextMixin],
+
   props: {
     badges: {
       default: true,
@@ -87,6 +102,10 @@ export default {
 
     searchOnType: {
       default: true,
+      type: Boolean
+    },
+
+    invertSearch: {
       type: Boolean
     }
   },
@@ -158,20 +177,13 @@ export default {
     },
 
     showSearch () {
-      return !!this.$scopedSlots.search || !this.noSearch
+      return !!this.$scopedSlots.search || (!this.noSearch && !this.invertSearch)
     },
 
     debounce () {
       return this.searchOnType ? '500' : ''
     }
   },
-
-  created () {
-    this.fetchFilters()
-    this.updateValues()
-  },
-
-  mixins: [contextMixin],
 
   watch: {
     $route () {
@@ -184,6 +196,11 @@ export default {
         this.filter()
       }
     }
+  },
+
+  created () {
+    this.fetchFilters()
+    this.updateValues()
   },
 
   methods: {
@@ -237,7 +254,10 @@ export default {
       const { filters, page, ...context } = this.context
 
       const query = {
-        ...filters, ...this.filters, ...external, ...context,
+        ...filters,
+        ...this.filters,
+        ...external,
+        ...context,
         search: this.search || undefined
       }
 
