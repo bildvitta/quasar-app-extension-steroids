@@ -1,6 +1,6 @@
 <template>
   <q-input ref="mask" v-model="model" v-bind="$attrs" v-on="events" :type="type" :bottom-slots="bottomSlots">
-    <template v-slot:hint>
+    <template v-if="!hideStrengthChecker" v-slot:hint>
       <qs-password-strength-checker v-bind="$props" @password-success="onSuccess" />
     </template>
     <template v-slot:append>
@@ -24,6 +24,10 @@ export default {
     value: {
       type: String,
       default: ''
+    },
+
+    hideStrengthChecker: {
+      type: Boolean
     },
 
     bottomSlots: {
