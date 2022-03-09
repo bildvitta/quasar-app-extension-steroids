@@ -1,15 +1,15 @@
 <template>
-  <q-input ref="mask" v-model="model" v-bind="$attrs" v-on="events" :type="type" :bottom-slots="bottomSlots">
-    <template v-slot:hint>
+  <q-input ref="mask" v-model="model" v-bind="$attrs" :type="type" :bottom-slots="bottomSlots" v-on="events">
+    <template v-if="!hideStrengthChecker" v-slot:hint>
       <qs-password-strength-checker v-bind="$props" @password-success="onSuccess" />
     </template>
     <template v-slot:append>
       <q-icon :name="icon" class="cursor-pointer" @click="toggle" />
     </template>
 
-    <slot v-for="(slot, key) in $slots" :name="key" :slot="key" />
+    <slot v-for="(slot, key) in $slots" :slot="key" :name="key" />
     <template v-for="(slot, key) in $scopedSlots" :slot="key" slot-scope="scope">
-      <slot :name="key" v-bind="scope"/>
+      <slot :name="key" v-bind="scope" />
     </template>
   </q-input>
 </template>
@@ -26,6 +26,10 @@ export default {
       default: ''
     },
 
+    hideStrengthChecker: {
+      type: Boolean
+    },
+
     bottomSlots: {
       type: Boolean,
       default: true
@@ -35,15 +39,6 @@ export default {
   data () {
     return {
       toggleType: true
-    }
-  },
-
-  watch: {
-    value () {
-      if (this.$attrs.error) {
-        this.$attrs.error = false
-        this.$attrs.errorMessage = ''
-      }
     }
   },
 
@@ -70,6 +65,15 @@ export default {
 
     type () {
       return this.toggleType ? 'password' : 'text'
+    }
+  },
+
+  watch: {
+    value () {
+      if (this.$attrs.error) {
+        this.$attrs.error = false
+        this.$attrs.errorMessage = ''
+      }
     }
   },
 
