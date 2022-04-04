@@ -9,7 +9,7 @@
 <script>
 import { greatestCommonDivisor } from 'steroids'
 
-const baseURL = 'https://d17ouzaofz81f3.cloudfront.net/'
+const baseURL = 'https://image-resize.nave.dev/'
 
 export default {
   props: {
