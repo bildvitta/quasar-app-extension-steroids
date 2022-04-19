@@ -1,6 +1,6 @@
 <template>
   <q-drawer bordered v-model="model">
-    <q-scroll-area class="fit">
+    <q-scroll-area class="fit no-scroll">
       <q-list class="text-grey-8" padding>
         <div v-for="(header, index) in items" :key="index">
           <q-separator v-if="index" inset spaced />
@@ -40,7 +40,7 @@ export default {
         return this.value
       },
 
-      set(value) {
+      set (value) {
         return this.$emit('input', value)
       }
     }
