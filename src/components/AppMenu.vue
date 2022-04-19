@@ -1,6 +1,6 @@
 <template>
   <q-drawer bordered v-model="model">
-    <q-scroll-area class="fit" :class="scrollAreaClass">
+    <q-scroll-area class="fit no-scroll" :class="scrollAreaClass">
       <q-list padding>
         <div v-for="(header, index) in items" :key="index">
           <q-expansion-item v-if="hasChildren(header)" expand-separator :icon="header.icon" :label="header.label">
