@@ -1,6 +1,6 @@
 <template>
   <section class="q-mb-lg">
-    <slot name="before-search" :context="context" :filter="filter" :filters="activeFilters" :removeFilter="removeFilter" />
+    <slot name="top-filter" :context="context" :filter="filter" :filters="activeFilters" :removeFilter="removeFilter" />
 
     <div v-if="showFilters" class="row q-mt-lg q-gutter-x-md">
       <div v-if="showSearch" class="col">
@@ -46,7 +46,7 @@
       <q-chip v-for="(filter, key) in activeFilters" :key="key" color="grey-4" dense removable size="md" text-color="grey-8" @remove="removeFilter(filter)">{{ filter.label }} = "{{ filter.value }}"</q-chip>
     </div>
 
-    <slot name="after-search" :context="context" :filter="filter" :filters="activeFilters" :removeFilter="removeFilter" />
+    <slot name="bottom-filter" :context="context" :filter="filter" :filters="activeFilters" :removeFilter="removeFilter" />
   </section>
 </template>
 
