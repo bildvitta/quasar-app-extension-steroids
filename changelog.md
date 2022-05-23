@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 ### Added
-- Creation of `top-filter` and `bottom-filter` in `QsFilter` to allow for customizing the layout of the filters.
+- Creation of slots `top-filter` and `bottom-filter` in `QsFilter` to allow for customizing the layout of the filters.
 
 ## 2.1.0 - 2022-04-19
 ### Added
