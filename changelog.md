@@ -4,6 +4,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## Unreleased
+### Added
+- Creation of slots `top-filter` and `bottom-filter` in `QsFilter` to allow for customizing the layout of the filters.
+
 ## 2.1.0 - 2022-04-19
 ### Added
 - `AppMenu` added class to not show the scroll.

@@ -1,10 +1,12 @@
 <template>
   <section class="q-mb-lg">
-    <div v-if="showFilters" class="row q-gutter-x-md">
+    <slot name="top-filter" :context="context" :filter="filter" :filters="activeFilters" :removeFilter="removeFilter" />
+
+    <div v-if="showFilters" class="row q-mt-lg q-gutter-x-md">
       <div v-if="showSearch" class="col">
         <slot name="search" :filter="filter">
           <q-form v-if="!noSearch" @submit.prevent="filter()">
-            <q-input v-model="search" :debounce="debounce" dense :placeholder="searchPlaceholder" type="search">
+            <q-input v-model="search" :disable="disableSearch" :debounce="debounce" dense :placeholder="searchPlaceholder" type="search">
               <template v-slot:append>
                 <q-btn v-if="hasSearch" icon="o_clear" unelevated @click="clearSearch" />
                 <q-btn v-if="!debounce" icon="o_search" type="submit" unelevated @click="filter()" />
@@ -44,20 +46,7 @@
       <q-chip v-for="(filter, key) in activeFilters" :key="key" color="grey-4" dense removable size="md" text-color="grey-8" @remove="removeFilter(filter)">{{ filter.label }} = "{{ filter.value }}"</q-chip>
     </div>
 
-    <slot :context="context" :filter="filter" :filters="activeFilters" :removeFilter="removeFilter" />
-
-    <div v-if="invertSearch" class="col">
-        <slot name="search" :filter="filter">
-          <q-form v-if="!noSearch" @submit.prevent="filter()">
-            <q-input v-model="search" :debounce="debounce" dense :placeholder="searchPlaceholder" type="search">
-              <template v-slot:append>
-                <q-btn v-if="hasSearch" icon="o_clear" unelevated @click="clearSearch" />
-                <q-btn v-if="!debounce" icon="o_search" type="submit" unelevated @click="filter()" />
-              </template>
-            </q-input>
-          </q-form>
-        </slot>
-      </div>
+    <slot name="bottom-filter" :context="context" :filter="filter" :filters="activeFilters" :removeFilter="removeFilter" />
   </section>
 </template>
 
@@ -105,7 +94,7 @@ export default {
       type: Boolean
     },
 
-    invertSearch: {
+    disableSearch: {
       type: Boolean
     }
   },
@@ -177,17 +166,12 @@ export default {
     },
 
     showSearch () {
-      return !!this.$scopedSlots.search || (!this.noSearch && !this.invertSearch)
+      return !!this.$scopedSlots.search || !this.noSearch
     },
 
     debounce () {
       return this.searchOnType ? '500' : ''
     }
-  },
-
-  created () {
-    this.fetchFilters()
-    this.updateValues()
   },
 
   watch: {
@@ -201,6 +185,11 @@ export default {
         this.filter()
       }
     }
+  },
+
+  created () {
+    this.fetchFilters()
+    this.updateValues()
   },
 
   methods: {
@@ -254,7 +243,10 @@ export default {
       const { filters, page, ...context } = this.context
 
       const query = {
-        ...filters, ...this.filters, ...external, ...context,
+        ...filters,
+        ...this.filters,
+        ...external,
+        ...context,
         search: this.search || undefined
       }
 
