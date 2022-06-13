@@ -5,15 +5,15 @@
     <q-btn dense flat icon="o_menu" round @click="toggleMenuDrawer" />
 
     <q-toolbar-title class="flex">
-      <div @click="goToRoot" class="cursor-pointer">
+      <div class="cursor-pointer" @click="goToRoot">
         <img :src="brand" :alt="title" class="qs-toolbar__brand">
         {{ title }}
         <q-badge v-if="hasDevelopmentBadge" align="middle" color="negative" :label="developmentBadgeLabel" />
       </div>
     </q-toolbar-title>
 
-    <q-btn icon="notifications_none" unelevated dense round>
-      <q-badge color="red" floating>4</q-badge>
+    <q-btn v-if="user.notifications" icon="notifications_none" unelevated dense round>
+      <q-badge color="red" floating>{{ user.notifications }}</q-badge>
     </q-btn>
 
     <qs-apps-menu v-if="hasApps" :apps="apps" />
@@ -36,12 +36,16 @@
               <div class="q-mt-lg qs-lh-sm text-subtitle1 ellipsis text-bold">{{ user.name || user.givenName }}</div>
               <div class="text-caption q-mt-xs ellipsis">{{ user.email }}</div>
 
-              <div class="q-mb-lg q-mt-xs">
+              <div class="q-mb-sm q-mt-xs">
+                <qs-btn :icon="fullscreenIcon" flat label="Tela cheia" @click="fullscreen" />
+              </div>
+
+              <div v-if="canEditProfile" class="q-mb-sm q-mt-xs">
                 <qs-btn :to="user.to" icon="o_edit" flat label="Editar" />
               </div>
 
               <div>
-                <qs-btn icon="o_exit_to_app" class="q-px-lg q-py-xs" outline label="Sair" v-close-popup @click="signOut" />
+                <qs-btn v-close-popup icon="o_exit_to_app" class="q-px-lg q-py-xs" outline label="Sair" @click="signOut" />
               </div>
 
               <slot name="user" :user="user" />
@@ -54,7 +58,6 @@
 </template>
 
 <script>
-import { colors } from 'quasar'
 import { asset } from 'steroids'
 
 export default {
@@ -83,6 +86,10 @@ export default {
     apps: {
       type: Array,
       default: () => []
+    },
+
+    canEditProfile: {
+      type: Boolean
     }
   },
 
