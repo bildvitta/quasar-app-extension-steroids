@@ -1,7 +1,7 @@
 <template>
   <q-tabs v-model="currentTab" class="tabs-generator" inline-label v-bind="$attrs" v-on="$listeners">
     <slot v-for="(tab, key) in formattedTabs" :name="`tab-${tab.label}`" class="text-weight-light" :item="tab">
-      <q-tab class="tabs-generator__tab text-primary" :name="key" :key="key">
+      <q-tab :key="key" class="tabs-generator__tab" :name="key">
         <q-icon v-if="icons[key]" class="text-bold q-mr-xs" :name="icons[key].name" :color="icons[key].color" />
         <div class="tabs-generator__label">{{ formatLabel(counters[key], tab.label) }}</div>
       </q-tab>
