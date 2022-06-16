@@ -12,9 +12,9 @@
       </div>
     </q-toolbar-title>
 
-    <q-btn v-if="user.notifications" icon="notifications_none" unelevated dense round>
-      <q-badge color="red" floating>{{ user.notifications }}</q-badge>
-    </q-btn>
+    <qs-btn v-if="hasNotifications" icon="notifications_none" unelevated dense round>
+      <q-badge color="red" floating>{{ notifications.count }}</q-badge>
+    </qs-btn>
 
     <qs-apps-menu v-if="hasApps" :apps="apps" />
 
@@ -40,7 +40,7 @@
                 <qs-btn :icon="fullscreenIcon" flat label="Tela cheia" @click="fullscreen" />
               </div>
 
-              <div v-if="canEditProfile" class="q-mb-sm q-mt-xs">
+              <div v-if="useEditProfile" class="q-mb-sm q-mt-xs">
                 <qs-btn :to="user.to" icon="o_edit" flat label="Editar" />
               </div>
 
@@ -88,8 +88,13 @@ export default {
       default: () => []
     },
 
-    canEditProfile: {
+    useEditProfile: {
       type: Boolean
+    },
+
+    notifications: {
+      type: Object,
+      default: () => ({})
     }
   },
 
@@ -132,6 +137,10 @@ export default {
 
     hasApps () {
       return !!this.apps.length
+    },
+
+    hasNotifications () {
+      return !!Object.keys(this.notifications)?.length
     }
   },
 
