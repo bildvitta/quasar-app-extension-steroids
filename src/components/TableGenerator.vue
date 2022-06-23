@@ -1,7 +1,7 @@
 <template>
-  <q-table class="bg-transparent qs-table"  v-bind="attributes">
+  <q-table class="bg-transparent qs-table" v-bind="attributes">
     <template v-for="(slot, key) in $scopedSlots" v-slot:[key]="context">
-      <slot v-if="hasBodySlot" name="body" :props="context"/>
+      <slot v-if="hasBodySlot" name="body" :props="context" />
       <q-td v-else :key="key">
         <slot :name="key" v-bind="context" />
       </q-td>
@@ -83,8 +83,7 @@ export default {
           align: align || 'left',
           field: name,
           label,
-          name,
-          headerClasses: 'text-primary'
+          name
         })
       }
 

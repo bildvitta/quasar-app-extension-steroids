@@ -2,7 +2,7 @@
   <q-toolbar class="justify-between q-mb-lg q-px-none">
     <div class="ellipsis">
       <q-toolbar-title v-if="title" class="text-h5 text-bold">
-        <q-icon v-if="hasPreviousRoute" class="cursor-pointer vertical-baseline" name="o_arrow_back" size="18px" @click="back" />
+        <q-icon v-if="hasPreviousRoute" data-dialog-router="hide" class="cursor-pointer vertical-baseline" name="o_arrow_back" size="18px" @click="back" />
         {{ title }}
       </q-toolbar-title>
 
