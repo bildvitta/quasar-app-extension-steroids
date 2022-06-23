@@ -1,8 +1,8 @@
 <template>
-  <q-dialog persistent ref="dialog" @hide="onDialogHide">
+  <q-dialog ref="dialog" persistent class="qs-dialog-router" @hide="onDialogHide">
     <q-card class="full-width" style="max-width: 80vw;">
-      <q-card-section>
-        <component v-if="component" :is="component" dialog :route="route" @hide="hide" />
+      <q-card-section class="qs-dialog-router__container">
+        <component :is="component" v-if="component" dialog :route="route" @hide="hide" />
       </q-card-section>
     </q-card>
   </q-dialog>
@@ -71,3 +71,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.qs-dialog-router {
+  &__container {
+    [data-dialog-router="hide"] {
+      display: none;
+    }
+  }
+}
+</style>
