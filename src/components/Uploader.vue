@@ -116,7 +116,9 @@ export default {
     },
 
     hasAPIValue () {
-      return this.value.startsWith('https://s3.amazonaws.com/')
+      return Array.isArray(this.value)
+        ? this.value?.length && !this.files?.length
+        : this.value && !this.files?.length
     },
 
     imageName () {
