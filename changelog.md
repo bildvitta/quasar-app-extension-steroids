@@ -6,7 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2.4.1 - 2022-06-07
 ### Changed
-- Changed the `hasAPIValue` computed of the `AnUploader` because the `startsWith` method used did not exist.
+- Changed the `hasAPIValue` computed of the `QsUploader` because the `startsWith` method used did not exist.
 
 ## 2.4.0 - 2022-06-23
 ### Added
