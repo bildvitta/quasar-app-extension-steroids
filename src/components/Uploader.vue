@@ -89,6 +89,11 @@ export default {
     value: {
       default: '',
       type: [Array, String]
+    },
+
+    maxFiles: {
+      default: 1,
+      type: Number
     }
   },
 
@@ -106,7 +111,7 @@ export default {
     },
 
     readOnly () {
-      return this.files?.length >= this.$attrs?.maxFiles
+      return this.files?.length >= this.maxFiles
     },
 
     hasAPIValue () {
@@ -120,7 +125,7 @@ export default {
     },
 
     showAddFile () {
-      const maxFiles = this.$attrs?.maxFiles || (!this.$attrs?.multiple && 1)
+      const maxFiles = this.maxFiles || (!this.$attrs?.multiple && 1)
 
       return !this.readonly && (maxFiles ? this.files?.length < maxFiles : true)
     }

@@ -11,9 +11,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Changed logic to control the display of the add files button in `QsUploader`, before it was through `Scope`, now there is a `showAddFile`.
 
-### Removed
-- Removed `maxFiles` props in the `QsUploader`.
-
 ## 2.4.1 - 2022-06-07
 ### Changed
 - Changed the `hasAPIValue` computed of the `QsUploader` because the `startsWith` method used did not exist.
