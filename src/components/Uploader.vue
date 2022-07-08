@@ -92,7 +92,7 @@ export default {
     },
 
     maxFiles: {
-      default: 1,
+      default: 5,
       type: Number
     }
   },
