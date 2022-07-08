@@ -10,7 +10,7 @@
             <div class="q-uploader__subtitle">{{ scope.uploadProgressLabel }} ({{ scope.uploadSizeLabel }})</div>
           </div>
 
-          <q-btn v-if="!scope.hideUploadBtn && scope.canAddFiles" dense flat icon="o_add" round>
+          <q-btn v-if="showAddFile" dense flat icon="o_add" round>
             <q-uploader-add-trigger />
           </q-btn>
 
@@ -60,7 +60,6 @@
 
                 <q-icon v-if="isFileFailed(file)" color="negative" name="warning" size="20px" />
 
-                <!-- <q-btn v-if="isFileUploaded(file)" dense flat icon="o_cloud_download" round /> -->
                 <q-btn dense flat :icon="isFileUploaded(file) ? 'o_delete' : 'o_clear'" round @click="scope.removeFile(file)" />
               </div>
             </q-item-section>
@@ -87,14 +86,14 @@ export default {
       type: String
     },
 
-    maxFiles: {
-      default: 1,
-      type: Number
-    },
-
     value: {
       default: '',
       type: [Array, String]
+    },
+
+    maxFiles: {
+      default: 5,
+      type: Number
     }
   },
 
@@ -112,7 +111,7 @@ export default {
     },
 
     readOnly () {
-      return this.files.length >= this.maxFiles
+      return this.files?.length >= this.maxFiles
     },
 
     hasAPIValue () {
@@ -123,12 +122,18 @@ export default {
 
     imageName () {
       return `${this.value}`.split('/').pop()
+    },
+
+    showAddFile () {
+      const maxFiles = this.maxFiles || (!this.$attrs?.multiple && 1)
+
+      return !this.readonly && (maxFiles ? this.files?.length < maxFiles : true)
     }
   },
 
   watch: {
     files (files) {
-      this.$emit('input', files.length > 1 ? files : files[0] || '')
+      this.$emit('input', this.$attrs?.multiple ? files : files[0] || '')
     }
   },
 

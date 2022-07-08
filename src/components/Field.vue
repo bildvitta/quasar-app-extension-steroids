@@ -1,5 +1,5 @@
 <template>
-  <component :is="component.is" v-bind="component" v-on="events" :value="formattedValue" @input="emitValue" />
+  <component :is="component.is" v-bind="component" :value="formattedValue" v-on="events" @input="emitValue" />
 </template>
 
 <script>
@@ -79,8 +79,9 @@ export default {
         prefix,
         type,
         mask,
-        pattern
-        } = this.formatedField
+        pattern,
+        maxFiles
+      } = this.formatedField
 
       // Default error attributes for Quasar.
       const error = {
@@ -140,7 +141,7 @@ export default {
         radio: { is: 'q-option-group', label, options, type: 'radio', ...error },
 
         select: { is: 'q-select', emitValue: true, mapOptions: true, multiple, options, ...input },
-        upload: { is: 'qs-uploader', accept, autoUpload: true, entity, label, multiple, ...error },
+        upload: { is: 'qs-uploader', accept, autoUpload: true, entity, label, multiple, maxFiles, ...error },
         editor: { is: 'q-editor', toolbar, ...error }
       }
 
