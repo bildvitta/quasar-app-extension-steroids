@@ -111,8 +111,8 @@ export default {
 
     hasAPIValue () {
       return Array.isArray(this.value) 
-        ? this.value.length && !this.files.length
-        : this.value && !this.files.length
+        ? this.value?.length && !this.files?.length
+        : this.value && !this.files?.length
     },
 
     showAddFile () {
